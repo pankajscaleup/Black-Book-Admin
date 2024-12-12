@@ -1,0 +1,105 @@
+@use "../../scss/abstracts/" as *;
+
+.myprofilewrapper {
+  background-color: var(--bgc);
+  border-radius: 35px;
+  padding: 60px 30px;
+  @media screen and (max-width: 600px) {
+    padding: 20px 15px;
+  }
+  h2 {
+    color: #000;
+    font-size: 32px;
+    margin-bottom: 60px;
+  }
+  .upbtn {
+    background-color: #ee5338;
+    color: #fff;
+    padding: 18px 58px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 30px;
+    cursor: pointer;
+    margin-left: 30px;
+    @media screen and (max-width: 600px) {
+      margin-left: 15px;
+    }
+  }
+  .form__control {
+    position: relative;
+    margin-bottom: 2rem;
+    @media screen and (max-width: 600px) {
+      margin-bottom: 20px;
+    }
+  }
+  .profileformcol {
+    width: 50%;
+    padding: 0px 30px;
+
+    label {
+      background-color: transparent;
+      top: 0;
+      position: relative;
+      margin-bottom: 3px;
+      display: block;
+      padding: 0.3rem;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid #c7c7c7;
+      background-color: #fff;
+      border-radius: 100px;
+      box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.05);
+    }
+    // Select{width: 100%;
+    //   border: 1px solid #c7c7c7;
+    //   background-color: #fff;
+    //   border-radius: 100px;
+    //   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.05);}
+    @media screen and (max-width: 600px) {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 0px !important;
+    }
+  }
+}
+.deviderCustom {
+  border-bottom: 3px solid #ccc;
+  margin-bottom: 20px;
+}
+.profile_flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+h2 {
+  margin-bottom: 0px !important;
+  @media screen and (max-width: 600px) {
+    font-size: 22px !important;
+  }
+}
+
+.back_btn {
+  background-color: #000;
+  color: #fff;
+  padding: 18px 58px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  @media screen and (max-width: 600px) {
+    padding: 12px 28px !important;
+  }
+}
+.profileform {
+  display: flex;
+  flex-wrap: wrap;
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
+}

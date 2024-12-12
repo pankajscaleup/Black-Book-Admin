@@ -1,0 +1,93 @@
+import React, { useState } from "react";
+import { images } from "../../constants";
+import Input from "../UI/input/Input";
+import Button from "../UI/button/Button";
+import { useTranslation } from "react-i18next";
+import classes from "./Login.module.scss";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { useLogin } from "./useLogin";
+import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner"; // Import the spinner
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+function LoginBox() {
+  const { loginFormik, loading} = useLogin();
+  const { lang } = useSelector((state: RootState) => state.langSlice);
+  const { t } = useTranslation();
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  // Toggle visibility for password fields
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
+  };
+
+  return (
+    <div className={`${classes.container} ${lang === "fa" ? classes.rtl : ""}`}>
+      <div className={classes.loginBox}>
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <div
+              className={classes.logo}
+              style={{ marginTop: "0px", height: "75px" }}
+            >
+              <img
+                src={images.logo}
+                alt='digikala'
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              />
+            </div>
+            <h2 className={classes.title} style={{ textAlign: "center" }}>
+              {t("loginPage")}
+            </h2>
+            <form onSubmit={loginFormik.handleSubmit}>
+              <Input
+                type={"text"}
+                id='email'
+                placeholder={"Enter your email address"}
+                name='email'
+                onChange={loginFormik.handleChange}
+                value={loginFormik.values.email}
+                errorMsg={loginFormik.errors.email}
+              />
+              <Input
+                type={isPasswordVisible ? "text" : "password"}
+                id={"password"}
+                placeholder={"Enter your password"}
+                name='password'
+                onChange={loginFormik.handleChange}
+                value={loginFormik.values.password}
+                errorMsg={loginFormik.errors.password}
+                rightIcon={
+                  <FontAwesomeIcon
+                    icon={isPasswordVisible ? faEyeSlash : faEye} // Use FontAwesomeIcon
+                    onClick={togglePasswordVisibility}
+                    style={{
+                      cursor: "pointer",
+                      position: "absolute",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      right: "10px",
+                    }} // Change cursor to pointer
+                  />
+                }
+              />
+              <Button type='submit'>{t("login")}</Button>
+              <Link className={classes.forgat_pass} to='/forgot-password'>
+                {t("forgetPass")}
+              </Link>
+              <div className={classes.checkbox}>
+              </div>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default LoginBox;

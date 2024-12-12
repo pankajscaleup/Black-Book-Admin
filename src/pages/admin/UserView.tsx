@@ -1,0 +1,67 @@
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import EditCustomer from "../../components/edit/editCustomer/EditCustomer";
+import { IUsersRoleTable } from "../../interfaces/Itable";
+import classes from "../../../src/components/edit/editCustomer/EditCustomer.module.scss";
+import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
+import { userDetails } from "../../service/apis/user.api";
+import { Link } from "react-router-dom";
+
+function CustomerEdit() {
+  const { t } = useTranslation();
+  const params = useParams();
+  const { id } = params;
+  const [customerData, setCustomerData] = useState<IUsersRoleTable | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCustomerData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await userDetails(id);
+        if (response.status === 200) {
+          console.log(response);
+          setCustomerData(response?.data || null);
+        } else {
+          setError("Failed to fetch data");
+        }
+      } catch (err) {
+        setError("Failed to fetch data");
+        console.error("API call error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchCustomerData();
+    }
+  }, [id]);
+
+  let customerEdit;
+  if (loading) {
+    customerEdit = <LoadingSpinner />;
+  } else if (error) {
+    customerEdit = <div>{error}</div>;
+  } else if (customerData) {
+    customerEdit = <EditCustomer customer={customerData} />;
+  }
+
+  return (
+    <section>
+      <div className={classes.com_header_flex}>
+        <h2 className='title'>{t("User Details")}</h2>
+
+        <Link to='/admin/users'>
+          <button className={classes.back_btn}>Back</button>
+        </Link>
+      </div>
+      {customerEdit}
+    </section>
+  );
+}
+
+export default CustomerEdit;
