@@ -1,11 +1,11 @@
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import App from "./App";
 import { Provider } from "react-redux";
 import { persistedStore, store } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Toaster } from "react-hot-toast";
-
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+root.render(
   <Provider store={store}>
     <PersistGate persistor={persistedStore}>
       <Toaster
@@ -30,6 +30,5 @@ ReactDOM.render(
       />
       <App />
     </PersistGate>
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
 );
