@@ -11,6 +11,9 @@ export interface IUsersRoleTable {
   status: string;
   isSetupDone: any;
   notification:any;
+  verification: any;
+  socialLinks: any;
+  privatemedia:any;
 }
 
 export type complex =

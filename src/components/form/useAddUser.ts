@@ -76,7 +76,7 @@ export const useAddUser = () => {
           navigate("/admin/users");
         }
       } catch (error) {
-        toast.error("An error occurred while adding the company.");
+        toast.error("An error occurred while adding the user.");
       } finally {
         setLoading(false);
       }

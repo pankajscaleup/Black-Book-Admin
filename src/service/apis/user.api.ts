@@ -26,3 +26,8 @@ export const updateUser = catchAsync(async (values: IUsersRoleTable, uid) => {
   const data = await httpsCall.patch(`/admin/user-management/update-user/${uid}`, values);
   return data;
 });
+
+export const updateStatus = catchAsync(async (uid, values) => {
+  const data = await httpsCall.patch(`/admin/user-management/update-user/${uid}`, values);
+  return data;
+});
