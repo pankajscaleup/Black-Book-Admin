@@ -15,7 +15,7 @@ const CustomTable: React.FC<Props> = (props) => {
     setShowModal((prev) => !prev);
   }
 
-  function tableBody(item: complex, index: number) {
+  function tableBody(item: any, index: number) {
     /* type guard (in typescript) */
     if ("username" in item) {
       //for implementing top customers

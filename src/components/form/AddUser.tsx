@@ -39,7 +39,7 @@ const AddUser = () => {
                 </label>
                 <Input
                   type={"text"}
-                  id=''
+                  id='fullName'
                   placeholder={"Enter your full name"}
                   name='fullName'
                   onChange={addUserFormik.handleChange}
@@ -61,7 +61,7 @@ const AddUser = () => {
                 </label>
                 <Input
                   type={"text"}
-                  id=''
+                  id='email'
                   placeholder={"Enter your email address"}
                   name='email'
                   onChange={addUserFormik.handleChange}
@@ -80,7 +80,7 @@ const AddUser = () => {
                 </label>
                 <Input
                   type={"text"}
-                  id=''
+                  id='age'
                   placeholder={"Enter your age"}
                   name='age'
                   onChange={addUserFormik.handleChange}
@@ -99,7 +99,7 @@ const AddUser = () => {
                 </label>
                 <Input
                   type={"text"}
-                  id=''
+                  id='location'
                   placeholder={"Enter your location"}
                   name='location'
                   onChange={addUserFormik.handleChange}
@@ -188,7 +188,7 @@ const AddUser = () => {
                 </label>
                 <Input
                   type={isPasswordVisible ? "text" : "password"}
-                  id=''
+                  id='password'
                   placeholder={"Enter your password"}
                   name='password'
                   onChange={addUserFormik.handleChange}

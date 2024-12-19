@@ -21,10 +21,7 @@ const catchAsync = <T>(
     } catch (
       error: any // eslint-disable-line
     ) {
-      if (error.response) {
-        return error.response.data;
-      }
-      return error;
+      throw error; 
     }
   };
 };
