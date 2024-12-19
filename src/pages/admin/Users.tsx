@@ -7,6 +7,7 @@ import { adminUsersHeader } from "../../constants/tables";
 import { userApi } from "../../service/apis/user.api";
 import withRole from "../withRole";
 import { Tabs, Tab, Box } from "@mui/material";
+import ButtonBase from '@mui/material/ButtonBase';
 import { useNavigate } from "react-router-dom";
 
 function Customers() {
@@ -32,7 +33,6 @@ function Customers() {
         role: role,
       };
       const response = await userApi(bodyData);
-      console.log(response);
       if (response?.status === 200) {
         console.log(response.users);
         setData(response?.users?.users);
@@ -42,6 +42,7 @@ function Customers() {
       }
     } catch (err) {
       console.error("Failed to fetch data", err);
+      setLoading(false)
     } finally {
       setLoading(false); // Stop loading
     }
@@ -67,7 +68,7 @@ function Customers() {
   return (
     <section>
       {/* Tab Navigation */}
-      <Box sx={{ width: "100%" }}>
+      <Box className={tabwrap.boxWrap}>
         <Tabs
           className={tabwrap.tabwrapper}
           value={selectedTab}
@@ -92,11 +93,11 @@ function Customers() {
             value='model'
             className={tabwrap.tablistw}
           />
-          <button className={tabwrap.adduserbtn} onClick={() => navigate('/admin/addUser')}>ADD USER</button>
+          
         </Tabs>
-      
+        <ButtonBase className={tabwrap.adduserbtn} onClick={() => navigate('/admin/addUser')}>ADD USER</ButtonBase>
       </Box>
-
+     
       {/* Conditional Rendering for Data */}
       {loading ? (
         <LoadingSpinner /> // Show loading spinner while data is loading

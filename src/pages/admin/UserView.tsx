@@ -22,15 +22,9 @@ function CustomerEdit() {
       setError(null);
       try {
         const response = await userDetails(id);
-        if (response.status === 200) {
-          console.log(response);
-          setCustomerData(response?.data || null);
-        } else {
-          setError("Failed to fetch data");
-        }
+        setCustomerData(response?.data || null);
       } catch (err) {
         setError("Failed to fetch data");
-        console.error("API call error:", err);
       } finally {
         setLoading(false);
       }
@@ -44,8 +38,6 @@ function CustomerEdit() {
   let customerEdit;
   if (loading) {
     customerEdit = <LoadingSpinner />;
-  } else if (error) {
-    customerEdit = <div>{error}</div>;
   } else if (customerData) {
     customerEdit = <EditCustomer customer={customerData} />;
   }

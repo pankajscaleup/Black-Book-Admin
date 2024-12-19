@@ -1,6 +1,5 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-
 // Request Interceptor
 axios.interceptors.request.use(async (config) => {
   config.baseURL = import.meta.env.VITE_API_BASE_URL;
@@ -18,56 +17,51 @@ axios.interceptors.request.use(async (config) => {
 });
 
 // Response Interceptor
+let retryCount = 0;
+const MAX_RETRIES = 3;
+
 axios.interceptors.response.use(
   async (response) => {
     return response; // Return the response if no error
   },
   async (error) => {
+    const tokenExpired = error.response?.data?.tokenExpired || false;
+    const isUnauthorized = error.response?.status === 401;
 
-    // Check if the error is due to an expired access token
-    const expectedErrorRefreshToken =
-      error.response && error.response.status === 500;
-
-    if (expectedErrorRefreshToken) {
-      // Get the refresh token from localStorage
+    if (tokenExpired && isUnauthorized && retryCount < MAX_RETRIES) {
       const refreshToken = localStorage.getItem("refresh_token");
 
       if (refreshToken) {
         try {
-          // Attempt to refresh the access token by sending the refresh token
-          const refreshResponse = await axios.post("admin/refresh-tokens", { token: refreshToken });
-          
-          // If the refresh token is valid and you get a new access token
-          if (
-            refreshResponse &&
-            refreshResponse.data &&
-            refreshResponse.data.tokens
-          ) {
-            const newAccessToken = refreshResponse.data.tokens.access;
-            const newRefreshToken = refreshResponse.data.tokens.refresh;
+          const refreshResponse = await axios.post("admin/refresh-tokens", {
+            token: refreshToken,
+          });
 
-            localStorage.setItem("access_token", newAccessToken);
-            localStorage.setItem("refresh_token", newRefreshToken);
-
-            // Retry the original request with the new access token
-            error.config.headers["access"] = newAccessToken;
-            return axios(error.config); // Retry the original request with new token
+          const { access, refresh } = refreshResponse.data.tokens || {};
+          if (access && refresh) {
+            localStorage.setItem("access_token", access);
+            localStorage.setItem("refresh_token", refresh);
+            
+            // Update original request with new token
+            error.config.headers["Authorization"] = `Bearer ${access}`;
+            retryCount++;
+            return axios(error.config); // Retry the original request
           }
         } catch (refreshError) {
-          // Handle errors that occur during refresh token process
-          console.error("Refresh token error:", refreshError);
           toast.error("Session expired. Please login again.");
-          // Redirect user to login page or perform other error handling
+          retryCount = 0; // Reset the count on failure
         }
       } else {
-        // Handle the case where no refresh token is available
         toast.error("No refresh token found. Please login again.");
       }
     }
+
     toast.error(error.response?.data?.message || "Something went wrong.");
+    retryCount = 0; // Reset the count on any other error
     return Promise.reject(error);
   }
 );
+
 
 // Exporting axios call methods
 const httpsCall = {

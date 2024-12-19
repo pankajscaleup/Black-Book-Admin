@@ -8,8 +8,8 @@ export const userApi = catchAsync(async (values: any) => {
 });
 
 export const userDetails = catchAsync(async (values) => {
-  const data = await httpsCall.get(`/admin/user-management/edit-user/${values}`);
-  return data;
+  const response = await httpsCall.get(`/admin/user-management/edit-user/${values}`);
+  return response;
 });
 
 export const addUser = catchAsync(async (values: IUsersRoleTable) => {

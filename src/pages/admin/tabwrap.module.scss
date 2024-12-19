@@ -1,5 +1,6 @@
 .tabwrapper {
   margin-bottom: 30px;
+  width: 70%;
   .tablistw {
     background-color: transparent;
     color: #E4AF5F;
@@ -11,17 +12,21 @@
     }
   }
 }
-
 .Mui-selected {
   border: none !important;
 }
+.boxWrap{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
 
 .adduserbtn{ 
-  background-color: green;
-  color: #fff;
-  border: 1px solid;
-  border-radius: 5px;
-  margin-left: 700px;
-  padding: 15px;
-  cursor: pointer;
+  background-color: green !important;
+  color: #fff !important;
+  border: 1px solid !important;
+  border-radius: 5px !important;
+  padding: 15px !important;
+  cursor: pointer !important;
 }

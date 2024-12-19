@@ -37,7 +37,6 @@ export const useLogin = () => {
           password: values.password,
         };
         const response = await logInApi(bodyData);
-        if (response.status===200) {
           toast.success(response.message);
           setLoading(false);
           dispatch(setUser(response.user));
@@ -49,9 +48,7 @@ export const useLogin = () => {
           } else {
             navigate("/login");
           }
-        } else {
           setLoading(false);
-        }
       } catch (error) {
         setLoading(false);
       }
