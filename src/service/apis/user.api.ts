@@ -22,7 +22,12 @@ export const deleteUser = catchAsync(async (uid) => {
   return data;
 });
 
-export const updateUser = catchAsync(async (values: IUsersRoleTable, uid) => {
+export const updateUser = catchAsync(async (id, values: IUsersRoleTable) => {
+  const data = await httpsCall.patch(`/admin/user-management/update-user/${id}`, values);
+  return data;
+});
+
+export const updateStatus = catchAsync(async (uid, values) => {
   const data = await httpsCall.patch(`/admin/user-management/update-user/${uid}`, values);
   return data;
 });

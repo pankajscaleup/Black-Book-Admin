@@ -1,7 +1,6 @@
 import * as React from "react";
 import { images } from "../../../../constants";
 import classes from "./Profile.module.scss";
-// import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import { useTranslation } from "react-i18next";
@@ -18,7 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { useWindowSize } from "usehooks-ts";
 import { logOut } from "../../../../store/auth.store";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Profile() {
   //const { t } = useTranslation();
@@ -125,12 +124,13 @@ function Profile() {
                     onKeyDown={handleListKeyDown}
                   >
                     <MenuItem onClick={handleClose}>
-                      {" "}
+                    <Link to="/admin/profile" style={{ textDecoration: "none", color: "inherit" }}>
                       <FontAwesomeIcon
                         icon={faUserCircle}
                         style={{ paddingRight: "10px" }}
                       />
                       My Profile
+                    </Link>
                     </MenuItem>
 
                     <MenuItem onClick={logoutHandler}>

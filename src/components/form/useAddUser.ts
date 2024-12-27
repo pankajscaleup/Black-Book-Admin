@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { addUser } from "../../service/apis/user.api";
+import { addUser, updateUser } from "../../service/apis/user.api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ interface FormValues {
   password: string;
   role: { value: string; label: string } | null;
 }
-export const useAddUser = () => {
+export const useAddUser = (id?: string) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -69,14 +69,20 @@ export const useAddUser = () => {
         },
       };
       try {
-        const response = await addUser(bodyData);
-        if (response.status === 200) {
-          toast.success(response.message);
-          resetForm();
-          navigate("/admin/users");
+        if (id) {
+          const response = await updateUser(id, bodyData);
+            toast.success("User updated successfully");
+            navigate("/admin/users");
+        } else {
+          const response = await addUser(bodyData);
+          if (response.status === 200) {
+            toast.success(response.message);
+            resetForm();
+            navigate("/admin/users");
+          }
         }
       } catch (error) {
-        toast.error("An error occurred while adding the company.");
+        toast.error("An error occurred while saving the user.");
       } finally {
         setLoading(false);
       }

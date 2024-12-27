@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import CustomTableNew from "../../components/tables/customTable/CustomTableNew";
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
 import { IUsersRoleTable } from "../../interfaces/Itable";
@@ -12,7 +11,6 @@ import ButtonBase from '@mui/material/ButtonBase';
 import { useNavigate } from "react-router-dom";
 
 function Customers() {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const [data, setData] = useState<IUsersRoleTable[]>([]);
   const [loading, setLoading] = useState(true); 

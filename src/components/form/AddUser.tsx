@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../UI/input/Input";
 import form from "./formcus.module.scss";
 import { useAddUser } from "./useAddUser";
@@ -8,17 +8,47 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { userDetails } from "../../service/apis/user.api";
 
 const AddUser = () => {
-  const { addUserFormik, loading } = useAddUser();
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
   const params = useParams();
   const { id } = params;
+  const { addUserFormik, loading } = useAddUser(id);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (id) {
+      const fetchData = async () => {
+        try {
+          const userData = await userDetails(id);
+          console.log(userData);
+          if (userData) {
+            addUserFormik.setValues({
+              fullName: userData.data?.fullName || "",
+              email: userData.data?.email || "",
+              age: userData.data?.about?.age || "",
+              location: userData.data?.about?.location || "",
+              gender: userData.data?.about?.gender
+              ? { value: userData.data?.about?.gender, label: userData.data?.about?.gender }: null,
+              interestedIn: userData.data?.about?.interestedIn 
+              ? { value: userData.data?.about?.interestedIn, label: userData.data?.about?.interestedIn }: null,
+              password: "",
+              role: userData.data?.role
+                ? { value: userData.data?.role, label: userData.data?.role }: null,
+              });
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+
+      fetchData();
+    }
+  }, [id]);
 
   return (
     <div className={form.myprofilewrapper}>

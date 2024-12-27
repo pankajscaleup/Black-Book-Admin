@@ -198,6 +198,31 @@ html[dir="rtl"] {
     border-radius: 9px;
   }
 }
+
+.verify_btn {
+  background-color: #136c18;
+  color: #fff;
+  padding: 16px 28px;
+  border-radius: 10px;
+  border: none;
+  @media screen and (max-width: 480px) {
+    padding: 10px 19px;
+    border-radius: 9px;
+  }
+}
+
+.block_btn {
+  background-color: #6c1613;
+  color: #fff;
+  padding: 16px 28px;
+  border-radius: 10px;
+  border: none;
+  @media screen and (max-width: 480px) {
+    padding: 10px 19px;
+    border-radius: 9px;
+  }
+}
+
 .com_header_flex {
   display: flex;
   align-items: center;
