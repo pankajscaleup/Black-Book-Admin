@@ -34,6 +34,9 @@
       margin-bottom: 20px;
     }
   }
+  .fullWidth{
+    width: 100% !important;
+  }
   .profileformcol {
     width: 50%;
     padding: 0px 30px;
@@ -46,7 +49,7 @@
       display: block;
       padding: 0.3rem;
     }
-
+    
     input {
       width: 100%;
       border: 1px solid #c7c7c7;

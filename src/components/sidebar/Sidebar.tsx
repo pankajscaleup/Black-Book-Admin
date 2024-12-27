@@ -35,7 +35,6 @@ function Sidebar() {
 
   useEffect(() => {
     const curPath = window.location.pathname.split("/")[2] || ""; // Ensure curPath is a string
-    console.log(curPath);
     const activeItem = sidebarNav.findIndex((item) => item.section === curPath);
     setActiveIndex(activeItem !== -1 ? activeItem : 0); // Default to 0 if not found
   }, [location, sidebarNav]);
