@@ -5,15 +5,21 @@ import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner"; // Import the 
 import { Link, Navigate } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 const AddFaq = () => {
   const { addFaqFormik, loading } = useAddFaq();
-  const params = useParams();
   const { type, id } = useParams<{ type?: string; id?: string }>();
   const allowedTypes = ['add', 'edit'];
   if (typeof type !== 'string' || !allowedTypes.includes(type)) {
     // Redirect if type is invalid
     return <Navigate to="/404" replace />;
   }
+  useEffect(()=>{
+      if(addFaqFormik.submitCount===0){
+        addFaqFormik.setErrors({})
+      }
+      
+    },[addFaqFormik]);
 
   return (
     <div className={form.myprofilewrapper}>

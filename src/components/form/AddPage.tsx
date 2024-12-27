@@ -5,10 +5,19 @@ import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner"; // Import the 
 import { Link } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 import { useParams } from "react-router-dom";
+import { pageDetails } from "../../service/apis/page.api";
+import { useEffect } from "react";
 const AddPage = () => {
-  const { addPageFormik, loading } = useAddPage();
+  
   const params = useParams();
   const { id } = params;
+  const { addPageFormik, loading } = useAddPage(id);
+  useEffect(()=>{
+    if(addPageFormik.submitCount===0){
+      addPageFormik.setErrors({})
+    }
+    
+  },[addPageFormik]);
   return (
     <div className={form.myprofilewrapper}>
       <div className='profile-card'>

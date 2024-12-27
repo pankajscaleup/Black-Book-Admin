@@ -9,30 +9,33 @@ interface FormValues {
   title: string;
   description:string
 }
-export const useAddPage = () => {
+export const useAddPage = (id?: string) => {
   const navigate = useNavigate();
-  const params = useParams();
-  const { id } = params;
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<FormValues | null>(null);
   const decodeHtml = (html: string) => {
     const txt = document.createElement("textarea");
     txt.innerHTML = html;
     return txt.value;
   };
-  const getPageDetails = async(id:any) =>{
-    try {
-      const response = await pageDetails(id); 
-      setData(response.pageData);
-    } catch (err) {
-    } finally {
-    }
-  }
+  
   useEffect(() => {
     if(id){
-      getPageDetails(id);
+      const getPageDetails = async() =>{
+        try {
+          const response = await pageDetails(id); 
+          addPageFormik.setErrors({
+          })
+          addPageFormik.setValues({
+            title: response.pageData?.title || "",
+            description: decodeHtml(response.pageData?.description) || "",
+          });
+          
+        } catch (err) {
+        } finally {
+        }
+      }
+      getPageDetails();
     }
-    
   }, [id]);
   // Form validation schema
   const validationSchema = yup.object({
@@ -42,11 +45,11 @@ export const useAddPage = () => {
   // Formik setup
   const addPageFormik = useFormik<FormValues>({
     initialValues: {
-      title: data?.title || "",
-      description: data?.description ? decodeHtml(data.description) : "",
+      title: "",
+      description: "",
     },
     validationSchema,
-    enableReinitialize: true,
+    enableReinitialize: false,
     onSubmit: async (values, { resetForm }) => {
       setLoading(true);
       const bodyData = {
