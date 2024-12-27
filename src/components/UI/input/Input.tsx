@@ -10,6 +10,7 @@ interface Props {
   placeholder?: string;
   classes?: string; // Use this for custom classes
   ref?: React.Ref<HTMLInputElement>; // Change type to React.Ref
+  required?: boolean;
   readonly?: boolean;
   disabled?: boolean;
   autocomplete?: string;
@@ -44,9 +45,9 @@ const Input = React.forwardRef<IImperativeHandler, Props>((props, ref) => {
   const { t } = useTranslation();
 
   return (
-    <div className={`${classes.form__control} ${props.classes}`}>
+    <div className={`${classes.form__control} ${(props.classes)?props.classes:""}`}>
       <label htmlFor={props.title ?? props.id}>
-        {props.title ?? t(`${props.id}`)}
+        {props.title ?? t(`${props.id}`)} {(props.required)?<span style={{ color: "red" }}>*</span>:null}
       </label>
       <div className={classes.inputContainer}>
         {" "}
