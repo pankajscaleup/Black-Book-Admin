@@ -41,7 +41,7 @@ function App() {
             <Route path='/' element={<MainLayout />}>
               <Route index element={<Dashboard />} />
               <Route path='/design/table' element={<DataTable />} />
-              <Route path='/design/form' element={<FormCus />} />
+              <Route path='/admin/profile' element={<FormCus />} />
 
               <Route path='/admin/dashboard' element={<DashboardPage />}/>
               <Route path='/admin/users' element={<Users />} />

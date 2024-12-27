@@ -45,9 +45,9 @@ const Input = React.forwardRef<IImperativeHandler, Props>((props, ref) => {
 
   return (
     <div className={`${classes.form__control} ${props.classes}`}>
-      <label htmlFor={props.title ?? props.id}>
+     {/*} <label htmlFor={props.title ?? props.id}>
         {props.title ?? t(`${props.id}`)}
-      </label>
+      </label> */ }
       <div className={classes.inputContainer}>
         {" "}
         {/* Wrap input and icon */}
