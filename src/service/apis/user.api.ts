@@ -31,3 +31,8 @@ export const updateStatus = catchAsync(async (uid, values) => {
   const data = await httpsCall.patch(`/admin/user-management/update-user/${uid}`, values);
   return data;
 });
+
+export const updateProfile = catchAsync(async (values) => {
+  const data = await httpsCall.patch(`/admin/profile/update`, values);
+  return data;
+});

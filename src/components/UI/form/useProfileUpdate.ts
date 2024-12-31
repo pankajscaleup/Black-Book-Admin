@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { addUser, updateUser } from "../../service/apis/user.api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { updateProfile } from "../../../service/apis/user.api";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../store/auth.store";
 
 interface FormValues {
   fullName: string;
@@ -12,14 +14,11 @@ interface FormValues {
   location: string;
   gender: { value: string; label: string } | null;
   interestedIn: { value: string; label: string } | null;
-  password: string;
-  role: { value: string; label: string } | null;
 }
-export const useAddUser = (id?: string) => {
+export const useProfileUpdate = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  // Form validation schema
   const validationSchema = yup.object({
     fullName: yup.string().required("Name is required"),
     email: yup
@@ -30,37 +29,25 @@ export const useAddUser = (id?: string) => {
     location: yup
       .string()
       .required("Location is required"),
-    password: yup
-      .string()
-      .trim()
-      .min(8, "Must be 8 or more characters")
-      .required("Password field is required")
-      .matches(/\w/, "Please enter a valid password"),
     gender: yup.object().nullable().required("Gender is required"),
-    role: yup.object().nullable().required("Role is required"),
     interestedIn: yup.object().nullable().required("interested In is required"),
   });
 
   // Formik setup
-  const addUserFormik = useFormik<FormValues>({
+  const addProfileFormik = useFormik<FormValues>({
     initialValues: {
       fullName: "",
       email: "",
-      password: "",
-      role: null,
       age: "",
       location: "",
       gender: null,
       interestedIn: null,
     },
     validationSchema,
-    onSubmit: async (values, { resetForm }) => {
-      setLoading(true);
+    onSubmit: async (values) => {
       const bodyData = {
         fullName: values.fullName,
         email: values.email,
-        password: values.password,
-        role: values.role?.value,
         about: {
           age: values.age,
           location: values.location,
@@ -69,25 +56,18 @@ export const useAddUser = (id?: string) => {
         },
       };
       try {
-        if (id) {
-          const response = await updateUser(id, bodyData);
-            toast.success("User updated successfully");
-            navigate("/admin/users");
-        } else {
-          const response = await addUser(bodyData);
-            toast.success(response.message);
-            resetForm();
-            navigate("/admin/users");
-        }
+        const response = await updateProfile(bodyData);
+        toast.success("Profile updated successfully");
+        console.log(response);
+        dispatch(setUser(response.userData));
       } catch (error) {
-        toast.error("An error occurred while saving the user.");
+        toast.error("An error occurred while updating the profile.");
       } finally {
-        setLoading(false);
+       
       }
     },
   });
   return {
-    addUserFormik,
-    loading,
+    addProfileFormik
   };
 };

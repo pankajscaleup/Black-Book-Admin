@@ -25,7 +25,6 @@ const AddUser = () => {
       const fetchData = async () => {
         try {
           const userData = await userDetails(id);
-          console.log(userData);
           if (userData) {
             addUserFormik.setValues({
               fullName: userData.data?.fullName || "",

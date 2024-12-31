@@ -302,7 +302,7 @@ const CustomTable: React.FC<Itable> = ({
                   >
                     {ucwords(item)}
                     {/* Only show arrows for specific fields */}
-                    {["firstName", "lastName", "email", "phoneNumber"].includes(
+                    {["fullName", "email"].includes(
                       item
                     ) &&
                       sortOrder &&
@@ -343,12 +343,9 @@ const CustomTable: React.FC<Itable> = ({
                       component='th'
                       scope='row'
                     >
-                      {row.firstName}
+                      {row.fullName}
                     </TableCell>
-                    <TableCell align='left'>{row.lastName}</TableCell>
                     <TableCell align='left'>{row.email}</TableCell>
-
-                    <TableCell align='left'>{row.phoneNumber}</TableCell>
                     <TableCell
                       className={
                         row.status === "VERIFIED"

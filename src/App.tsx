@@ -47,9 +47,6 @@ const AddPage = React.lazy(
   () => import("./pages/admin/AddPage")
 );
 
-
-
-
 function App() {
   return (
     <BrowserRouter>

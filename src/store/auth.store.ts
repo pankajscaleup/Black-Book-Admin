@@ -8,6 +8,7 @@ export type User = {
   isEmailVerified: boolean,
   isAccountVerified: boolean,
   profileimageurl: string,
+  about: any
 };
 
 export type AuthState = {
