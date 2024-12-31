@@ -79,7 +79,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                     src={props.customer?.profileimageurl ? props.customer?.profileimageurl: ''}/>
               </div>
               <div className={classes.account__info}>
-                <p>Account Details</p>
+                <h4>Account Details</h4>
                 <div className={classes.account__info__userName}>
                   <Icon icon='majesticons:user-line' width='24' />
                   <div>
@@ -104,7 +104,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                 </div>
               </div>
               <div className={classes.account__info}> 
-                <p>Contacts</p>
+                <h4>Contacts</h4>
                 <div className={classes.account__contact__email}>
                   <Icon icon='fontisto:email' width='24' />
                   <div>{props.customer?.email}</div>

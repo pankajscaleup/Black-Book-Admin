@@ -1,22 +1,22 @@
 @use "../../../scss/abstracts/" as *;
 
 .myprofilewrapper {
-  background-color: var(--bgc);
+  background: #E4AF5F;
   border-radius: 35px;
   padding: 60px 30px;
   @media screen and (max-width: 600px) {
     padding: 20px 15px;
-  }
+  }  
   h2 {
     color: #000;
     font-size: 32px;
     margin-bottom: 60px;
   }
   .upbtn {
-    background-color: #ffb2a3;
-    color: #fff;
+    background:linear-gradient(180deg, #e5b15f, #b37a4f);
+    color: #fff;box-shadow: 1px 5px 15px #5c5c5c;
     padding: 18px 58px;
-    border-radius: 10px;
+    border-radius: 50px;
     border: none;
     font-size: 16px;
     font-weight: bold;
@@ -24,6 +24,7 @@
     margin-top: 30px;
     cursor: pointer;
     margin-left: 30px;
+    &:hover{background: linear-gradient(180deg, #b37a4f, #e5b15f);}
     @media screen and (max-width: 600px) {
       margin-left: 15px;
     }
@@ -61,4 +62,8 @@
       margin-bottom: 10px;
     }
   }
+}
+.profile-card>h2 {
+  margin-bottom: 20px !important;
+  display: block;
 }

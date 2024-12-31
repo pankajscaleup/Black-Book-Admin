@@ -51,7 +51,7 @@ const AddUser = () => {
   }, [id]);
 
   return (
-    <div className={form.myprofilewrapper}>
+    <div className={form.myprofilewrapper }>
       <div className='profile-card'>
         <div className={form.profile_flex}>
         <h2>{id ? "Update User" : "Add User"}</h2>
@@ -60,7 +60,7 @@ const AddUser = () => {
           </Link>
         </div>
 
-        <form onSubmit={addUserFormik.handleSubmit} autoComplete='off'>
+        <form onSubmit={addUserFormik.handleSubmit} autoComplete='off' className="formadduser">
           <div className={form.profileform}>
             <div className={form.profileformcol}>
               <div className='formgrp'>

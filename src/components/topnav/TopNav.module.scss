@@ -4,7 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 1rem;
-  border-bottom: 3px solid gainsboro;
+  border-bottom: 3px solid #E4AF5F;
   margin-bottom: 4rem;
   &_left {
     @include flex(center, flex-start);

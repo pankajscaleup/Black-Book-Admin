@@ -46,11 +46,13 @@ function CustomerEdit() {
     <section>
       <div className={classes.com_header_flex}>
         <h2 className='title'>{t("User Details")}</h2>
+        <div className="btn-wrap-users">
         <Link to='/admin/users'>
           <button className={classes.back_btn}>Back</button>
         </Link>
         <button className={classes.block_btn}>Block User</button>
         <button className={classes.verify_btn}>Verify User</button>
+        </div>
       </div>
       {customerEdit}
     </section>

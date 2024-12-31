@@ -75,9 +75,9 @@ function Customers() {
           onChange={handleTabChange}
           aria-label='role tabs'
           sx={{
-            "& .MuiTab-root": { backgroundColor: "lightgray" },
+            "& .MuiTab-root": { background: "var(--dark)" },
             "& .Mui-selected": {
-              backgroundColor: "#E4AF5F !important",
+              background: "#b37a4f!important",
               color: "#fff !important",
             },
             "& .MuiTabs-indicator": { display: "none" },
@@ -86,7 +86,7 @@ function Customers() {
           <Tab
             label='Seeker'
             value='seeker'
-            className={tabwrap.tablistw}
+            className={`${tabwrap.tablistw} ${tabwrap.btnyellow}`}
           />
           <Tab
             label='Model'
@@ -95,7 +95,7 @@ function Customers() {
           />
           
         </Tabs>
-        <ButtonBase className={tabwrap.adduserbtn} onClick={() => navigate('/admin/addUser')}>ADD USER</ButtonBase>
+        <ButtonBase className={`${tabwrap.adduserbtn} ${tabwrap.btnyellow}`} onClick={() => navigate('/admin/addUser')}>ADD USER</ButtonBase>
       </Box>
      
       {/* Conditional Rendering for Data */}

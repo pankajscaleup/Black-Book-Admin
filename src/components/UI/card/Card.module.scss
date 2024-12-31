@@ -2,7 +2,7 @@
 
 .card {
   @include flex(stretch, flex-start);
-  background-color: var(--bgc);
+  background-color:#E4AF5F;
   border-radius: $mediumBorderRadius;
   box-shadow: $mainBoxShadow;
   padding: 1rem 2rem;

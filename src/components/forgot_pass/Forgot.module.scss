@@ -17,13 +17,21 @@ html {
     }
   }
 }
+.loginBox label {
+  position: relative;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  padding:0 0 10px; display: block;
+  white-space: nowrap;
+}
 
 .loginBox {
   @include flex();
   flex-direction: column;
   width: 400px;
   padding: 0 2rem 4rem;
-  background-color: #f9f9fa;
+  background-color: #2d3034;
   color: #424750;
   border-radius: $mediumBorderRadius;
   box-shadow: $mainBoxShadow;
@@ -37,18 +45,17 @@ html {
   .title {
     // font-size: $fontSizeHeadlineMedium;
     font-size: 30px;
-    line-height: 50px;
-    letter-spacing: 0;
-    font-weight: 400;
-    margin-bottom: 30px;
-  }
-
-  & input,
-  & label,
-  & a {
-    background-color: #f9f9fa !important;
-    color: #424750;
-  }
+     line-height: 50px;
+     letter-spacing: 0; color:#ffffff;
+     font-weight: 400;
+     margin-bottom: 30px;
+   }
+ 
+   & input,
+   & label,
+   & a {
+     color: #fff;
+   }
 
   .errorMessage {
     position: relative;
@@ -69,9 +76,10 @@ html {
 
   .forgat_pass {
     margin: 1rem 0;
-    display: inline-block;
-    color: gray;
+    display:block;
+    color: #fff;
     font-size: 14px;
+    text-decoration: underline;
   }
 
   .checkbox {
