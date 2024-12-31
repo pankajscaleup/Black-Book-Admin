@@ -3,7 +3,7 @@ import ResetPasswordBox from "../components/reset_password/ResetPassword";
 
 function ResetPassword() {
   return (
-    <section>
+    <section className="resetPasswordpage">
       <ResetPasswordBox />
     </section>
   );

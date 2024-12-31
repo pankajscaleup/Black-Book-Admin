@@ -29,7 +29,7 @@ const FormCus = () => {
 
   return (
     <div className={form.myprofilewrapper}>
-      <div className='profile-card'>
+      <div className='profile-card profileform'>
         <form onSubmit={addProfileFormik.handleSubmit} autoComplete='off'>
           <div className={form.profileform}>
             <div className={form.profileformcol}>
