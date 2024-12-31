@@ -1,215 +1,187 @@
-import React from "react";
+import { useEffect } from "react";
 import Input from "../input/Input";
 import form from "./formcus.module.scss";
-import { styled } from "@mui/material/styles";
-import RadioGroup, { useRadioGroup } from "@mui/material/RadioGroup";
-import FormControlLabel, {
-  FormControlLabelProps,
-} from "@mui/material/FormControlLabel";
-import Radio from "@mui/material/Radio";
-
+import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { RootState } from "../../../store/store";
+import { useProfileUpdate } from "./useProfileUpdate";
+import Select from "react-select";
 
 const FormCus = () => {
-  interface StyledFormControlLabelProps extends FormControlLabelProps {
-    checked: boolean;
-  }
-
-  const StyledFormControlLabel = styled(
-    (props: StyledFormControlLabelProps) => <FormControlLabel {...props} />
-  )(({ theme }) => ({
-    variants: [
-      {
-        props: { checked: true },
-        style: {
-          ".MuiFormControlLabel-label": {
-            color: theme.palette.primary.main,
-          },
-        },
-      },
-    ],
-  }));
-
-  function MyFormControlLabel(props: FormControlLabelProps) {
-    const radioGroup = useRadioGroup();
-
-    let checked = false;
-
-    if (radioGroup) {
-      checked = radioGroup.value === props.value;
-    }
-
-    return <StyledFormControlLabel checked={checked} {...props} />;
-  }
+      const { addProfileFormik } = useProfileUpdate();
+    const user = useSelector((state: RootState) => state.authSlice.user);
+    useEffect(() => {
+      if (user) {
+        addProfileFormik.setValues({
+          fullName: user.fullName || "",
+          email: user.email || "",
+          age: user.about?.age || "",
+          location: user.about?.location || "",
+          gender: user.about?.gender
+            ? { value: user.about.gender, label: user.about.gender }
+            : null,
+          interestedIn: user.about?.interestedIn
+            ? { value: user.about.interestedIn, label: user.about.interestedIn }
+            : null,
+        });
+      }
+    }, [user]);
 
   return (
     <div className={form.myprofilewrapper}>
       <div className='profile-card'>
-        <h2>My Profile</h2>
+        <form onSubmit={addProfileFormik.handleSubmit} autoComplete='off'>
+          <div className={form.profileform}>
+            <div className={form.profileformcol}>
+              <div className='formgrp'>
+                <label htmlFor='Name'>
+                  Full Name <span style={{ color: "red" }}>*</span>
+                </label>
+                <Input
+                  type={"text"}
+                  id='fullName'
+                  placeholder={"Enter your full name"}
+                  name='fullName'
+                  onChange={addProfileFormik.handleChange}
+                  value={addProfileFormik.values.fullName}
+                />
+                {addProfileFormik.touched.fullName &&
+                  addProfileFormik.errors.fullName && (
+                    <div className='error'>
+                      {addProfileFormik.errors.fullName}
+                    </div>
+                  )}
+              </div>
+            </div>
 
-        <form>
-          <div className='profileform row'>
             <div className={form.profileformcol}>
               <div className='formgrp'>
+                <label htmlFor='Name'>
+                  Email <span style={{ color: "red" }}>*</span>
+                </label>
                 <Input
                   type={"text"}
-                  id='name'
-                  placeholder={"Enter your Name"}
-                  name='Full Name *'
-                  title='Full Name *'
-                  classes='inp'
+                  id='email'
+                  placeholder={"Enter your email address"}
+                  name='email'
+                  onChange={addProfileFormik.handleChange}
+                  value={addProfileFormik.values.email}
                 />
+                {addProfileFormik.touched.email && addProfileFormik.errors.email && (
+                  <div className='error'>{addProfileFormik.errors.email}</div>
+                )}
               </div>
             </div>
+
             <div className={form.profileformcol}>
               <div className='formgrp'>
-                <Input
-                  type={"tel"}
-                  id='name'
-                  placeholder={"Enter phone number"}
-                  name='Full Name *'
-                  title='Phone Number *'
-                />
-              </div>
-            </div>
-            <div className={form.profileformcol}>
-              <div className='formgrp'>
-                <Input
-                  type={"email"}
-                  id='name'
-                  placeholder={"Enter email address"}
-                  name='Full Name *'
-                  title='Email Address *'
-                />
-              </div>
-            </div>
-            <div className={form.profileformcol}>
-              <div className='formgrp'>
+                <label htmlFor='Name'>
+                  Age <span style={{ color: "red" }}>*</span>
+                </label>
                 <Input
                   type={"text"}
-                  id='name'
-                  placeholder={"Enter email address"}
-                  name='Full Name *'
-                  title='Email Address *'
+                  id='age'
+                  placeholder={"Enter your age"}
+                  name='age'
+                  onChange={addProfileFormik.handleChange}
+                  value={addProfileFormik.values.age}
                 />
+                {addProfileFormik.touched.age && addProfileFormik.errors.age && (
+                  <div className='error'>{addProfileFormik.errors.age}</div>
+                )}
               </div>
             </div>
+
             <div className={form.profileformcol}>
               <div className='formgrp'>
-                <Input
-                  type={"date"}
-                  id='name'
-                  placeholder={"DD/MM/YYYY"}
-                  name='Full Name *'
-                  title='Date of Birth *'
-                />
-              </div>
-            </div>
-            <div className={form.profileformcol}>
-              <div className='formgrp'>
+                <label htmlFor='Name'>
+                  Location <span style={{ color: "red" }}>*</span>
+                </label>
                 <Input
                   type={"text"}
-                  id='name'
-                  placeholder={"Enter company name"}
-                  name='Full Name *'
-                  title='Company Name *'
+                  id='location'
+                  placeholder={"Enter your location"}
+                  name='location'
+                  onChange={addProfileFormik.handleChange}
+                  value={addProfileFormik.values.location}
                 />
+                {addProfileFormik.touched.location &&
+                  addProfileFormik.errors.location && (
+                    <div className='error'>{addProfileFormik.errors.location}</div>
+                  )}
               </div>
             </div>
+
             <div className={form.profileformcol}>
               <div className='formgrp'>
-                <Input
-                  type={"text"}
-                  id='name'
-                  placeholder={"Enter company name"}
-                  name='Full Name *'
-                  title='Company Name *'
+                <label htmlFor='Name'>
+                  Gender <span style={{ color: "red" }}>*</span>
+                </label>
+                <Select
+                  placeholder='Select Gender'
+                  options={[
+                    { value: "Male", label: "Male" },
+                    { value: "Female", label: "Female" },
+                    { value: "All", label: "All" },
+                  ]}
+                  name="gender"
+                  value={addProfileFormik.values.gender}
+                  onChange={(option) => addProfileFormik.setFieldValue("gender", option)}
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      boxShadow: "none",
+                      border: "1px solid #c7c7c7",
+                      height: "58px",
+                      borderRadius: "100px",
+                      padding: "10px 12px",
+                    }),
+                  }}
                 />
+                {addProfileFormik.touched.gender && addProfileFormik.errors.gender && (
+                  <div className='error'>{addProfileFormik.errors.gender}</div>
+                )}
               </div>
             </div>
+
             <div className={form.profileformcol}>
               <div className='formgrp'>
-                <Input
-                  type={"text"}
-                  id='name'
-                  placeholder={"Chose Service *"}
-                  name='Full Name *'
-                  title='Chose Service *'
+                <label htmlFor='Name'>
+                  Interested In <span style={{ color: "red" }}>*</span>
+                </label>
+                <Select
+                  placeholder='Interested In'
+                  options={[
+                    { value: "Male", label: "Male" },
+                    { value: "Female", label: "Female" },
+                    { value: "All", label: "All" },
+                  ]}
+                  name="interestedIn"
+                  value={addProfileFormik.values.interestedIn}
+                  onChange={(option) => addProfileFormik.setFieldValue("interestedIn", option)}
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      boxShadow: "none",
+                      border: "1px solid #c7c7c7",
+                      height: "58px",
+                      borderRadius: "100px",
+                      padding: "10px 12px",
+                    }),
+                  }}
                 />
+                {addProfileFormik.touched.interestedIn &&
+                  addProfileFormik.errors.interestedIn && (
+                    <div className='error'>
+                      {addProfileFormik.errors.interestedIn}
+                    </div>
+                  )}
               </div>
             </div>
           </div>
-
-          <RadioGroup
-            name='use-radio-group'
-            defaultValue='first'
-            style={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "row",
-            }}
-          >
-            <p
-              style={{
-                color: "#282828",
-                fontSize: "18px",
-                paddingRight: "15px",
-                fontWeight: "600",
-              }}
-            >
-              Gender:
-            </p>
-            <FormControlLabel
-              value='first'
-              label='First'
-              control={
-                <Radio
-                  sx={{
-                    color: "#000",
-                    "&.Mui-checked": {
-                      color: "#E94257",
-                    },
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                    },
-                  }}
-                />
-              }
-              sx={{
-                color: "#000",
-                "&.Mui-checked": {
-                  color: "#000",
-                },
-              }}
-            />
-            <FormControlLabel
-              value='second'
-              label='Second'
-              control={
-                <Radio
-                  sx={{
-                    color: "#000",
-                    "&.Mui-checked": {
-                      color: "#E94257",
-                    },
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                    },
-                  }}
-                />
-              }
-              sx={{
-                color: "#000",
-                "&.Mui-checked": {
-                  color: "#000",
-                },
-              }}
-            />
-          </RadioGroup>
-
-          <button disabled className={form.upbtn}>
-            Update
-          </button>
+          <button className={form.upbtn}>Save</button>
         </form>
+        
       </div>
     </div>
   );

@@ -31,6 +31,7 @@ export interface Itable {
   totalData: number;
   totalPage: number;
   dataCurrentPage: number;
+  role: any;
 }
 
 export interface commonItable {
