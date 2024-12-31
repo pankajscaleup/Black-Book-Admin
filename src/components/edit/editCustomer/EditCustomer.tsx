@@ -147,11 +147,12 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                   <div className="verification-wrap">
                     <div className="img-wrapper">
                       <h4>User ID</h4>
+                      <div className="img-holder-inner">
                         <img
                           className="id-image"
-                          src={props.customer?.verification?.verificationId ? props.customer?.verification?.verificationId: ''}/>
+                          src={props.customer?.verification?.verificationId ? props.customer?.verification?.verificationId: ''}/></div>
                     </div>
-                    <div className="selfie-wrapper">
+                    <div className="selfie-wrapper no-round">
                       <h4>Selfie</h4>
                       <div className={classes.img_wrapper}>
                           <img

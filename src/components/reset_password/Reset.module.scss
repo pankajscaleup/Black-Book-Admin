@@ -18,12 +18,13 @@ html {
   }
 }
 
+
 .resetPasswordBox {
   @include flex();
   flex-direction: column;
   width: 400px;
   padding: 0 2rem 4rem;
-  background-color: #f9f9fa;
+  background-color: #2d3034;
   color: #424750;
   border-radius: $mediumBorderRadius;
   box-shadow: $mainBoxShadow;
@@ -35,17 +36,17 @@ html {
 
   .title {
    // font-size: $fontSizeHeadlineMedium;
-   font-size: 30px;
+   font-size: 30px; color: #fff;
     line-height: 50px;
     letter-spacing: 0;
     font-weight: 400;
     margin: 3rem 0 2rem;
   }
 
-  & input,
-  & label,
+  & input,   & label{color: #fff;}  
+
   & a {
-    background-color: #f9f9fa !important;
+    background-color: transparent !important;
     color: #424750;
   }
 

@@ -3,7 +3,7 @@ import ForgotPasswordBox from "../components/forgot_pass/ForgotPass";
 
 function ForgotPassword() {
   return (
-    <section>
+    <section className="forgotPassworpage">
       <ForgotPasswordBox />
     </section>
   );

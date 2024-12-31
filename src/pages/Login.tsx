@@ -3,7 +3,7 @@ import LoginBox from "../components/login/Login";
 
 function Login() {
   return (
-    <section>
+    <section className="loginpage">
       <LoginBox />
     </section>
   );

@@ -67,12 +67,12 @@ function LoginBox() {
                     icon={isPasswordVisible ? faEyeSlash : faEye} // Use FontAwesomeIcon
                     onClick={togglePasswordVisibility}
                     style={{
-                      cursor: "pointer",
-                      position: "absolute",
-                      top: "65%",
-                      transform: "translateY(-50%)",
-                      right: "10px",
-                    }} // Change cursor to pointer
+                      //cursor: "pointer",
+                      //position: "absolute",
+                      //top: "65%",
+                      //transform: "translateY(-50%)",
+                      //right: "10px",
+                    }} // Change cursor to pointer//
                   />
                 }
               />
