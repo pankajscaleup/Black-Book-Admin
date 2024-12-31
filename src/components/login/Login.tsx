@@ -69,7 +69,7 @@ function LoginBox() {
                     style={{
                       cursor: "pointer",
                       position: "absolute",
-                      top: "50%",
+                      top: "65%",
                       transform: "translateY(-50%)",
                       right: "10px",
                     }} // Change cursor to pointer

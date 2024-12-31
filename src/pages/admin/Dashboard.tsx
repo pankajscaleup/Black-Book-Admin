@@ -8,7 +8,7 @@ import withRole from "../withRole";
 function Dashboard() {
   const { t } = useTranslation();
   return (
-    <section>
+    <section className="dashboard-holder">
       <h2 className='title'>{t("dashboard")}</h2>
       <p style={{ textAlign: "center" }}>Coming Soon</p>
     </section>

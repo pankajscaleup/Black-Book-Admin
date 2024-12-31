@@ -11,12 +11,15 @@
   min-width: 400px;
   max-width: 600px;
   margin: 0 1rem;
+
   @media screen and (max-width: 1210px) {
     margin-top: 2rem;
   }
+
   @media screen and (max-width: 410px) {
     min-width: 350px;
   }
+
   @media screen and (max-width: 290px) {
     min-width: 250px;
   }
@@ -49,9 +52,11 @@
     background-color: rgba(0, 0, 0, 0.4);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+
     @include mobile {
       opacity: 1;
     }
+
     svg {
       cursor: pointer;
     }
@@ -75,7 +80,7 @@
 .img_wrapper {
   @include flex(stretch, center);
   align-self: center;
-  margin-bottom: 2rem;
+  margin: 0 1rem 1rem 0;
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -89,6 +94,12 @@
   }
 }
 
+.details-wrapper .dtls  p { margin-bottom: 10px;}
+
+h4 {
+  color: #000;
+}
+
 .avatar {
   object-fit: cover;
 }
@@ -99,6 +110,7 @@
   flex: 1;
   margin: 0rem;
   padding: 20px 0px 0;
+
   @media screen and (max-width: 1250px) {
     margin: 3rem 0.5rem;
   }
@@ -106,16 +118,17 @@
   @media screen and (max-width: 410px) {
     position: relative;
   }
+
   &__info {
     color: lightslategray;
     margin-bottom: 2rem;
 
-    & > div {
+    &>div {
       @include flex(center, flex-start);
       color: var(--text-color);
       margin: 0.5rem 1rem;
 
-      & > div {
+      &>div {
         margin: 0.5rem 1rem;
       }
     }
@@ -150,6 +163,7 @@
     flex: 1;
     margin: 0.5rem 0;
   }
+
   & button {
     width: 90%;
 
@@ -177,6 +191,7 @@ html[dir="rtl"] {
     }
   }
 }
+
 .account__info__userName,
 .account__contact__email,
 .account__contact__phone,
@@ -187,24 +202,37 @@ html[dir="rtl"] {
   margin: 0px !important;
   margin-bottom: 20px !important;
 }
+
 .back_btn {
-  background-color: #000;
+  background: linear-gradient(180deg, #e5b15f, #b37a4f);
+  cursor: pointer;
   color: #fff;
   padding: 16px 28px;
-  border-radius: 10px;
+  border-radius: 50px;
   border: none;
+
   @media screen and (max-width: 480px) {
     padding: 10px 19px;
     border-radius: 9px;
   }
+
+  &:hover {
+    background: linear-gradient(180deg, #b37a4f, #e5b15f);
+  }
 }
 
 .verify_btn {
-  background-color: #136c18;
+  background: linear-gradient(180deg, #e5b15f, #b37a4f);
+  cursor: pointer;
   color: #fff;
   padding: 16px 28px;
-  border-radius: 10px;
+  border-radius: 50px;
   border: none;
+
+  &:hover {
+    background: linear-gradient(180deg, #b37a4f, #e5b15f);
+  }
+
   @media screen and (max-width: 480px) {
     padding: 10px 19px;
     border-radius: 9px;
@@ -212,11 +240,17 @@ html[dir="rtl"] {
 }
 
 .block_btn {
-  background-color: #6c1613;
+  background: linear-gradient(180deg, #e5b15f, #b37a4f);
+  cursor: pointer;
   color: #fff;
   padding: 16px 28px;
-  border-radius: 10px;
+  border-radius: 50px;
   border: none;
+
+  &:hover {
+    background: linear-gradient(180deg, #b37a4f, #e5b15f);
+  }
+
   @media screen and (max-width: 480px) {
     padding: 10px 19px;
     border-radius: 9px;
@@ -228,72 +262,91 @@ html[dir="rtl"] {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
+
   @media screen and (max-width: 480px) {
     display: block;
   }
 }
+
 .com_header_flex h2 {
   margin-bottom: 0px !important;
+
   @media screen and (max-width: 480px) {
     margin-bottom: 20px;
   }
 }
+
 .account__contact__company {
   display: block;
 }
+
 .account__info {
   width: 100% !important;
+
   @media screen and (max-width: 767px) {
     padding-left: 0px !important;
   }
 }
+
 .account {
   flex-direction: row;
   max-width: 100%;
+
   @media screen and (max-width: 767px) {
     flex-direction: column !important;
   }
 }
+
 .edit__left {
   max-width: 100%;
 }
+
 .user_acc {
   .account__info {
     margin-bottom: 0px !important;
   }
+
   .account__info__userName,
   .account__contact__email {
     margin-bottom: 0px !important;
   }
 }
+
 .user_acc {
   .edit__left {
     max-width: 100%;
     margin: 0 auto;
   }
+
   .account__info {
     svg {
       flex: 0 0 auto;
     }
+
     // .account__contact__company{display: flex !important;}
   }
 }
+
 .user_acc {
   .account {
     flex-wrap: wrap;
     justify-content: start !important;
+
     .account__info {
       width: 25% !important;
       margin-bottom: 20px;
+
       @media screen and (max-width: 1440px) {
         width: 33.33% !important;
       }
+
       @media screen and (max-width: 991px) {
         width: 50% !important;
       }
     }
   }
 }
+
 .user_edit {
   .account__info div {
     // margin-bottom: 12px !important;
@@ -302,6 +355,7 @@ html[dir="rtl"] {
     align-items: center;
   }
 }
+
 .user_edit {
   .account__info {
     .account__contact__company {
@@ -314,3 +368,11 @@ html[dir="rtl"] {
 //   .user_acc{ .account__info{width: 100% !important;display: block;}}
 
 // }
+
+
+._account__contact__email_eolwi_149 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem !important;
+  gap: 15px;
+}

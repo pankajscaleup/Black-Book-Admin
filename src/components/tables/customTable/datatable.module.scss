@@ -16,7 +16,7 @@
     align-items: center;
   }
   .edit {
-    background-color: #f4a931;
+    background-color: #E4AF5F;
     width: 40px;
     height: 40px;
     padding: 9px;
@@ -25,7 +25,7 @@
     cursor: pointer;
   }
   .delete {
-    background-color: #fa4520;
+    background-color: #ff0000;
     width: 40px;
     height: 40px;
     padding: 9px;
@@ -45,7 +45,7 @@
       background-color: #fff;
       th {
         font-size: 16px;
-        color: #676767;
+        color: #000;
         font-weight: 700;
         border: none;
         background-color: #fff;
@@ -71,12 +71,12 @@
       td {
         font-size: 14px;
         color: #000;
-        font-weight: 500;
+        font-weight: 600;
         border: none;
         background-color: #fff;
       }
       th {
-        border: none;
+        border: none; font-weight: 600;
         background-color: #fff;
       }
     }
@@ -91,8 +91,8 @@
   }
 }
 .datatablemainwrap {
-  background-color: #f2f2f2;
-  padding: 60px 30px;
+  background-color: #E4AF5F;
+  padding:30px;
   border-radius: 35px;
   @media screen and (max-width: 991px) {
     padding: 20px 15px;
@@ -167,8 +167,8 @@
   background-color: #fff;
 }
 .datatablemainwrap {
-  background-color: #f2f2f2;
-  padding: 60px 30px;
+  background-color: #E4AF5F;
+  padding:30px;
   border-radius: 35px;
   @media screen and (max-width: 991px) {
     padding: 20px 15px;
@@ -207,7 +207,7 @@
   background-color: rgb(238, 83, 56);
   color: #fff;
   padding: 18px 40px;
-  border-radius: 10px;
+  border-radius: 50px;
   border: none;
   font-size: 16px;
   font-weight: bold;
