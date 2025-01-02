@@ -1,25 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "../../UI/card/Card";
 import classes from "./EditCustomer.module.scss";
 import { IUsersRoleTable } from "../../../interfaces/Itable";
 import { Icon } from "@iconify/react";
-import LoadingSpinner from "../../UI/loadingSpinner/LoadingSpinner";
-import Select from "react-select";
-import form from "../../form/formcus.module.scss";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { updateStatus } from "../../../service/apis/user.api";
-
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import toast from "react-hot-toast";
 
 
 const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
-  console.log(props);
+
   const capitalizeFirstLetter = (string:any) => {
     if (!string) return '';
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -33,40 +25,6 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
     setValue(newValue);
   };
 
-  const [loading, setLoading] = useState(false);
- /* const uid = props.customer?.id;
-
-    // Form validation schema
-    const validationSchema = yup.object({
-      isVerfied: yup.object().nullable().required("Status is required"),
-    });*/
-
-  // Formik setup
-  /*const formik = useFormik({
-    initialValues: {
-      isVerfied: null
-    },
-    validationSchema,
-    onSubmit: async (values:any) => {
-      setLoading(true);
-      console.log(values.isVerfied?.value);
-      try {
-        const bodyData = {
-          isVerfied: values.isVerfied?.value
-        }
-        const response = await updateStatus(uid, bodyData);
-        if (response.status === 200) {
-          toast.success(response.message);
-        }
-      } catch (error) {
-        toast.error("An error occurred while adding the status.");
-      } finally {
-        setLoading(false);
-      }
-    },
-  }); */
-  
-  
   return (
     <div className={classes.user_acc}>
       <div className={classes.edit__container}>
@@ -135,7 +93,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                     <Tab label="Verification" value="1" />
                   )}
                     <Tab label="Personal Details" value="2" />
-                    <Tab label="Intro Media" value="3" />
+                    <Tab label="Unlock Media" value="3" />
                     {props.customer?.role==='model' && (
                     <Tab label="Private Content" value="4" />
                   )}
@@ -225,7 +183,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
 
                 <TabPanel value="3">
                 <div className="media-wrapper">
-                  <h4>Intro Media</h4>
+                  <h4>Unlock Media</h4>
                   <div className="media">
                     {props.customer?.introImages?.map((media:any) => {
                       const fileExtension = media.introImage.split('.').pop().toLowerCase();
@@ -233,7 +191,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                       if (["jpg", "jpeg", "png", "gif"].includes(fileExtension)) {
                         return (
                           <div key={media._id} className="media-item">
-                            <img src={media.introImage} alt="Intro Media" width="300" />
+                            <img src={media.introImage} alt="Unlock Media" width="300" />
                           </div>
                         );
                       }
@@ -263,7 +221,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                       if (["jpg", "jpeg", "png", "gif"].includes(fileExtension)) {
                         return (
                           <div key={media._id} className="media-item">
-                            <img src={media.privatemedia} alt="Intro Media" width="300" />
+                            <img src={media.privatemedia} alt="Unlock Media" width="300" />
                           </div>
                         );
                       }
@@ -282,54 +240,6 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                   </div>
                 </div>
                 </TabPanel>
-
-                { /*<TabPanel value="5">
-
-                <div className="status-wrapper">
-                  <h4>Model Verify<span style={{ color: "red" }}>*</span></h4>
-                  <div className="status-verify">
-                  <form onSubmit={formik.handleSubmit} autoComplete="off">
-                  <div className={form.profileform}>
-                    <div className={form.profileformcol}>
-                      <div className="formgrp">
-                        <Select
-                          placeholder="Select Status"
-                          options={[
-                            { value: true, label: "Verify" },
-                            { value: false, label: "Not Verify" },
-                          ]}
-                          name="isVerfied"
-                          value={formik.values.isVerfied}
-                          onChange={(option) => formik.setFieldValue("isVerfied", option)}
-                          styles={{
-                            control: (base) => ({
-                              ...base,
-                              boxShadow: "none",
-                              border: "1px solid #c7c7c7",
-                              height: "58px",
-                              borderRadius: "100px",
-                              padding: "10px 12px",
-                            }),
-                          }}
-                        />
-                        {formik.touched.isVerfied && formik.errors.isVerfied && (
-                          <div className="error">{formik.errors.isVerfied}</div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  {loading ? (
-                    <LoadingSpinner />
-                  ) : (
-                    <button type="submit" className={form.upbtn}>
-                      Save
-                    </button>
-                  )}
-                </form>
-
-                    </div>
-                  </div> 
-                </TabPanel> */ }
               </TabContext>
             </Box>
             </div>

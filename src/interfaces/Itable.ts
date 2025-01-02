@@ -7,6 +7,7 @@ export interface IUsersRoleTable {
   profileimageurl: string;
   role: string | null;
   isVerfied: any;
+  isActive: any;
   createdAt: string;
   status: string;
   isSetupDone: any;

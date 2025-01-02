@@ -27,8 +27,13 @@ export const updateUser = catchAsync(async (id, values: IUsersRoleTable) => {
   return data;
 });
 
-export const updateStatus = catchAsync(async (uid, values) => {
-  const data = await httpsCall.patch(`/admin/user-management/update-user/${uid}`, values);
+export const updateVerificationStatus = catchAsync(async (uid, values) => {
+  const data = await httpsCall.patch(`/admin/user-management/verification/${uid}`, values);
+  return data;
+});
+
+export const updateActiveStatus = catchAsync(async (uid, values) => {
+  const data = await httpsCall.patch(`/admin/user-management/block-unblock/${uid}`, values);
   return data;
 });
 

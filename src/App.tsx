@@ -6,6 +6,7 @@ import AuthLayout from "./layout/AuthLayout";
 import LoadingSpinner from "./components/UI/loadingSpinner/LoadingSpinner";
 import DataTable from "./components/UI/dataTable/DataTable";
 import FormCus from "./components/UI/form/FormCus";
+import ChangePass from "./components/form/ChangePass";
 import "./scss/App.scss";
 
 const NotFound = React.lazy(() => import("./pages/NotFound"));
@@ -14,6 +15,7 @@ const Login = React.lazy(() => import("./pages/Login"));
 const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
 const ResetPassword = React.lazy(() => import("./pages/ResetPassword"));
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
+
 
 const DashboardPage = React.lazy(
   () => import("./pages/admin/Dashboard")
@@ -33,6 +35,10 @@ const Users = React.lazy(
 
 const Faqs = React.lazy(
   () => import("./pages/admin/Faqs")
+);
+
+const Support = React.lazy(
+  () => import("./pages/admin/Support")
 );
 
 const AddFaq = React.lazy(
@@ -57,6 +63,8 @@ function App() {
               <Route index element={<Dashboard />} />
               <Route path='/design/table' element={<DataTable />} />
               <Route path='/admin/profile' element={<FormCus />} />
+              <Route path='/admin/changePassword' element={<ChangePass/>} />
+              <Route path='/admin/support' element={<Support/>} />
 
               <Route path='/admin/dashboard' element={<DashboardPage />}/>
               <Route path='/admin/users' element={<Users />} />

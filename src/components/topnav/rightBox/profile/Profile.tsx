@@ -12,7 +12,7 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
-import { faSignOut, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faSignOut, faUserCircle, faHeadset, faExchange } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { useWindowSize } from "usehooks-ts";
@@ -130,6 +130,26 @@ function Profile() {
                         style={{ paddingRight: "10px" }}
                       />
                       My Profile
+                    </Link>
+                    </MenuItem>
+
+                    <MenuItem onClick={handleClose}>
+                    <Link to="/admin/changePassword" style={{ textDecoration: "none", color: "inherit" }}>
+                      <FontAwesomeIcon
+                        icon={faExchange}
+                        style={{ paddingRight: "10px" }}
+                      />
+                      Change Password
+                    </Link>
+                    </MenuItem>
+
+                    <MenuItem onClick={handleClose}>
+                    <Link to="/admin/support" style={{ textDecoration: "none", color: "inherit" }}>
+                      <FontAwesomeIcon
+                        icon={faHeadset}
+                        style={{ paddingRight: "10px" }}
+                      />
+                      Support
                     </Link>
                     </MenuItem>
 

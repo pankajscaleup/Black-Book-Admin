@@ -56,13 +56,6 @@ const sidebarNav = [
     role: ["admin"],
   },
   {
-    link: "/admin/support",
-    section: "support",
-    icon: "mdi:headset", //width:"20"
-    text: "Support",
-    role: ["admin"],
-  },
-  {
     link: "/admin/settings",
     section: "settings",
     icon: "mdi:cog", //width:"20"
