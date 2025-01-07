@@ -17,8 +17,31 @@ export interface IUsersRoleTable {
   privatemedia:any;
 }
 
+export interface IUsersSupportTable {
+  _id: string;
+  subject: string;
+  message: string;
+  status: string;
+  userId: any;
+}
+
 export type complex =
-  | IUsersRoleTable |IFaqTable
+  | IUsersRoleTable | IFaqTable | IUsersSupportTable
+
+  export interface IStable {
+    limit?: number;
+    selectedCategory?: string;
+    headData:  string[];
+    dataShow?: complex[]; // Mark as optional
+    pages?: number; // Mark as optional
+    currPage?: number; // Mark as optional
+    changePage?: ( pageNumber: number) => void; // Mark as optional
+    bodyData: complex[];
+    totalData: number;
+    totalPage: number;
+    dataCurrentPage: number;
+    status: any;
+  }
 
 export interface Itable {
   limit?: number;

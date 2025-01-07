@@ -34,7 +34,6 @@ function Customers() {
       };
       const response = await userApi(bodyData);
       if (response?.status === 200) {
-        console.log(response.users);
         setData(response?.users?.users);
         setTotalUser(response?.users?.totalResults);
         setTotalPage(response?.users?.totalPages);

@@ -18,3 +18,12 @@ export const pagesHeader = {
   createdAt: "Date",
   actions: "Actions",
 };
+
+export const adminSupportHeader = [
+  "Name",
+  "email",
+  "Subject",
+  "Message",
+  "Status",
+  "Actions",
+];

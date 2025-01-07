@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Itable, complex, IUsersRoleTable } from "../../../interfaces/Itable";
+import React, { useState } from "react";
+import { IStable, complex, IUsersSupportTable } from "../../../interfaces/Itable";
 import { useTranslation } from "react-i18next";
 
 import Table from "@mui/material/Table";
@@ -22,127 +21,98 @@ import Stack from "@mui/material/Stack";
 import dataTable from "./datatable.module.scss";
 import del from "../../../assets/images/ic_outline-delete.png";
 import delt from "../../../assets/images/delete.png";
-import { userApi, deleteUser } from "../../../service/apis/user.api";
-
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import closeSupport from "../../../assets/images/close-circle.svg";
+import { supportList, deleteSupport, closeSupportRequest } from "../../../service/apis/support.api";
 import LoadingSpinner from "../../../components/UI/loadingSpinner/LoadingSpinner";
 import toast from "react-hot-toast";
 
-const CustomTable: React.FC<Itable> = ({
+const CustomTable: React.FC<IStable> = ({
   bodyData,
   headData,
-  role,
+  status,
   totalData
 }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [openclosepopup, setOpenclosepopup] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrderData, setSortOrderData] = useState<complex[]>(bodyData);
-  const [searchTerm, setSearchTerm] = useState<string>("");
   const [totalResult, setTotalResult] = useState(totalData);
   const [loading, setLoading] = useState(false);
   const [addClass, setAddClass] = useState<string>("");
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [selectedSupportId, setSelectedSupportId] = useState<string | null>(null);
+  const [selectedCloseReqId, setSelectedCloseReqId] = useState<string | null>(null);
 
   const rowsPerPage = 10;
 
-  const handleClickOpen = (userId: string) => {
-    setSelectedUserId(userId);
+  const handleClickOpen = (id: string) => {
+    setSelectedSupportId(id);
     setOpen(true);
   };
 
+  const handleClickOpenCloseReq = (id: string) => {
+    setSelectedCloseReqId(id);
+    setOpenclosepopup(true);
+  }
+
   const handleClose = () => setOpen(false);
-
-  const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchQuery = e.target.value;
-    setSearchTerm(searchQuery);
-
-    try {
-      setLoading(true);
-      setAddClass("add_blur");
-      const bodyData = {
-        currentPage: currentPage,
-        limit: 10,
-        role: role,
-        search: searchQuery,
-      };
-      setLoading(true);
-
-      const response = await userApi(bodyData);
-      if (response?.status === 200) {
-        setLoading(false);
-        setTotalResult(response?.users?.totalResults);
-        setSortOrderData(response?.users?.users);
-        setAddClass("");
-      }
-    } catch (err) {
-      console.error("Failed to fetch data", err);
-    }
-  };
+  const handleCloseRequestPopup = () => setOpenclosepopup(false);
 
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const response = await deleteUser(selectedUserId);
-      if (response?.status === 200) {
+      const response = await deleteSupport(selectedSupportId);
         toast.success(response.message);
         setOpen(false);
-        // Refresh data
         const bodyData = {
           currentPage: currentPage,
           limit: rowsPerPage,
-          role: role,
-          search: searchTerm,
+          status: status,
         };
-        const refreshResponse = await userApi(bodyData);
-        if (refreshResponse?.status === 200) {
-          setSortOrderData(refreshResponse?.users?.users);
-          setTotalResult(refreshResponse?.users?.totalResults);
-        }
+        const refreshResponse = await supportList(bodyData);
+        setSortOrderData(refreshResponse?.supportData?.viewSupport);
+        setTotalResult(refreshResponse?.supportData?.totalResults);
         setLoading(false);
-      }
     } catch (err) {
-      console.error("Failed to delete user", err);
+      console.error("Failed to delete support", err);
       setLoading(false);
     }
   };
+
+  const handleCloseRequest = async() => {
+    setLoading(true);
+    try {
+      const payload = {
+        status: 'Closed'
+      }
+      const response = await closeSupportRequest(selectedCloseReqId, payload);
+        toast.success(response.message);
+        setOpenclosepopup(false);
+        const bodyData = {
+          currentPage: currentPage,
+          limit: rowsPerPage,
+          status: status,
+        };
+        const refreshResponse = await supportList(bodyData);
+        setSortOrderData(refreshResponse?.supportData?.viewSupport);
+        setTotalResult(refreshResponse?.supportData?.totalResults);
+        setLoading(false);
+    } catch (err) {
+      console.error("Failed to close support request", err);
+      setLoading(false);
+    }
+  }
   
   const handleSort = async (field: string) => {
     try {
       const bodyData = {
         currentPage: currentPage,
         limit: 10,
-        role: role,
-        search: searchTerm,
+        status: status,
       };
-      const response = await userApi(bodyData);
+      const response = await supportList(bodyData);
       if (response?.status === 200) {
-        setSortOrderData(response?.users?.users);
-      }
-    } catch (err) {
-      console.error("Failed to fetch data", err);
-    } finally {
-    }
-  };
-
-  const clearSearch = async () => {
-    setSearchTerm("");
-    try {
-      setAddClass("add_blur");
-      const bodyData = {
-        page: 1,
-        currentPage: 1,
-        role: role,
-        search: "",
-      };
-      setLoading(true);
-      const response = await userApi(bodyData);
-      if (response?.status === 200) {
-        setSortOrderData(response?.users?.users);
-        setLoading(false);
-        setAddClass("");
+        setSortOrderData(response?.supportData?.viewSupport);
       }
     } catch (err) {
       console.error("Failed to fetch data", err);
@@ -156,20 +126,16 @@ const CustomTable: React.FC<Itable> = ({
   ) => {
     setCurrentPage(page);
     setLoading(true);
-    // alert(page)
     try {
       setAddClass("add_blur");
       const bodyData = {
         currentPage: page,
         limit: rowsPerPage,
-        role: role,
-        search: searchTerm,
+        status: status,
       };
-
-      const response = await userApi(bodyData);
-
+      const response = await supportList(bodyData);
       if (response?.status === 200) {
-        setSortOrderData(response?.users?.users);
+        setSortOrderData(response?.supportData?.viewSupport);
         setLoading(false);
         setAddClass("");
       }
@@ -178,16 +144,13 @@ const CustomTable: React.FC<Itable> = ({
     }
   };
   const ucwords = (str: string): string => {
-    // Special case handling for FirstName
-    const exceptions = ["FirstName"];
-
+    const exceptions = ["fullName"];
     return str
       .split(" ")
       .map((word) => {
         if (exceptions.includes(word)) {
-          return word; // Leave it as it is if it's in the exceptions list
+          return word;
         }
-        // Capitalize first letter of each word unless it's in exceptions
         return word.replace(/\b\w/g, (char: string) => char.toUpperCase());
       })
       .join(" ");
@@ -203,50 +166,6 @@ const CustomTable: React.FC<Itable> = ({
         className={`${dataTable.datatablemainwrap} ${
           addClass ? dataTable[addClass] : ""
         }`}>
-        <div
-          className={dataTable.searchwrap}
-          style={{
-            marginBottom: "20px",
-            display: "flex",
-            justifyContent: "flex-start",
-            position: "relative",
-            marginTop: "20px",
-          }}
-        >
-          <input
-            type='text'
-            placeholder='Search...'
-            value={searchTerm}
-            onChange={handleSearchChange}
-            style={{
-              padding: "8px 12px",
-              borderRadius: "10px",
-              border: "1px solid #ccc",
-              maxWidth: "350px",
-              height: "50px",
-              width: "100%",
-              marginLeft: "auto",
-            }}
-          />
-          {searchTerm && (
-            <button
-              onClick={clearSearch}
-              style={{
-                position: "absolute",
-                right: "10px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                fontSize: "16px",
-                color: "#999",
-              }}
-            >
-              &times;
-            </button>
-          )}
-        </div>
 
         <TableContainer className={dataTable.tbodymain} component={Paper}>
           <Table
@@ -269,10 +188,10 @@ const CustomTable: React.FC<Itable> = ({
             </TableHead>
 
             <TableBody className={dataTable.tbodywrap}>
-              {(sortOrderData as IUsersRoleTable[]).map(
-                (row: IUsersRoleTable) => (
+              {(sortOrderData as IUsersSupportTable[]).map(
+                (row: IUsersSupportTable) => (
                   <TableRow
-                    key={row.id}
+                    key={row?._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell
@@ -280,57 +199,38 @@ const CustomTable: React.FC<Itable> = ({
                       component='th'
                       scope='row'
                     >
-                      {row?.fullName}
+                    {row?.userId?.fullName}
                     </TableCell>
-                    <TableCell align='left'>{row?.email}</TableCell>
-                    <TableCell align='left'>{row?.about?.gender}</TableCell>
-                    <TableCell align='left'>{row?.about?.location}</TableCell>
+                    <TableCell align='left'>{row?.userId?.email}</TableCell>
+                    <TableCell align='left'>{row?.subject}</TableCell>
+                    <TableCell align='left'>{row?.message}</TableCell>
                     <TableCell
                       className={
-                        row.isVerfied === true
+                        row.status === 'Closed'
                           ? dataTable.approved
-                          : row.isVerfied === false
+                          : row.status === 'Pending'
                             ? dataTable.pending
                             : ""
                       }
                       align='left'
                     >
-                    <p>{row.isVerfied ? "Verified" : "Not Verified"}</p>
+                      <p>{row.status}</p>
                     </TableCell>
 
                     <TableCell align='left'>
                       <div className={dataTable.actionwrap}>
-                      <Link to={`/admin/users/${row.id}`}>
-                          <p className={dataTable.edit}>
-                            <FontAwesomeIcon
-                              icon={faEye}
-                              style={{
-                                color: "#fff",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                fontSize: "20px",
-                              }}
-                            />
-                          </p>
-                        </Link>
-                        <Link to={`/admin/addUser/${row.id}`}>
-                          <p className={dataTable.edit}>
-                            <FontAwesomeIcon
-                              icon={faPencilAlt}
-                              style={{
-                                color: "#fff",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                fontSize: "20px",
-                              }}
-                            />
-                          </p>
-                        </Link>
+                      {row.status === 'Pending' && (
+                        <p
+                            className={dataTable.edit}
+                            onClick={() => handleClickOpenCloseReq(row._id)}
+                        >
+                            <img src={closeSupport} alt="Close Request" />
+                        </p>
+                        )}
+
                         <p
                           className={dataTable.delete}
-                          onClick={() => handleClickOpen(row.id)}
+                          onClick={() => handleClickOpen(row._id)}
                         >
                           <img src={del} alt='Delete' />
                         </p>
@@ -385,6 +285,7 @@ const CustomTable: React.FC<Itable> = ({
         </Stack>
       </div>
 
+    {/*Delete confirmation popup*/}
       <Dialog
         sx={{
           "& .MuiPaper-root": {
@@ -414,7 +315,7 @@ const CustomTable: React.FC<Itable> = ({
             fontWeight: "700",
           }}
         >
-          {t("Delete User")}
+          {t("Delete Request")}
         </DialogTitle>
         <DialogContent>
           <DialogContentText
@@ -425,7 +326,7 @@ const CustomTable: React.FC<Itable> = ({
               fontSize: "16px",
             }}
           >
-            {t("Are you sure you want to delete this user?")}
+            {t("Are you sure you want to delete this support request?")}
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
@@ -437,6 +338,62 @@ const CustomTable: React.FC<Itable> = ({
           </Button>
         </DialogActions>
       </Dialog>
+
+
+       {/*Close request popup*/}
+       <Dialog
+        sx={{
+          "& .MuiPaper-root": {
+            borderRadius: "35px",
+            overflowY: "inherit",
+            padding: "40px",
+            maxWidth: "562px",
+          },
+        }}
+        maxWidth='md'
+        fullWidth
+        className={dataTable.custommodal}
+        open={openclosepopup}
+        onClose={handleClose}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+      >
+        <div className={dataTable.modalimg}>
+          <img src={delt} alt='Close Request Confirmation' />
+        </div>
+        <DialogTitle
+          id='alert-dialog-title'
+          style={{
+            textAlign: "center",
+            fontSize: "32px",
+            color: "#000",
+            fontWeight: "700",
+          }}
+        >
+          {t("Close Request")}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText
+            id='alert-dialog-description'
+            style={{
+              textAlign: "center",
+              color: "#676767",
+              fontSize: "16px",
+            }}
+          >
+            {t("Are you sure you want to close this support request?")}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions style={{ justifyContent: "center" }}>
+          <Button onClick={handleCloseRequestPopup} className={dataTable.canclebtn}>
+            {t("Cancel")}
+          </Button>
+          <Button onClick={handleCloseRequest} className={dataTable.dltbtn}>
+            {t("Close")}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </div>
   );
 };

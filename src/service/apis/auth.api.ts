@@ -15,6 +15,11 @@ type ResetPasswordData = {
   cpassword: string;
 };
 
+type changePasswordData = {
+  password_old: string;
+  password_new: string;
+};
+
 export const logInApi = catchAsync(async (values: LoginData) => {
   try {
     const data = await httpsCall.post(`admin/login`, values);
@@ -37,6 +42,13 @@ export const forgotPasswordApi = catchAsync(
 export const resetPasswordApi = catchAsync(
   async (values: ResetPasswordData) => {
     const data = await httpsCall.patch(`admin/reset-password`, values);
+    return data;
+  }
+);
+
+export const changePasswordApi = catchAsync(
+  async (values: changePasswordData) => {
+    const data = await httpsCall.patch(`admin/profile/change-password`, values);
     return data;
   }
 );
