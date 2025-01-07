@@ -60,7 +60,7 @@ function Support() {
   }, [status]);
 
   return (
-    <section>
+    <section className="support-page">
       {/* Tab Navigation */}
       <Box className={tabwrap.boxWrap}>
         <Tabs
