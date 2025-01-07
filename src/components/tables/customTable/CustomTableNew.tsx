@@ -194,7 +194,7 @@ const CustomTable: React.FC<Itable> = ({
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative" }} className="dsp">
       {loading ? (
         <LoadingSpinner /> // Show loading spinner while data is loading
       ) : null}
@@ -204,7 +204,7 @@ const CustomTable: React.FC<Itable> = ({
           addClass ? dataTable[addClass] : ""
         }`}>
         <div
-          className={dataTable.searchwrap}
+          className="searchwrap"
           style={{
             marginBottom: "20px",
             display: "flex",
@@ -247,7 +247,7 @@ const CustomTable: React.FC<Itable> = ({
             </button>
           )}
         </div>
-
+<div className="usertabledata">
         <TableContainer className={dataTable.tbodymain} component={Paper}>
           <Table
             sx={{ minWidth: 1000 }}
@@ -350,6 +350,7 @@ const CustomTable: React.FC<Itable> = ({
             </TableBody>
           </Table>
         </TableContainer>
+        </div>
 
         <Stack
           spacing={2}

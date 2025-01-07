@@ -118,6 +118,7 @@ function Profile() {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList
+                   className="profilenavlist"
                     autoFocusItem={open}
                     id='composition-menu'
                     aria-labelledby='composition-button'

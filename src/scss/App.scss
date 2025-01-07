@@ -35,6 +35,56 @@
     border-radius: 50px !important;
     border: 0 none !important;
 }
+.sidebar-logo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    background: linear-gradient(#3a3c3f, #292d2f);
+}
+.sidebar-logo img {width: auto;}
+._sidebar_13x4y_7._sidebar_close_13x4y_29 .sidebar-logo img { width: 45px;}
+
+.blockuserpopup  .MuiPaper-root { position: relative;overflow-y: inherit;text-align: center;  display: flex
+; align-items: center;}
+.VerifyUser{width: 118px;
+    height: 118px;
+    border: 5px solid green;
+    border-radius: 50%;
+    padding: 20px;
+    margin: -59px auto 0px;
+    background-color: #fff;}
+.blockuser {
+    width: 118px;
+    height: 118px;
+    border: 5px solid #ff0e24;
+    border-radius: 50%;
+    padding: 20px;
+    margin: -59px auto 0px;
+    background-color: #fff;
+}
+button.btn-cancel{background: linear-gradient(180deg, #e5b15f, #b37a4f);
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+    padding: 8px 25px;
+    border-radius: 50px;
+    border: none;}
+    button.btn-cancel:hover{background: linear-gradient(180deg, #b37a4f, #e5b15f);}
+    button.btn{background:red !important; cursor: pointer;font-weight: bold;color: #fff;padding: 8px 25px;border-radius: 50px;border: none;}
+    button.btn:hover{background: rgb(150, 0, 0) !important;}
+    .blockuserpopup  .MuiPaper-root h2{font-size: 30px; margin: 20px 0;}
+
+    button.confirm{ background:green;
+        cursor: pointer;
+        font-weight: bold;
+        color: #fff;
+        padding: 8px 25px;
+        border-radius: 50px;
+        border: none;}
+        button.confirm:hover{background: rgb(0, 75, 0);}
+
 
 
 html[theme=light] ._sidebar_13x4y_7 {  background-color:var(--yellow);}
@@ -93,6 +143,7 @@ html[theme=dark] ._topNav_left_menu_icon_i9cq4_21 { color: #ffffff;}
 html[theme=dark] h4, html[theme=dark] h2.title, html[theme=dark] h2  { color: #fff;}
 html[theme=dark] .css-1usuzwp-MuiButtonBase-root-MuiTab-root {  color: #fff !important;}
 html[theme=dark] ._myprofilewrapper_ffxls_7{ background-color: #404548; color: #ffffff;}
+html[theme=dark] .dashboard-holder p { color: #fff;}
 
 .css-1uzppds-control { margin-bottom: 1rem;}
 
@@ -138,6 +189,16 @@ html[theme=dark] ._myprofilewrapper_ffxls_7{ background-color: #404548; color: #
     padding:0 0 10px; display: block;
     white-space: nowrap;
   }
+input, select {color: #000;}
+.top-header .MuiPopper-root.css-51we07-MuiPopper-root { z-index: 2;}
+.top-header ul.profilenavlist li {    font-size: 14px !important;}
+
+.usertabledata > div {
+    overflow-x: hidden;
+}
 
 
 
+@media only screen and (max-width:1440px) {
+  body *{font-size: 14px;}  
+}

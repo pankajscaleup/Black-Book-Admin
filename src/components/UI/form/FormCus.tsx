@@ -7,6 +7,8 @@ import { RootState } from "../../../store/store";
 import { useProfileUpdate } from "./useProfileUpdate";
 import Select from "react-select";
 
+import React, { useState } from 'react';
+
 const FormCus = () => {
       const { addProfileFormik } = useProfileUpdate();
     const user = useSelector((state: RootState) => state.authSlice.user);
@@ -27,9 +29,43 @@ const FormCus = () => {
       }
     }, [user]);
 
+
+    const [file, setFile] = useState(null);
+    function handleChange(e) {
+        const selectedFile = e.target.files ? e.target.files[0] : null;
+        if (selectedFile) {
+            setFile(URL.createObjectURL(selectedFile));
+        }
+    }
+    useEffect(() => {
+        return () => {
+            if (file) {
+                URL.revokeObjectURL(file); // Clean up the object URL
+            }
+        };
+    }, [file]);
+
+
+
   return (
+
+
     <div className={form.myprofilewrapper}>
       <div className='profile-card profileform'>
+      <div className="profile-picture-upload">
+        <h2>profile-picture-upload</h2>
+        
+        <div className="uploadimage">
+            <input type="file" accept="image/*" onChange={handleChange} />
+            {file && (
+                <img 
+                    src={file} 
+                    alt="Uploaded Preview" 
+                    style={{ marginTop: '10px', maxWidth: '100%' }} 
+                />
+            )}
+        </div>
+        </div>
         <form onSubmit={addProfileFormik.handleSubmit} autoComplete='off'>
           <div className={form.profileform}>
             <div className={form.profileformcol}>

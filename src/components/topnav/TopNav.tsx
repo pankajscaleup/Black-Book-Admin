@@ -17,6 +17,7 @@ function TopNav() {
   }
 
   return (
+    <div className="top-header">
     <div className={classes.topNav}>
       <div className={classes.topNav_left}>
         <div
@@ -43,6 +44,7 @@ function TopNav() {
       <div className={classes.search_tablet_wrapper}>
         <SearchBox />
       </div>
+    </div>
     </div>
   );
 }
