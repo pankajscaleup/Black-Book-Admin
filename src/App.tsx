@@ -53,6 +53,11 @@ const AddPage = React.lazy(
   () => import("./pages/admin/AddPage")
 );
 
+const Settings = React.lazy(
+  () => import("./pages/admin/Settings")
+);
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -65,6 +70,7 @@ function App() {
               <Route path='/admin/profile' element={<FormCus />} />
               <Route path='/admin/changePassword' element={<ChangePass/>} />
               <Route path='/admin/support' element={<Support/>} />
+              <Route path='/admin/settings' element={<Settings/>} />
 
               <Route path='/admin/dashboard' element={<DashboardPage />}/>
               <Route path='/admin/users' element={<Users />} />
