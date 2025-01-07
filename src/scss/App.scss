@@ -35,6 +35,56 @@
     border-radius: 50px !important;
     border: 0 none !important;
 }
+.sidebar-logo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    background: linear-gradient(#3a3c3f, #292d2f);
+}
+.sidebar-logo img {width: auto;}
+._sidebar_13x4y_7._sidebar_close_13x4y_29 .sidebar-logo img { width: 45px;}
+
+.blockuserpopup  .MuiPaper-root { position: relative;overflow-y: inherit;text-align: center;  display: flex
+; align-items: center;}
+.VerifyUser{width: 118px;
+    height: 118px;
+    border: 5px solid green;
+    border-radius: 50%;
+    padding: 20px;
+    margin: -59px auto 0px;
+    background-color: #fff;}
+.blockuser {
+    width: 118px;
+    height: 118px;
+    border: 5px solid #ff0e24;
+    border-radius: 50%;
+    padding: 20px;
+    margin: -59px auto 0px;
+    background-color: #fff;
+}
+button.btn-cancel{background: linear-gradient(180deg, #e5b15f, #b37a4f);
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+    padding: 8px 25px;
+    border-radius: 50px;
+    border: none;}
+    button.btn-cancel:hover{background: linear-gradient(180deg, #b37a4f, #e5b15f);}
+    button.btn{background:red !important; cursor: pointer;font-weight: bold;color: #fff;padding: 8px 25px;border-radius: 50px;border: none;}
+    button.btn:hover{background: rgb(150, 0, 0) !important;}
+    .blockuserpopup  .MuiPaper-root h2{font-size: 30px; margin: 20px 0;}
+
+    button.confirm{ background:green;
+        cursor: pointer;
+        font-weight: bold;
+        color: #fff;
+        padding: 8px 25px;
+        border-radius: 50px;
+        border: none;}
+        button.confirm:hover{background: rgb(0, 75, 0);}
+
 
 
 html[theme=light] ._sidebar_13x4y_7 {  background-color:var(--yellow);}
@@ -87,12 +137,13 @@ html[theme=dark] label, html[theme=dark] ._myprofilewrapper_1uzdr_7 h2 { color: 
 }
 
 html[theme=dark] ._topNav_i9cq4_7 {  border-bottom: 3px solid #283036;}
-html[theme=dark] ._myprofilewrapper_572mm_7, html[theme=dark] ._card_1n477_7, html[theme=dark] ._datatablemainwrap_1cntq_89, html[theme=dark] ._myprofilewrapper_18l68_7, html[theme=dark]  ._myprofilewrapper_jhiyt_7 {  background-color: #404548; color: #ffffff;}
+html[theme=dark] ._myprofilewrapper_572mm_7, html[theme=dark] ._card_1n477_7, html[theme=dark] ._datatablemainwrap_1cntq_89, html[theme=dark]  ._myprofilewrapper_jhiyt_7, html[theme=dark] ._myprofilewrapper_18l68_7, html[theme=dark] ._datatablemainwrap_e8l5f_106 {  background-color: #404548; color: #ffffff;}
 html[theme=dark] ._tbodymain_1cntq_35 thead tr th, html[theme=dark] ._tbodymain_1cntq_35 tbody tr td, html[theme=dark] ._tbodymain_1cntq_35 tbody tr th {  background-color: #283036; color: #ffffff;}
 html[theme=dark] ._topNav_left_menu_icon_i9cq4_21 { color: #ffffff;}
 html[theme=dark] h4, html[theme=dark] h2.title, html[theme=dark] h2  { color: #fff;}
 html[theme=dark] .css-1usuzwp-MuiButtonBase-root-MuiTab-root {  color: #fff !important;}
 html[theme=dark] ._myprofilewrapper_ffxls_7{ background-color: #404548; color: #ffffff;}
+html[theme=dark] .dashboard-holder p { color: #fff;}
 
 .css-1uzppds-control { margin-bottom: 1rem;}
 
@@ -101,12 +152,29 @@ html[theme=dark] ._myprofilewrapper_ffxls_7{ background-color: #404548; color: #
     height: 300px;
     border-radius: 0; border:solid 2px #eee;
   }
+  .img-holder-holder {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
   .img-holder-inner {
     max-width: 300px;
     width: 100%;border:solid 2px #eee;
-    height: 300px;
+    height: 200px;
+}
+.selfie-img {
+    width: 250px;
+    height: 275px;
+    overflow: hidden;
+    box-shadow: 1px 5px 10px;
+    border: solid 2px #fff;
 }
 
+.selfie-img img {
+    object-fit: cover; object-position: top;
+    width: 100%;
+    height: 100%;
+}
 .img-holder-inner img {
     object-fit: cover;
     width: 100%;
@@ -125,9 +193,11 @@ html[theme=dark] ._myprofilewrapper_ffxls_7{ background-color: #404548; color: #
 ._form__control_q5eei_7 > div span {
     position: absolute;
     right: 15px;
-    top: 15px;
+    top: 53px;
 }
-
+form.login-form ._form__control_q5eei_7 > div span {
+    top: 13px !important;
+}
 ._container_1ymyc_11 { background: #292C31 url(../src/assets/images/body-bg.png) no-repeat center right !important;}
 
 ._form__control_q5eei_7 label {
@@ -138,6 +208,48 @@ html[theme=dark] ._myprofilewrapper_ffxls_7{ background-color: #404548; color: #
     padding:0 0 10px; display: block;
     white-space: nowrap;
   }
+input, select {color: #000;}
+.top-header .MuiPopper-root.css-51we07-MuiPopper-root { z-index: 2;}
+.top-header ul.profilenavlist li {    font-size: 14px !important;}
+
+.usertabledata > div { overflow-x: hidden;}
+.uploadimage {
+    display: flex;
+    align-items: center; margin-bottom: 30px;
+    gap: 20px; margin-left: 30px;
+}
+button.btn.upbtn { background: #1e2529 !important;}
+.upimg img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;border: solid 2px #fff;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.uploadimage, .upbtn { position: relative;}
+.upbtn input.choosefile {
+    position: absolute;
+    left: 0;
+    right: 0;z-index: 9;
+    opacity: 0;
+    bottom: 0;
+    top: 0;
+}
+.change-password-form ._form__control_q5eei_7 label { display: none;}
+.change-password-form ._form__control_q5eei_7 div span { top: 15px;}
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, textarea:-webkit-autofill, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus, select:-webkit-autofill, select:-webkit-autofill:hover, select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+    border: 0 none !important;
+}
+html[theme=dark] ._form__control_q5eei_7 input { outline: #000; background-color: #fff;}
+html[theme=dark] .change-password-form ._form__control_q5eei_7 div span { color: #000;}
+.custom-select.css-b62m3t-container * {color: #000 !important;}
+p.w-100 { width: 100%;  display: block;}
+.search-list .MuiPaper-root , .support-page .MuiPaper-root { overflow-x: inherit;}
 
 
-
+@media only screen and (max-width:1440px) {
+  body *{font-size: 14px;}  
+}

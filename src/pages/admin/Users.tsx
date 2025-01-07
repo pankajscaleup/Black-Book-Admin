@@ -65,7 +65,7 @@ function Customers() {
   }, [role]);
 
   return (
-    <section>
+    <section className="users-pages">
       {/* Tab Navigation */}
       <Box className={tabwrap.boxWrap}>
         <Tabs

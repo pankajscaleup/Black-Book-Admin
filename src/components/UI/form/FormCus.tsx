@@ -6,30 +6,51 @@ import { useSelector } from 'react-redux';
 import { RootState } from "../../../store/store";
 import { useProfileUpdate } from "./useProfileUpdate";
 import Select from "react-select";
+import Avatar from "../../../../src/assets/images/avatar.jpg";
+
+
 
 const FormCus = () => {
-      const { addProfileFormik } = useProfileUpdate();
-    const user = useSelector((state: RootState) => state.authSlice.user);
-    useEffect(() => {
-      if (user) {
-        addProfileFormik.setValues({
-          fullName: user.fullName || "",
-          email: user.email || "",
-          age: user.about?.age || "",
-          location: user.about?.location || "",
-          gender: user.about?.gender
-            ? { value: user.about.gender, label: user.about.gender }
-            : null,
-          interestedIn: user.about?.interestedIn
-            ? { value: user.about.interestedIn, label: user.about.interestedIn }
-            : null,
-        });
-      }
-    }, [user]);
+  const { addProfileFormik } = useProfileUpdate();
+  const user = useSelector((state: RootState) => state.authSlice.user);
+  useEffect(() => {
+    if (user) {
+      addProfileFormik.setValues({
+        fullName: user.fullName || "",
+        email: user.email || "",
+        age: user.about?.age || "",
+        location: user.about?.location || "",
+        gender: user.about?.gender
+          ? { value: user.about.gender, label: user.about.gender }
+          : null,
+        interestedIn: user.about?.interestedIn
+          ? { value: user.about.interestedIn, label: user.about.interestedIn }
+          : null,
+      });
+    }
+  }, [user]);
+
+
+
+
+
 
   return (
+
+
     <div className={form.myprofilewrapper}>
       <div className='profile-card profileform'>
+        <div className="profile-picture-upload">
+          <div className="uploadimage">
+            <div className="upimg">
+              <img src={Avatar} alt='Avatar' />
+            </div>
+            <div className="upbtn">
+              <input className="choosefile" type="file" accept="image/*" />
+              <button className="btn upbtn">Upload Picture</button>
+            </div>
+          </div>
+        </div>
         <form onSubmit={addProfileFormik.handleSubmit} autoComplete='off'>
           <div className={form.profileform}>
             <div className={form.profileformcol}>
@@ -117,7 +138,7 @@ const FormCus = () => {
                 <label htmlFor='Name'>
                   Gender <span style={{ color: "red" }}>*</span>
                 </label>
-                <Select
+                <Select className="custom-select"
                   placeholder='Select Gender'
                   options={[
                     { value: "Male", label: "Male" },
@@ -149,7 +170,7 @@ const FormCus = () => {
                 <label htmlFor='Name'>
                   Interested In <span style={{ color: "red" }}>*</span>
                 </label>
-                <Select
+                <Select className="custom-select"
                   placeholder='Interested In'
                   options={[
                     { value: "Male", label: "Male" },
@@ -167,6 +188,7 @@ const FormCus = () => {
                       height: "58px",
                       borderRadius: "100px",
                       padding: "10px 12px",
+                      color: "#000000" ,
                     }),
                   }}
                 />
@@ -181,7 +203,6 @@ const FormCus = () => {
           </div>
           <button className={form.upbtn}>Save</button>
         </form>
-        
       </div>
     </div>
   );

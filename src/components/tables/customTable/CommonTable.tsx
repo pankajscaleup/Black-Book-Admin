@@ -211,7 +211,7 @@ const CustomTable: React.FC<commonItable> = ({
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative" }} className="search-list">
     
 
       <div

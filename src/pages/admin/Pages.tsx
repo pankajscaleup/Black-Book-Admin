@@ -82,7 +82,7 @@ function Pages() {
   }
 
   return (
-    <section>
+    <section className="search-pages-holder">
       {/* Tab Navigation */}
       
      

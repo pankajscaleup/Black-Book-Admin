@@ -146,7 +146,7 @@ const AddUser = () => {
                 <label htmlFor='Name'>
                   Gender <span style={{ color: "red" }}>*</span>
                 </label>
-                <Select
+                <Select className="custom-select"
                   placeholder='Select Gender'
                   options={[
                     { value: "Male", label: "Male" },
@@ -180,7 +180,7 @@ const AddUser = () => {
                 <label htmlFor='Name'>
                   Interested In <span style={{ color: "red" }}>*</span>
                 </label>
-                <Select
+                <Select className="custom-select"
                   placeholder='Interested In'
                   options={[
                     { value: "Male", label: "Male" },
@@ -249,7 +249,7 @@ const AddUser = () => {
                 <label htmlFor='Name'>
                   Select Role <span style={{ color: "red" }}>*</span>
                 </label>
-                <Select
+                <Select className="custom-select"
                   placeholder='Select Role'
                   options={[
                     { value: "admin", label: "Admin" },

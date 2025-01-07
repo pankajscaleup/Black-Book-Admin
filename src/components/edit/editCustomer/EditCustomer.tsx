@@ -103,16 +103,10 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
 
                 <TabPanel value="1">
                   <div className="verification-wrap">
-                    <div className="img-wrapper">
-                      <h4>User ID</h4>
-                      <div className="img-holder-inner">
-                        <img
-                          className="id-image"
-                          src={props.customer?.verification?.verificationId ? props.customer?.verification?.verificationId: ''}/></div>
-                    </div>
+                    
                     <div className="selfie-wrapper no-round">
                       <h4>Selfie</h4>
-                      <div className={classes.img_wrapper}>
+                      <div className="selfie-img">
                           <img
                             className={classes.avatar}
                             src={props.customer?.verification?.selfie ? props.customer?.verification?.selfie: ''}/>
@@ -121,7 +115,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                     <div className="social-wrapper">
                       <h4>Social Links</h4>
                       <div className={classes.account__contact__email}>
-                        <Icon icon="fontisto:facebook" width="24" />
+                        <Icon color="#316FF6" icon="fontisto:facebook" width="24" height="24" />
                         <a 
                           href={props.customer?.socialLinks?.facebooklink} 
                           target="_blank" 
@@ -131,7 +125,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                         </a>
                       </div>
                       <div className={classes.account__contact__email}>
-                        <Icon icon="fontisto:instagram" width="24" />
+                        <Icon color="rgb(255, 51, 0)" icon="fontisto:instagram" width="24" height="24" />
                         <a 
                           href={props.customer?.socialLinks?.instagramlink} 
                           target="_blank" 
@@ -141,7 +135,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                         </a>
                       </div>
                       <div className={classes.account__contact__email}>
-                        <Icon icon="fontisto:twitter" width="24" />
+                        <Icon color="#3d9dee" icon="fontisto:twitter" width="24" height="24" />
                         <a 
                           href={props.customer?.socialLinks?.twitterlink} 
                           target="_blank" 
@@ -150,6 +144,16 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                           {props.customer?.socialLinks?.twitterlink}
                         </a>
                       </div>
+                    </div>
+                    <div className="img-wrapper">
+                      <h4>User ID</h4>
+                      <div className="img-holder-holder">
+                      <div className="img-holder-inner">
+                        <img
+                          className="id-image"
+                          src={props.customer?.verification?.verificationId ? props.customer?.verification?.verificationId: ''}/>
+                          </div>
+                          </div>
                     </div>
                   </div>
                 </TabPanel>
@@ -174,7 +178,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                         <p><strong>Drinking :</strong> {props.customer?.about?.drinking?.name} </p>
                         <p><strong>Relationship Status :</strong> {props.customer?.about?.relationshipStatus?.name} </p>
                         <p><strong>Interest :</strong> {props.customer?.about?.interest}</p>
-                        <p><strong>Bio :</strong> {props.customer?.about?.bio} </p>
+                        <p className="w-100"><strong>Bio :</strong> {props.customer?.about?.bio} </p>
                       </div>
                       <></>
                     </div>

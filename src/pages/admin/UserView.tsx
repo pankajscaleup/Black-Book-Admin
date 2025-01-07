@@ -12,6 +12,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
+import Block from "../../../src/assets/images/block.png";
+import VerifyUser from "../../../src/assets/images/Verify-User.png";
 
 function CustomerEdit() {
   const { t } = useTranslation();
@@ -126,14 +128,16 @@ function CustomerEdit() {
 
       {/* Block/Unblock Dialog */}
       <Dialog
+       className="blockuserpopup"
         open={!!openDialog}
         onClose={() => setOpenDialog(null)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle>
+        <div className="blockuser"><img src={Block} alt='Block' /></div>
+        <h2>
           {openDialog === "block" ? t("Block User") : t("Unblock User")}
-        </DialogTitle>
+        </h2>
         <DialogContent>
           <DialogContentText>
             {openDialog === "block"
@@ -142,8 +146,8 @@ function CustomerEdit() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDialog(null)}>{t("Cancel")}</Button>
-          <Button
+          <Button className="btn-cancel" onClick={() => setOpenDialog(null)}>{t("Cancel")}</Button>
+          <Button className="btn"
             onClick={() => handleAction(openDialog as "block" | "unblock")}
             autoFocus
           >
@@ -154,14 +158,16 @@ function CustomerEdit() {
 
       {/* Verify/Unverify Dialog */}
       <Dialog
+      className="blockuserpopup"
         open={!!openvDialog}
         onClose={() => setOpenvDialog(null)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle>
+        <div className="VerifyUser"><img src={VerifyUser} alt='VerifyUser' /></div>
+        <h2>
           {openvDialog === "verified" ? t("Verify User") : t("Unverify User")}
-        </DialogTitle>
+        </h2>
         <DialogContent>
           <DialogContentText>
             {openvDialog === "verified"
@@ -170,8 +176,8 @@ function CustomerEdit() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenvDialog(null)}>{t("Cancel")}</Button>
-          <Button
+          <Button className="btn-cancel" onClick={() => setOpenvDialog(null)}>{t("Cancel")}</Button>
+          <Button className="confirm"
             onClick={() =>
               handleVerificationAction(openvDialog as "verified" | "unverified")
             }

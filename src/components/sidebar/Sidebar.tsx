@@ -46,7 +46,7 @@ function Sidebar() {
 
   return (
     <div className={`${classes.sidebar} ${!isOpen && classes.sidebar_close}`}>
-      <div className={classes.sidebar__logo}>
+      <div className="sidebar-logo">
         <img src={images.logo} alt='digikala' />
       </div>
       <div className={classes.sidebar__menu}>
