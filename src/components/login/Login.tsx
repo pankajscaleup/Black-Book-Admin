@@ -44,7 +44,7 @@ function LoginBox() {
             <h2 className={classes.title} style={{ textAlign: "center" }}>
               {t("loginPage")}
             </h2>
-            <form onSubmit={loginFormik.handleSubmit}>
+            <form onSubmit={loginFormik.handleSubmit} className="login-form">
               <Input
                 type={"text"}
                 id='email'

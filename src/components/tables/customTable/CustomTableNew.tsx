@@ -411,7 +411,7 @@ const CustomTable: React.FC<Itable> = ({
           style={{
             textAlign: "center",
             fontSize: "32px",
-            color: "#000",
+            color: "red",
             fontWeight: "700",
           }}
         >
@@ -430,10 +430,10 @@ const CustomTable: React.FC<Itable> = ({
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
-          <Button onClick={handleClose} className={dataTable.canclebtn}>
+          <Button onClick={handleClose} className="btn-cancel">
             {t("Cancel")}
           </Button>
-          <Button onClick={handleDelete} className={dataTable.dltbtn}>
+          <Button onClick={handleDelete} className="btn">
             {t("Delete")}
           </Button>
         </DialogActions>
