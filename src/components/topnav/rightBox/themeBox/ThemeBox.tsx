@@ -20,9 +20,14 @@ function ThemeBox() {
     >
       <div
         className={`${classes.toggle} ${
+
           theme === "dark" ? classes.darkMode : ""
-        }`}
-      ></div>
+          
+        } theme-change`}
+      >
+        <div className="moon"></div>
+        <div className="sun"></div>
+      </div>
     </div>
   );
 }
