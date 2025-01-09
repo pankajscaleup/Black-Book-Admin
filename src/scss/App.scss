@@ -247,16 +247,14 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
     box-shadow: 0 0 0 0 !important;
     border: 0 none !important;
 }
+html[theme=dark] svg.svg-inline--fa.fa-eye { color: #000;}
 html[theme=dark] ._form__control_q5eei_7 input { outline: #000; background-color: #fff;}
 html[theme=dark] .change-password-form ._form__control_q5eei_7 div span { color: #000;}
 .custom-select.css-b62m3t-container * {color: #000 !important;}
 p.w-100 { width: 100%;  display: block;}
 .search-list .MuiPaper-root , .support-page .MuiPaper-root { overflow-x: inherit;}
-input#email {
-    background: #fff !important;
-    color: #000 !important;
-}
-input#password_old, input#password_new, input#cpassword {  width: 100%;  }
+input#email {    background: #fff !important; color: #000 !important;}
+input#password_old, input#password_new, input#cpassword {  width: 100%; background: #e9effd;  }
 .css-1l5xwdx-MuiButtonBase-root-MuiPaginationItem-root:hover {
     background-color: rgb(235 61 89) !important;
     color: #fff !important;
@@ -276,7 +274,7 @@ input#password_old, input#password_new, input#cpassword {  width: 100%;  }
 #myprofilewrapper, #editprofile{background-color: #E4AF5F;}
 
 
-.login-form .passwordlabel span {position: absolute; right: 15px;  top: 40px;}
+.login-form .passwordlabel span {position: absolute; right: 15px;  top: 7px;}
 
 
 
