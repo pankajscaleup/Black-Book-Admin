@@ -30,8 +30,9 @@ function ForgotPassBox() {
         <h2 className={classes.title} style={{ textAlign: "center" }}>
           {t("Forgot Password")}
         </h2>
-        <form onSubmit={forgotPassFormik.handleSubmit}>
+        <form id="forgotPassword" onSubmit={forgotPassFormik.handleSubmit}>
           <Input
+          classes="passwordlabel"
             type={"text"}
             id='email'
             placeholder={"Enter your email address"}

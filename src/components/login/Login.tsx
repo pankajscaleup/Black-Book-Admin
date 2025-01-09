@@ -46,6 +46,7 @@ function LoginBox() {
             </h2>
             <form onSubmit={loginFormik.handleSubmit} className="login-form">
               <Input
+              classes="passwordlabel"
                 type={"text"}
                 id='email'
                 placeholder={"Enter your email address"}
