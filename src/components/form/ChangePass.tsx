@@ -27,15 +27,16 @@ function ChangePass() {
   };
 
   return (
-    <div className={form.myprofilewrapper}>
+    <div className={form.myprofilewrapper} id="myprofilewrapper">
       <div className='change-password-form'>
         <form onSubmit={changePasswordFormik.handleSubmit}>
           <div className="row">
             <div className="col-4">
               <label htmlFor='password_old'>
-                Old Password <span style={{ color: "red" }}>*</span>
+                Old Password <span id="errorfield" style={{ color: "red" }}>*</span>
               </label>
               <Input
+              classes="passwordlabel"
                 type="text"
                 id='password_old'
                 placeholder={t("Enter your old password")}
@@ -48,9 +49,10 @@ function ChangePass() {
             <div className="col-4">
 
               <label htmlFor='password_new'>
-                New Password <span style={{ color: "red" }}>*</span>
+                New Password <span id="errorfield" style={{ color: "red" }}>*</span>
               </label>
               <Input
+              classes="passwordlabel"
                 type={isPasswordVisible ? "text" : "password"}
                 id='password_new'
                 placeholder={t("Enter your new password")}
@@ -70,9 +72,10 @@ function ChangePass() {
             <div className="col-4">
 
               <label htmlFor='password_confirm'>
-                Confirm Password <span style={{ color: "red" }}>*</span>
+                Confirm Password <span id="errorfield" style={{ color: "red" }}>*</span>
               </label>
               <Input
+              classes="passwordlabel"
                 type={isCPasswordVisible ? "text" : "password"}
                 id='cpassword'
                 placeholder={t("Enter your confirm password")}

@@ -441,10 +441,10 @@ const CustomTable: React.FC<commonItable> = ({
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
-          <Button onClick={handleClose} className={dataTable.canclebtn}>
+          <Button onClick={handleClose} className="btn-cancel">
             {t("Cancel")}
           </Button>
-          <Button onClick={() => handleDelete?.(selectedId)}  className={dataTable.dltbtn}>
+          <Button onClick={() => handleDelete?.(selectedId)}  className="btn">
             {t("Delete")}
           </Button>
         </DialogActions>

@@ -9,6 +9,7 @@
       height: 40px;
       border-radius: 50%;
       margin-right: 10px;
+
     }
   }
   .actionwrap {
@@ -23,6 +24,10 @@
     border-radius: 50%;
     margin-right: 15px;
     cursor: pointer;
+    @media screen and (max-width: 1440px) {
+      width: 30px; height: 30px;padding: 6px;display: flex;align-items: center; justify-content: center;
+      & svg{font-size: 12px !important;}
+    }
   }
   .delete {
     background-color: #ff0000;
@@ -31,6 +36,9 @@
     padding: 9px;
     border-radius: 50%;
     cursor: pointer;
+    @media screen and (max-width: 1440px) {
+      width: 30px; height: 30px;padding: 6px;
+    }
   }
 }
 .tbodymain {
@@ -137,7 +145,7 @@
   font-weight: 600 !important;
   border-radius: 10px !important;
   padding: 18px 58px !important;
-  font-size: 16px !important;
+  font-size: 16px !important;line-height: 1;
 }
 .approved p {
   background-color: #dcffd9;
@@ -146,7 +154,7 @@
   font-size: 14px;
   font-weight: 500 !important;
   border-radius: 100px;
-  padding: 10px;
+  padding: 10px;line-height: 1;
 }
 .pending p {
   background-color: #c8f2ff;
@@ -155,7 +163,7 @@
   font-size: 14px;
   font-weight: 500 !important;
   border-radius: 100px;
-  padding: 10px;
+  padding: 10px;line-height: 1;
 }
 .rejected p {
   background-color: #ffdede;

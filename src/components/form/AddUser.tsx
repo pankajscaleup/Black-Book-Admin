@@ -50,7 +50,7 @@ const AddUser = () => {
   }, [id]);
 
   return (
-    <div className={form.myprofilewrapper }>
+    <div id="editprofile" className={form.myprofilewrapper }>
       <div className='profile-card'>
         <div className={form.profile_flex}>
         <h2>{id ? "Update User" : "Add User"}</h2>
@@ -67,6 +67,7 @@ const AddUser = () => {
                   Full Name <span style={{ color: "red" }}>*</span>
                 </label>
                 <Input
+                  classes="passwordlabel"
                   type={"text"}
                   id='fullName'
                   placeholder={"Enter your full name"}
@@ -89,6 +90,7 @@ const AddUser = () => {
                   Email <span style={{ color: "red" }}>*</span>
                 </label>
                 <Input
+                classes="passwordlabel"
                   type={"text"}
                   id='email'
                   placeholder={"Enter your email address"}
@@ -108,6 +110,7 @@ const AddUser = () => {
                   Age <span style={{ color: "red" }}>*</span>
                 </label>
                 <Input
+                classes="passwordlabel"
                   type={"text"}
                   id='age'
                   placeholder={"Enter your age"}
@@ -127,6 +130,7 @@ const AddUser = () => {
                   Location <span style={{ color: "red" }}>*</span>
                 </label>
                 <Input
+                classes="passwordlabel"
                   type={"text"}
                   id='location'
                   placeholder={"Enter your location"}
@@ -216,6 +220,7 @@ const AddUser = () => {
                   Password <span style={{ color: "red" }}>*</span>
                 </label>
                 <Input
+                classes="passwordlabel updateUser"
                   type={isPasswordVisible ? "text" : "password"}
                   id='password'
                   placeholder={"Enter your password"}
@@ -230,7 +235,7 @@ const AddUser = () => {
                       style={{
                         cursor: "pointer",
                         position: "absolute",
-                        bottom: "14px",
+                        bottom: "10px",
                         transform: "translateY(-50%)",
                         right: "15px",
                       }}
@@ -280,7 +285,7 @@ const AddUser = () => {
           {loading ? (
             <LoadingSpinner />
           ) : (
-            <button className={form.upbtn}>Save</button>
+            <div className={form.profileformcol}> <button className={form.upbtn}>Save</button></div>
           )}
         </form>
       </div>

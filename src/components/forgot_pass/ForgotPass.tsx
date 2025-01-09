@@ -14,6 +14,7 @@ function ForgotPassBox() {
   const { t } = useTranslation();
 
   return (
+    <div className="forgot-password">
     <div className={`${classes.container} ${lang === "fa" ? classes.rtl : ""}`}>
       <div className={classes.loginBox}>
         <div
@@ -45,6 +46,7 @@ function ForgotPassBox() {
           </Link>
         </form>
       </div>
+    </div>
     </div>
   );
 }

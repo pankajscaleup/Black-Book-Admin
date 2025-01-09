@@ -6,6 +6,9 @@
   padding: 0.8rem 3rem;
   cursor: pointer;
   margin: 0 0.5rem;
+  @media screen and (max-width: 1440px) {
+    padding: 0.5rem 3rem;
+  }
 }
 
 .button {

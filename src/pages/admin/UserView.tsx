@@ -127,6 +127,14 @@ function CustomerEdit() {
 
       {/* Block/Unblock Dialog */}
       <Dialog
+      sx={{
+        "& .MuiPaper-root": {
+          borderRadius: "35px",
+          overflowY: "inherit",
+          padding: "40px",
+          maxWidth: "562px",
+        },
+      }}
        className="blockuserpopup"
         open={!!openDialog}
         onClose={() => setOpenDialog(null)}
@@ -157,6 +165,14 @@ function CustomerEdit() {
 
       {/* Verify/Unverify Dialog */}
       <Dialog
+      sx={{
+        "& .MuiPaper-root": {
+          borderRadius: "35px",
+          overflowY: "inherit",
+          padding: "40px",
+          maxWidth: "562px",
+        },
+      }}
       className="blockuserpopup"
         open={!!openvDialog}
         onClose={() => setOpenvDialog(null)}

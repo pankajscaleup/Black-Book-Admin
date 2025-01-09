@@ -63,7 +63,7 @@ const FormCus = () => {
   }
 
   return (
-    <div className={form.myprofilewrapper}>
+    <div id="editprofile" className={form.myprofilewrapper}>
       <div className='profile-card profileform'>
 
         <div className="profile-picture-upload">
@@ -93,6 +93,7 @@ const FormCus = () => {
                   Full Name <span style={{ color: "red" }}>*</span>
                 </label>
                 <Input
+                classes="passwordlabel"
                   type={"text"}
                   id='fullName'
                   placeholder={"Enter your full name"}
@@ -115,6 +116,7 @@ const FormCus = () => {
                   Email <span style={{ color: "red" }}>*</span>
                 </label>
                 <Input
+                classes="passwordlabel"
                   type={"text"}
                   id='email'
                   placeholder={"Enter your email address"}
@@ -134,6 +136,7 @@ const FormCus = () => {
                   Age <span style={{ color: "red" }}>*</span>
                 </label>
                 <Input
+                classes="passwordlabel"
                   type={"text"}
                   id='age'
                   placeholder={"Enter your age"}
@@ -153,6 +156,7 @@ const FormCus = () => {
                   Location <span style={{ color: "red" }}>*</span>
                 </label>
                 <Input
+                classes="passwordlabel"
                   type={"text"}
                   id='location'
                   placeholder={"Enter your location"}
@@ -171,7 +175,7 @@ const FormCus = () => {
               <div className='formgrp'>
                 <label htmlFor='Name'>
                   Gender <span style={{ color: "red" }}>*</span>
-                </label>
+                </label>                
                 <Select className="custom-select"
                   placeholder='Select Gender'
                   options={[
