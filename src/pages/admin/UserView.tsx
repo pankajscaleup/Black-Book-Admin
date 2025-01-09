@@ -7,7 +7,6 @@ import classes from "../../../src/components/edit/editCustomer/EditCustomer.modu
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
 import { userDetails, updateActiveStatus, updateVerificationStatus } from "../../service/apis/user.api";
 import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";

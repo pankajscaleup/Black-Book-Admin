@@ -55,6 +55,7 @@ function LoginBox() {
                 errorMsg={loginFormik.errors.email}
               />
               <Input
+                classes="passwordlabel"
                 type={isPasswordVisible ? "text" : "password"}
                 id={"password"}
                 placeholder={"Enter your password"}

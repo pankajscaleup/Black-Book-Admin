@@ -135,6 +135,8 @@ html[theme=dark] label, html[theme=dark] ._myprofilewrapper_1uzdr_7 h2 { color: 
     align-items: center;
     gap: 10px;
 }
+html[theme=dark] #myprofilewrapper, html[theme=dark] #editprofile{background-color: #404548; color: #ffffff;}
+
 
 html[theme=dark] .MuiDialog-container h2, html[theme=dark] .MuiDialog-container p{color: #000;}
 
@@ -268,12 +270,26 @@ input#password_old, input#password_new, input#cpassword {  width: 100%;  }
 ._toggle_17zk4_23._darkMode_17zk4_33 { left: 2px;}
 
 .mb-3 { margin-bottom: 1.5rem;}
+.formgrp ._form__control_1u9oh_7 label { display: none;  }
+.change-password-form .passwordlabel div > span {  position: absolute; right: 15px;top: 7px;}
+.passwordlabel label { display: none !important;}
+#myprofilewrapper, #editprofile{background-color: #E4AF5F;}
+
+
+.login-form .passwordlabel span {position: absolute; right: 15px;  top: 40px;}
+
+
+
+
+
+
+
 
 
 @media only screen and (max-width:1440px) {
   body *{font-size: 14px;}  
   .css-1usuzwp-MuiButtonBase-root-MuiTab-root { min-height: auto !important; font-size: 12px!important; padding: 10px 16px!important;}
-  .css-1uzppds-control {
+  .css-1uzppds-control, .css-18jm9ph-control {
     height: 40px !important;
     padding: 0 12px !important;
   }
@@ -283,5 +299,11 @@ input#password_old, input#password_new, input#cpassword {  width: 100%;  }
     top: 47px;
 }
 .css-lvsl95-MuiPagination-root .MuiPaginationItem-page, .css-matdfy-MuiPagination-root .MuiPaginationItem-page { width: 35px !important;  height: 35px !important;}
-  
+.change-password-form ._form__control_1u9oh_7 label { display: none;}
+.change-password-form .passwordlabel span {
+    right: 7px;
+    top: 7px;
+}
+
+
 }

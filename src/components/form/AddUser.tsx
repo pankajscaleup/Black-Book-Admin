@@ -280,7 +280,7 @@ const AddUser = () => {
           {loading ? (
             <LoadingSpinner />
           ) : (
-            <button className={form.upbtn}>Save</button>
+            <div className={form.profileformcol}> <button className={form.upbtn}>Save</button></div>
           )}
         </form>
       </div>
