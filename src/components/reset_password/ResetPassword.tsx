@@ -43,8 +43,9 @@ function ResetPasswordBox() {
         <h2 className={classes.title} style={{ textAlign: "center" }}>
           {t("Reset Password")}
         </h2>
-        <form onSubmit={resetPasswordFormik.handleSubmit}>
+        <form id="resetpassword" onSubmit={resetPasswordFormik.handleSubmit}>
         <Input
+        classes="passwordlabel"
             type="text"
             id='otp'
             placeholder={t("Enter your OTP")}
@@ -55,6 +56,7 @@ function ResetPasswordBox() {
           />
 
           <Input
+           classes="passwordlabel"
             type={isPasswordVisible ? "text" : "password"}
             id='password'
             placeholder={t("Enter your password")}
@@ -72,6 +74,7 @@ function ResetPasswordBox() {
           />
 
           <Input
+           classes="passwordlabel"
             type={isCPasswordVisible ? "text" : "password"}
             id='cpassword'
             placeholder={t("Enter your confirm password")}

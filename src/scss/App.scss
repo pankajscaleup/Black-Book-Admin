@@ -309,8 +309,14 @@ input#password_old, input#password_new, input#cpassword {  width: 100%; backgrou
     margin-top: 20px;
     min-height: 180px;
 }
-
-
+#resetpassword .passwordlabel div > span {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+}
+.login-form .passwordlabel, #resetpassword .passwordlabel, #forgotPassword .passwordlabel {
+    margin-bottom: 1rem !important;
+}
 
 
 @media only screen and (max-width:1440px) {
