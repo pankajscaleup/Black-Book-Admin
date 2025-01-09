@@ -82,7 +82,7 @@ function Faqs() {
   }
 
   return (
-    <section>
+    <section className="editprofile">
       {/* Tab Navigation */}
       <Box className="addfaq mb-3">
         <ButtonBase className={tabwrap.adduserbtn} onClick={() => navigate('/admin/faq/add')}>ADD FAQ</ButtonBase>

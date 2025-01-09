@@ -22,7 +22,7 @@ const AddFaq = () => {
     },[addFaqFormik]);
 
   return (
-    <div className={form.myprofilewrapper}>
+    <div id="editprofile" className={form.myprofilewrapper}>
       <div className='profile-card'>
         <div className={form.profile_flex}>
         <h2>{id ? "Update Faq" : "Add Faq"}</h2>

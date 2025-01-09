@@ -19,7 +19,7 @@ const AddPage = () => {
     
   },[addPageFormik]);
   return (
-    <div className={form.myprofilewrapper}>
+    <div id="updatePage" className={form.myprofilewrapper}>
       <div className='profile-card'>
         <div className={form.profile_flex}>
         <h2>{id ? "Update Page" : "Add Page"}</h2>

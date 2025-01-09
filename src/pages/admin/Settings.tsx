@@ -8,8 +8,9 @@ import Card from "../../components/UI/card/Card";
 import classes from "../../components/edit/editCustomer/EditCustomer.module.scss";
 import withRole from "../withRole";
 import form from "./formcus.module.scss";
-
 import TextField from '@mui/material/TextField';
+import Avatar from "../../assets/images/avatar.jpg";
+
 
 
 function Settings() {
@@ -17,6 +18,7 @@ function Settings() {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
 
   return (
     <div className={classes.user_acc}>
@@ -36,21 +38,61 @@ function Settings() {
                   <TabPanel value="1">
                     <div className="header-wrap">
                       <h1>Tab 1</h1>
-                      <p>Upload Header logo</p>
+                      <form  className='upload-setting-logo'>
+                        <label>Upload Header Logo</label>
+                        <div className="upload-logo-file">
+                          <div className="uploadimage">
+                            <div className="upload-logo">
+                              <img src={Avatar} alt="Avatar" />
+                            </div>
+                            <div className="upbtn">
+                              <input
+                                className="choosefile"
+                                type="file"
+                                accept="image/*"
+                              />
+                              <button className="btn upbtn">
+                                Upload Picture
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
                     </div>
                   </TabPanel>
 
                   <TabPanel value="2">
                     <div className="footer-wrap">
                       <h1>Tab 2</h1>
+                      <p>Upload Footer Logo</p>
+                      <form className='upload-setting-logo'>
+                        <div className="upload-logo-file">
+                          <div className="uploadimage">
+                            <div className="upload-logo">
+                              <img src={Avatar} alt="Avatar" />
+                            </div>
+                            <div className="upbtn">
+                              <input
+                                className="choosefile"
+                                type="file"
+                                accept="image/*"
+                              />
+                              <button className="btn upbtn">
+                                Upload Picture
+                              </button>
+                            </div>
+                          </div>
+                        </div>
 
-                      <p>Upload footer logo</p>
-                      <form>                      
-                     <div className='formgrp'><input type="text" placeholder='copyright text here' /></div>
-                     <div className='formgrp'> <textarea name="" id="" placeholder='description text here' /></div>
-                     </form>
+                        <div className='formgrp'>
+                          <input type="text" placeholder='copyright text here' />
+                        </div>
+                        <div className='formgrp'>
+                          <textarea name="" id="" placeholder='description text here' />
+                        </div>
+                      </form>
 
-                     
+
 
                     </div>
                   </TabPanel>
