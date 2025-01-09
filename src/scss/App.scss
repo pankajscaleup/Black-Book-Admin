@@ -136,8 +136,10 @@ html[theme=dark] label, html[theme=dark] ._myprofilewrapper_1uzdr_7 h2 { color: 
     gap: 10px;
 }
 
+html[theme=dark] .MuiDialog-container h2, html[theme=dark] .MuiDialog-container p{color: #000;}
+
 html[theme=dark] ._topNav_i9cq4_7 {  border-bottom: 3px solid #283036;}
-html[theme=dark] ._myprofilewrapper_572mm_7, html[theme=dark] ._card_1n477_7, html[theme=dark] ._datatablemainwrap_1cntq_89, html[theme=dark]  ._myprofilewrapper_jhiyt_7, html[theme=dark] ._myprofilewrapper_18l68_7, html[theme=dark] ._datatablemainwrap_e8l5f_106 {  background-color: #404548; color: #ffffff;}
+html[theme=dark] ._myprofilewrapper_572mm_7, html[theme=dark] ._card_1n477_7, html[theme=dark] ._datatablemainwrap_1cntq_89, html[theme=dark]  ._myprofilewrapper_jhiyt_7, html[theme=dark] ._myprofilewrapper_18l68_7, html[theme=dark] ._datatablemainwrap_e8l5f_106, html[theme=dark] ._myprofilewrapper_clzag_7, html[theme=dark] ._datatablemainwrap_1umkn_126, html[theme=dark] ._myprofilewrapper_asocr_7 {  background-color: #404548; color: #ffffff;}
 html[theme=dark] ._tbodymain_1cntq_35 thead tr th, html[theme=dark] ._tbodymain_1cntq_35 tbody tr td, html[theme=dark] ._tbodymain_1cntq_35 tbody tr th {  background-color: #283036; color: #ffffff;}
 html[theme=dark] ._topNav_left_menu_icon_i9cq4_21 { color: #ffffff;}
 html[theme=dark] h4, html[theme=dark] h2.title, html[theme=dark] h2  { color: #fff;}
@@ -259,6 +261,27 @@ input#password_old, input#password_new, input#cpassword {  width: 100%;  }
 }
 
 
+._toggle_17zk4_23._darkMode_17zk4_33.theme-change .sun { display: none;}
+._toggle_17zk4_23.theme-change .moon { display: none;}
+._toggle_17zk4_23._darkMode_17zk4_33.theme-change .moon{display: block;}
+._toggle_17zk4_23, ._themeBox_17zk4_7 { background-color: transparent; position: relative; margin: 0;}
+._toggle_17zk4_23._darkMode_17zk4_33 { left: 2px;}
+
+.mb-3 { margin-bottom: 1.5rem;}
+
+
 @media only screen and (max-width:1440px) {
   body *{font-size: 14px;}  
+  .css-1usuzwp-MuiButtonBase-root-MuiTab-root { min-height: auto !important; font-size: 12px!important; padding: 10px 16px!important;}
+  .css-1uzppds-control {
+    height: 40px !important;
+    padding: 0 12px !important;
+  }
+  ._form__control_q5eei_7 > div span {
+    position: absolute;
+    right: 10px;
+    top: 47px;
+}
+.css-lvsl95-MuiPagination-root .MuiPaginationItem-page, .css-matdfy-MuiPagination-root .MuiPaginationItem-page { width: 35px !important;  height: 35px !important;}
+  
 }
