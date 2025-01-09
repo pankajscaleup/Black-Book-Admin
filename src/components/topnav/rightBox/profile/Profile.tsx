@@ -3,7 +3,6 @@ import { images } from "../../../../constants";
 import classes from "./Profile.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
-import { useTranslation } from "react-i18next";
 import Button from "@mui/material/Button";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
@@ -20,7 +19,6 @@ import { logOut } from "../../../../store/auth.store";
 import { Link, useNavigate } from "react-router-dom";
 
 function Profile() {
-  //const { t } = useTranslation();
   const user = useSelector((state: RootState) => state.authSlice.user);
   const dispatch = useDispatch();
   const { width } = useWindowSize();
@@ -91,11 +89,10 @@ function Profile() {
           onClick={handleToggle}
         >
           <div className={classes.profile__avatar}>
-            <img src={images.avt} alt='avatar' />
+            <img src={user?.profileimageurl || images.noimage} alt="avatar" />
           </div>
           <div className={classes.profile__info}>
             <p className={classes.profile__userName}>{user?.fullName}</p>
-            {/*<span className={classes.profile__role}>{t("admin")}</span> */}
           </div>
         </Button>
         <Popper

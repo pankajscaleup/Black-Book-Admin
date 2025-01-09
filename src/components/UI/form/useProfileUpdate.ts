@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { updateProfile } from "../../../service/apis/user.api";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../store/auth.store";
@@ -16,7 +14,6 @@ interface FormValues {
   interestedIn: { value: string; label: string } | null;
 }
 export const useProfileUpdate = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const validationSchema = yup.object({

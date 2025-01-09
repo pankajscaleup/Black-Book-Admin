@@ -1,18 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Input from "../input/Input";
 import form from "./formcus.module.scss";
-import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { RootState } from "../../../store/store";
 import { useProfileUpdate } from "./useProfileUpdate";
 import Select from "react-select";
 import Avatar from "../../../../src/assets/images/avatar.jpg";
-
-
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../store/auth.store";
+import toast from "react-hot-toast";
+import { updateProfileImage } from "../../../service/apis/user.api";
 
 const FormCus = () => {
   const { addProfileFormik } = useProfileUpdate();
   const user = useSelector((state: RootState) => state.authSlice.user);
+  const [preview, setPreview] = useState(Avatar);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (user) {
       addProfileFormik.setValues({
@@ -27,30 +31,60 @@ const FormCus = () => {
           ? { value: user.about.interestedIn, label: user.about.interestedIn }
           : null,
       });
+      setPreview(user.profileimageurl);
     }
   }, [user]);
 
+  const handleFileChange = (event:any) => {
+    const file = event.target.files[0];
+    if (file) {
+      setPreview(URL.createObjectURL(file)); // Update preview
+      handleUpload(file);
+    }
+  };
 
-
-
-
+  const handleUpload = async (file:any) => {
+    console.log(file);
+    if (!file) {
+      alert("Please select an image file first.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("profileimageurl", file);
+    try {
+      const response = await updateProfileImage(formData);
+      console.log(response);
+      toast.success("Profile image updated successfully");
+      dispatch(setUser(response.userData));
+    } catch (error) {
+      toast.error("An error occurred while updating the profile.");
+    } finally {
+    }
+  }
 
   return (
-
-
     <div className={form.myprofilewrapper}>
       <div className='profile-card profileform'>
+
         <div className="profile-picture-upload">
           <div className="uploadimage">
             <div className="upimg">
-              <img src={Avatar} alt='Avatar' />
+              <img src={preview} alt="Avatar" />
             </div>
             <div className="upbtn">
-              <input className="choosefile" type="file" accept="image/*" />
-              <button className="btn upbtn">Upload Picture</button>
+              <input
+                className="choosefile"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+              <button className="btn upbtn">
+                Upload Picture
+              </button>
             </div>
           </div>
         </div>
+
         <form onSubmit={addProfileFormik.handleSubmit} autoComplete='off'>
           <div className={form.profileform}>
             <div className={form.profileformcol}>

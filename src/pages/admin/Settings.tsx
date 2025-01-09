@@ -24,34 +24,20 @@ function Settings() {
                 <TabContext value={value}>
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
-                      <Tab label="Verification" value="1" />
-                      <Tab label="Personal Details" value="2" />
-                      <Tab label="Unlock Media" value="3" />
-                      <Tab label="Private Content" value="4" />
+                      <Tab label="Header" value="1" />
+                      <Tab label="Footer" value="2" />
                     </TabList>
                   </Box>
 
                   <TabPanel value="1">
-                    <div className="verification-wrap">
+                    <div className="header-wrap">
                       <h1>Tab 1</h1>
                     </div>
                   </TabPanel>
 
                   <TabPanel value="2">
-                    <div className="verification-wrap">
+                    <div className="footer-wrap">
                       <h1>Tab 2</h1>
-                    </div>
-                  </TabPanel>
-
-                  <TabPanel value="3">
-                    <div className="media-wrapper">
-                      <h1>Tab 3</h1>
-                    </div>
-                  </TabPanel>
-
-                  <TabPanel value="4">
-                    <div className="content-wrapper">
-                      <h1>Tab 4</h1>
                     </div>
                   </TabPanel>
                 </TabContext>

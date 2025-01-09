@@ -28,6 +28,13 @@ const sidebarNav = [
     role: ["admin"],
   },
   {
+    link: "/admin/testimonial",
+    section: "testimonial",
+    icon: "mdi:format-quote-close",  //width:"20"
+    text: "Testimonial",
+    role: ["admin"],
+  },
+  {
     link: "/admin/withdrawal",
     section: "withdrawals",
     icon: "tabler:currency-dollar", //width:"20"

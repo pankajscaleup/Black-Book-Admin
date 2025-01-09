@@ -8,6 +8,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import { images } from "../../../constants";
 
 
 const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
@@ -32,9 +33,11 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
           <Card>
             <div className={classes.account}>
               <div className={classes.img_wrapper}>
-                  <img
-                    className={classes.avatar}
-                    src={props.customer?.profileimageurl ? props.customer?.profileimageurl: ''}/>
+              <img
+                  className={classes.avatar}
+                  src={props.customer?.profileimageurl || images.noimage}
+                  alt="avatar"
+                />
               </div>
               <div className={classes.account__info}>
                 <h4>Account Details</h4>
@@ -109,7 +112,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                       <div className="selfie-img">
                           <img
                             className={classes.avatar}
-                            src={props.customer?.verification?.selfie ? props.customer?.verification?.selfie: ''}/>
+                            src={props.customer?.verification?.selfie || images.noimage}/>
                       </div>
                     </div>
                     <div className="social-wrapper">
@@ -121,7 +124,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                           target="_blank" 
                           rel="noopener noreferrer"
                         >
-                          {props.customer?.socialLinks?.facebooklink}
+                          {props.customer?.socialLinks?.facebooklink ? props.customer?.socialLinks?.facebooklink: 'NA'}
                         </a>
                       </div>
                       <div className={classes.account__contact__email}>
@@ -131,7 +134,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                           target="_blank" 
                           rel="noopener noreferrer"
                         >
-                          {props.customer?.socialLinks?.instagramlink}
+                          {props.customer?.socialLinks?.instagramlink ? props.customer?.socialLinks?.instagramlink: 'NA'}
                         </a>
                       </div>
                       <div className={classes.account__contact__email}>
@@ -141,7 +144,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                           target="_blank" 
                           rel="noopener noreferrer"
                         >
-                          {props.customer?.socialLinks?.twitterlink}
+                          {props.customer?.socialLinks?.twitterlink ? props.customer?.socialLinks?.twitterlink: 'NA'}
                         </a>
                       </div>
                     </div>
@@ -151,7 +154,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                       <div className="img-holder-inner">
                         <img
                           className="id-image"
-                          src={props.customer?.verification?.verificationId ? props.customer?.verification?.verificationId: ''}/>
+                          src={props.customer?.verification?.verificationId || images.noid}/>
                           </div>
                           </div>
                     </div>
