@@ -92,7 +92,7 @@ function ChangePass() {
                 }
               />
             </div>
-            <div className="col-6">
+            <div className="col-4">
               <Button type='submit'>{t("Save")}</Button>
             </div>
           </div>
