@@ -274,7 +274,7 @@ input#password_old, input#password_new, input#cpassword {  width: 100%; backgrou
 #myprofilewrapper, #editprofile, #updatePage{background-color: #E4AF5F;}
 
 
-.login-form .passwordlabel span {position: absolute; right: 15px;  top: 7px;}
+.login-form .passwordlabel div > span {position: absolute; right: 15px;  top: 7px;}
 
 .upload-logo img {
     width: 250px;
@@ -312,11 +312,15 @@ input#password_old, input#password_new, input#cpassword {  width: 100%; backgrou
 #resetpassword .passwordlabel div > span {
     position: absolute;
     right: 10px;
-    top: 8px;
+    top: 32px;
 }
 .login-form .passwordlabel, #resetpassword .passwordlabel, #forgotPassword .passwordlabel {
     margin-bottom: 1rem !important;
 }
+.login-form .passwordlabel label , form#forgotPassword .passwordlabel label  {display: block !important;}
+form#resetpassword .passwordlabel label{display: block !important; color: #fff !important;}
+.login-form .passwordlabel input#password { background: #fff;}
+
 
 
 @media only screen and (max-width:1440px) {
@@ -337,6 +341,7 @@ input#password_old, input#password_new, input#cpassword {  width: 100%; backgrou
     right: 7px;
     top: 7px;
 }
-
+.login-form .passwordlabel div > span {    top: 40px;
+}
 
 }

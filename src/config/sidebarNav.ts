@@ -28,10 +28,10 @@ const sidebarNav = [
     role: ["admin"],
   },
   {
-    link: "/admin/testimonial",
-    section: "testimonial",
+    link: "/admin/testimonials",
+    section: "testimonials",
     icon: "mdi:format-quote-close",  //width:"20"
-    text: "Testimonial",
+    text: "Testimonials",
     role: ["admin"],
   },
   {

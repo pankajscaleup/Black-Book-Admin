@@ -27,3 +27,9 @@ export const adminSupportHeader = [
   "Status",
   "Actions",
 ];
+
+export const testimonialHeader = {
+  title: "Title",
+  createdAt: "Date",
+  actions: "Actions",
+};

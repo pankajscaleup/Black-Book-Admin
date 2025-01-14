@@ -44,7 +44,6 @@ const FormCus = () => {
   };
 
   const handleUpload = async (file:any) => {
-    console.log(file);
     if (!file) {
       alert("Please select an image file first.");
       return;
@@ -53,7 +52,6 @@ const FormCus = () => {
     formData.append("profileimageurl", file);
     try {
       const response = await updateProfileImage(formData);
-      console.log(response);
       toast.success("Profile image updated successfully");
       dispatch(setUser(response.userData));
     } catch (error) {

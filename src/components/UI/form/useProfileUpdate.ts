@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { updateProfile } from "../../../service/apis/user.api";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../store/auth.store";
+import { updateProfileImage } from "../../../service/apis/user.api";
 
 interface FormValues {
   fullName: string;
