@@ -237,7 +237,7 @@ const AddUser = () => {
                         position: "absolute",
                         bottom: "10px",
                         transform: "translateY(-50%)",
-                        right: "15px",
+                        right: "15px",                        
                       }}
                     />
                   }

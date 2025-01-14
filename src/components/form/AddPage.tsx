@@ -56,11 +56,9 @@ const AddPage = () => {
                     height: 300,
                     menubar: false,
                     plugins: 'preview importcss searchreplace autolink directionality code visualblocks visualchars fullscreen link table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
-                    toolbar:
-                        "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | pagebreak anchor codesample | ltr rtl",
+                    toolbar: "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | pagebreak anchor codesample | ltr rtl",
                     placeholder: 'Enter job description here...',
-                    block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3'
-                    
+                    block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3'                    
                   }}
                   onEditorChange={(content) => {
                     addPageFormik.setFieldValue('description', content);
@@ -80,7 +78,7 @@ const AddPage = () => {
           {loading ? (
             <LoadingSpinner />
           ) : (
-            <button className={form.upbtn}>{id ? "Update" : "Save"}</button>
+            <button className={form.upbtn} style={{marginLeft:"30px", marginTop: "20px"}}>{id ? "Update" : "Save"}</button>
           )}
         </form>
       </div>
