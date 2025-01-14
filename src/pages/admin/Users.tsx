@@ -53,6 +53,7 @@ function Customers() {
     const roleMapping: Record<string, string> = {
       seeker: 'seeker',
       model: 'model',
+      admin: 'admin'
     };
 
     // Get the role based on the selected tab, or a default if not found
@@ -90,6 +91,11 @@ function Customers() {
           <Tab
             label='Model'
             value='model'
+            className={tabwrap.tablistw}
+          />
+          <Tab
+            label='Admin'
+            value='admin'
             className={tabwrap.tablistw}
           />
           

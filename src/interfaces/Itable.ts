@@ -26,7 +26,7 @@ export interface IUsersSupportTable {
 }
 
 export type complex =
-  | IUsersRoleTable | IFaqTable | IUsersSupportTable
+  | IUsersRoleTable | IFaqTable | IUsersSupportTable | ITestTable
 
   export interface IStable {
     limit?: number;
@@ -80,3 +80,10 @@ export interface IFaqTable {
   question: string;
   createdAt: any;
 }
+
+export interface ITestTable {
+  _id: string;
+  createdAt: any;
+  title: string;
+}
+

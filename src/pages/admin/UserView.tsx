@@ -13,6 +13,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import Block from "../../../src/assets/images/block.png";
 import VerifyUser from "../../../src/assets/images/Verify-User.png";
+import toast from "react-hot-toast";
 
 function CustomerEdit() {
   const { t } = useTranslation();
@@ -48,8 +49,9 @@ function CustomerEdit() {
     setActionLoading(true);
     try {
       const isActive = action === "unblock"; // true for unblock, false for block
-      await updateActiveStatus(id, { isActive });
+      const response = await updateActiveStatus(id, { isActive });
       setCustomerData((prev) => prev && { ...prev, isActive });
+      toast.success(response.message);
     } catch (err) {
       setError(`Failed to ${action} user`);
     } finally {
@@ -62,8 +64,9 @@ function CustomerEdit() {
     setActionVLoading(true);
     try {
       const isVerfied = action === "verified"; // true for verified, false for unverified
-      await updateVerificationStatus(id, { isVerfied });
+      const response = await updateVerificationStatus(id, { isVerfied });
       setCustomerData((prev) => prev && { ...prev, isVerfied });
+      toast.success(response.message);
     } catch (err) {
       setError(`Failed to ${action} user`);
     } finally {

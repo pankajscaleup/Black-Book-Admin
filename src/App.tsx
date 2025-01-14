@@ -7,6 +7,7 @@ import LoadingSpinner from "./components/UI/loadingSpinner/LoadingSpinner";
 import DataTable from "./components/UI/dataTable/DataTable";
 import FormCus from "./components/UI/form/FormCus";
 import ChangePass from "./components/form/ChangePass";
+import Testimonials from "./pages/admin/Testimonials";
 import "./scss/App.scss";
 
 const NotFound = React.lazy(() => import("./pages/NotFound"));
@@ -57,6 +58,10 @@ const Settings = React.lazy(
   () => import("./pages/admin/Settings")
 );
 
+const AddTestimonial = React.lazy(
+  () => import("./pages/admin/AddTestimonial")
+);
+
 
 function App() {
   return (
@@ -80,6 +85,8 @@ function App() {
               <Route path='/admin/faq/:type/:id?' element={<AddFaq />} />
               <Route path='/admin/pages' element={<Pages />}/>
               <Route path='/admin/page/edit/:id?' element={<AddPage />} />
+              <Route path='/admin/testimonials' element={<Testimonials/>} />
+              <Route path='/admin/testimonial/:type/:id?' element={<AddTestimonial />} />
               
             </Route>
           </Route>
