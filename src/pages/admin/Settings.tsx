@@ -124,7 +124,6 @@ const handleSaveSettings = async (e: React.FormEvent) => {
 };
 
   return (
-    <div className='setting-form'>
     <div className={classes.user_acc}>
       <div className={classes.edit__container}>
         <div className={classes.edit__left}>
@@ -217,7 +216,6 @@ const handleSaveSettings = async (e: React.FormEvent) => {
           </Card>
         </div>
       </div>
-    </div>
     </div>
   );
 }

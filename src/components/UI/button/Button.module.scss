@@ -2,10 +2,10 @@
 
 .btn {
   font: inherit;
-  border-radius: 50px;
+  border-radius: $smallBorderRadius;
   padding: 0.8rem 3rem;
   cursor: pointer;
-  margin-top: 10px;
+  margin: 0 0.5rem;
   @media screen and (max-width: 1440px) {
     padding: 0.5rem 3rem;
   }
@@ -15,6 +15,7 @@
   border: none;
   background: linear-gradient(180deg, #e5b15f, #b37a4f);
     color: var(--white);
+
   &:hover,
   &:active {
     background: linear-gradient(180deg, #b37a4f, #e5b15f);

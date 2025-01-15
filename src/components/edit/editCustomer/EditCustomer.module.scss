@@ -87,7 +87,7 @@
   font-weight: 400 !important;
   margin-top: 10px;
   cursor: pointer;
-  //margin-left: 30px;
+  margin-left: 30px;
   @media screen and (max-width: 1440px) {
     padding: 10px 58px;
   }
@@ -97,11 +97,11 @@
   @include flex(stretch, center);
   align-self: center;
   margin: 0 1rem 1rem 0;
-  width: 150px;
-  height: 150px; border: solid 2px #fff;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 1px 5px 10px #000;
+  box-shadow: $mainBoxShadow;
 
   @media screen and (max-width: 410px) {
     width: 150px;
