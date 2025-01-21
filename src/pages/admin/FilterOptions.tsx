@@ -47,10 +47,27 @@ function FilterOptions() {
     }
   }, [type]);
 
+  const getFormattedType = (type: string | undefined): string => {
+    if (!type) return "";
+    switch (type) {
+      case "body-type":
+        return "body type";
+      case "not-iterestedin":
+        return "not iterested in"; 
+      case "iterestedin":
+        return "iterested in";
+      case "relationship-status":
+          return "relationship status";
+      default:
+        return type;
+    }
+  };
+  
   const handleAddOrUpdateFilterOption = async (filterToEdit?: IFilterTable) => {
     const isEdit = !!filterToEdit;
+    const formattedType = getFormattedType(type);
     const { value: formValues } = await Swal.fire({
-      title: isEdit ? `Update ${type}` : `Add ${type}`,
+      title: isEdit ? `Update ${formattedType}` : `Add ${formattedType}`,
       html: `
         <input id="swal-input-name" class="swal2-input" placeholder="Enter Name" value="${filterToEdit?.name || ""}" />
         <input type="hidden" value="${type}" />
