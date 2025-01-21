@@ -18,6 +18,7 @@ function Sidebar() {
     (state: RootState) => state.authSlice.user?.role
   );
   const [activeIndex, setActiveIndex] = useState(0);
+  const [openSubmenu, setOpenSubmenu] = useState(false);
   const { width } = useWindowSize();
   const location = useLocation();
   const { t } = useTranslation();
@@ -31,6 +32,10 @@ function Sidebar() {
     dispatch(logOut());
     localStorage.clear();
     openSidebarHandler();
+  }
+
+  function toggleSubmenu() {
+    setOpenSubmenu((prev) => !prev);
   }
 
   useEffect(() => {
@@ -49,7 +54,8 @@ function Sidebar() {
       <div className="sidebar-logo">
         <img src={images.logo} alt='digikala' />
       </div>
-      <div className={classes.sidebar__menu}>
+
+      { /*<div className={classes.sidebar__menu}>
         {filteredNav.map((nav, index) => (
           <Link
             to={nav.link}
@@ -66,6 +72,45 @@ function Sidebar() {
               {t(nav.text)}
             </div>
           </Link>
+        ))}
+      </div> */ }
+
+<div className={classes.sidebar__menu}>
+        {filteredNav.map((nav, index) => (
+          <div key={`nav-${index}`}>
+            <Link
+              to={nav.link}
+              className={`${classes.sidebar__menu__item} ${
+                activeIndex === index && classes.active
+              }`}
+              onClick={nav.submenu ? toggleSubmenu : openSidebarHandler}
+            >
+              <div className={classes.sidebar__menu__item__icon}>
+                <Icon icon={nav.icon} />
+              </div>
+              <div className={classes.sidebar__menu__item__txt}>
+                {t(nav.text)}
+              </div>
+            </Link>
+            {nav.submenu && openSubmenu && (
+              <div className={classes.submenu}>
+                {nav.submenu.map((subNav, subIndex) => (
+                  <Link
+                    to={subNav.link}
+                    key={`subnav-${subIndex}`}
+                    className={classes.sidebar__submenu__item}
+                  >
+                    <div className={classes.sidebar__submenu__item__icon}>
+                      <Icon icon={subNav.icon} />
+                    </div>
+                    <div className={classes.sidebar__submenu__item__txt}>
+                      {t(subNav.text)}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
       </div>
 

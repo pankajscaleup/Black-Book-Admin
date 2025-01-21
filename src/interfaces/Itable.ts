@@ -26,7 +26,7 @@ export interface IUsersSupportTable {
 }
 
 export type complex =
-  | IUsersRoleTable | IFaqTable | IUsersSupportTable | ITestTable
+  | IUsersRoleTable | IFaqTable | IUsersSupportTable | ITestTable | IFilterTable
 
   export interface IStable {
     limit?: number;
@@ -58,6 +58,23 @@ export interface Itable {
   role: any;
 }
 
+
+export interface IFtable {
+  limit?: number;
+  selectedCategory?: string;
+  headData:  string[];
+  dataShow?: complex[]; // Mark as optional
+  pages?: number; // Mark as optional
+  currPage?: number; // Mark as optional
+  changePage?: ( pageNumber: number) => void; // Mark as optional
+  bodyData: complex[];
+  totalData: number;
+  totalPage: number;
+  dataCurrentPage: number;
+  type: any;
+  onEdit?: (filter: IFilterTable) => void; 
+}
+
 export interface commonItable {
   title?: string
   limit?: number;
@@ -85,5 +102,13 @@ export interface ITestTable {
   _id: string;
   createdAt: any;
   title: string;
+}
+
+export interface IFilterTable { 
+  _id: string;
+  name: string;
+  type: string;
+  createdAt: any;
+
 }
 
