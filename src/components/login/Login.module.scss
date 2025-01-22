@@ -1,11 +1,11 @@
 @use "../../scss/abstracts/" as *;
 
-html {  background-color: var(--bgc);}
+//html {  background-color: var(--bgc);}
 
 .container {
   @include flex();
   min-height: 100vh;
-  background-color: var(--bgc);
+  //background-color: var(--bgc);
   .keyPic {
     width: 800px;
     min-width: 600px;

@@ -79,10 +79,10 @@ html[theme=dark] .dashboard-holder p { color: #fff;}
 ._form__control_q5eei_7 > div{position: relative;}
 ._form__control_q5eei_7 > div span {  position: absolute;  right: 15px;  top: 53px;}
 form.login-form ._form__control_q5eei_7 > div span {  top: 13px !important;}
-._container_1ymyc_11 { background: #292C31 url(../src/assets/images/body-bg.png) no-repeat center right !important;}
+body ._container_1ymyc_11 { background: #292C31 url(../src/assets/images/body-bg.png) no-repeat center right !important;}
 ._form__control_q5eei_7 label {  position: relative;    top: 0;  left: 0;  background-color: transparent;  padding:0 0 10px; display: block;  white-space: nowrap;  }
 input, select {color: #000;}
-.top-header .MuiPopper-root.css-51we07-MuiPopper-root { z-index: 2;}
+.top-header .MuiPopper-root.css-51we07-MuiPopper-root { z-index: 9 !important;}
 .top-header ul.profilenavlist li {    font-size: 14px !important;}
 .usertabledata > div { overflow-x: hidden;}
 .uploadimage {  display: flex;   align-items: center; margin-bottom: 30px;   gap: 20px; margin-left: 30px;}
@@ -132,6 +132,35 @@ form#resetpassword .passwordlabel label{display: block !important; color: #fff !
 .login-form .passwordlabel input#password { background: #fff;}
 
 .setting-form .css-13xfq8m-MuiTabPanel-root { padding: 30px 0;}
+
+.sidebar_submenu { background: #d19e50; margin-bottom: 10px;}
+.sidebar_submenu a.sidebar__submenu__item {
+    display: flex;
+    align-items: center; color: #000;
+    gap: 15px;
+    padding: 3px 0 3px 20px;
+  }
+
+
+  button.swal2-confirm { background: linear-gradient(180deg, #e5b15f, #b37a4f);font-size: 16px;padding: 15px 35px;border-radius: 30px;min-height: 52px;}
+  button.swal2-confirm:hover { background: linear-gradient(180deg, #b37a4f, #e5b15f) !important;}
+  button.swal2-cancel{border: 2px solid #fa4520;  color: #fff;padding: 15px 35px; border-radius: 30px; font-size: 16px;  background: #fa4520; min-height: 52px;}
+  button.swal2-cancel:hover{background:red;}
+  .swal2-popup.swal2-modal.swal2-show {
+    padding: 40px 0;
+    border-radius: 30px;
+}
+input.swal2-input {
+  border-radius: 30px;
+  width: 80%;
+}
+input.swal2-input:focus {
+  box-shadow: 0 0 0;
+}
+
+
+
+
 
 
 @media only screen and (max-width:1440px) {

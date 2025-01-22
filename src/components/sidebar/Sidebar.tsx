@@ -77,12 +77,10 @@ function Sidebar() {
 
 <div className={classes.sidebar__menu}>
         {filteredNav.map((nav, index) => (
-          <div key={`nav-${index}`}>
+          <div key={`nav-${index}`} className="sidebarmenuholder">
             <Link
               to={nav.link}
-              className={`${classes.sidebar__menu__item} ${
-                activeIndex === index && classes.active
-              }`}
+              className={`${classes.sidebar__menu__item} ${activeIndex === index && classes.active} parentofsubmenu`}
               onClick={nav.submenu ? toggleSubmenu : openSidebarHandler}
             >
               <div className={classes.sidebar__menu__item__icon}>
@@ -93,12 +91,12 @@ function Sidebar() {
               </div>
             </Link>
             {nav.submenu && openSubmenu && (
-              <div className={classes.submenu}>
+              <div className="sidebar_submenu">
                 {nav.submenu.map((subNav, subIndex) => (
                   <Link
                     to={subNav.link}
                     key={`subnav-${subIndex}`}
-                    className={classes.sidebar__submenu__item}
+                    className="sidebar__submenu__item"
                   >
                     <div className={classes.sidebar__submenu__item__icon}>
                       <Icon icon={subNav.icon} />
