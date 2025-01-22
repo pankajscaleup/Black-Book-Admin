@@ -13,6 +13,12 @@ export const faqsHeader = {
   actions: "Actions",
 };
 
+export const adminFilterHeader = [
+  "Name",
+  "Date",
+  "Actions",
+];
+
 export const pagesHeader = {
   title: "Title",
   createdAt: "Date",

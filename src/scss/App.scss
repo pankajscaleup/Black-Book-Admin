@@ -133,6 +133,18 @@ form#resetpassword .passwordlabel label{display: block !important; color: #fff !
 
 .setting-form .css-13xfq8m-MuiTabPanel-root { padding: 30px 0;}
 
+.sidebar_submenu { background: #d19e50; margin-bottom: 10px;}
+.sidebar_submenu a.sidebar__submenu__item {
+    display: flex;
+    align-items: center; color: #000;
+    gap: 15px;
+    padding: 3px 0 3px 20px;
+  }
+
+
+
+
+
 
 @media only screen and (max-width:1440px) {
 body *{font-size: 14px;}  

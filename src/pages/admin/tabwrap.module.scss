@@ -21,6 +21,10 @@
   align-items: baseline;
 }
 
+.tabWrapholder .btnholder{
+  flex-wrap: wrap;
+}
+
 .adduserbtn{ 
   background:linear-gradient(180deg,#e5b15f,#b37a4f);
   color: #fff !important; font-weight: bold;
