@@ -142,6 +142,23 @@ form#resetpassword .passwordlabel label{display: block !important; color: #fff !
   }
 
 
+  button.swal2-confirm { background: linear-gradient(180deg, #e5b15f, #b37a4f);font-size: 16px;padding: 15px 35px;border-radius: 30px;min-height: 52px;}
+  button.swal2-confirm:hover { background: linear-gradient(180deg, #b37a4f, #e5b15f) !important;}
+  button.swal2-cancel{border: 2px solid #fa4520;  color: #fff;padding: 15px 35px; border-radius: 30px; font-size: 16px;  background: #fa4520; min-height: 52px;}
+  button.swal2-cancel:hover{background:red;}
+  .swal2-popup.swal2-modal.swal2-show {
+    padding: 40px 0;
+    border-radius: 30px;
+}
+input.swal2-input {
+  border-radius: 30px;
+  width: 80%;
+}
+input.swal2-input:focus {
+  box-shadow: 0 0 0;
+}
+
+
 
 
 
