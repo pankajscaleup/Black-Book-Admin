@@ -20,6 +20,8 @@ function FilterOptions() {
   const { type } = useParams<{ type?: string; }>();
   const limit = 10;
 
+  console.log(type);
+
   const getFilter = async (type: string) => {
     setLoading(true);
     try {
@@ -70,22 +72,24 @@ function FilterOptions() {
       title: isEdit ? `Update ${formattedType}` : `Add ${formattedType}`,
       html: `
         <input id="swal-input-name" class="swal2-input" placeholder="Enter Name" value="${filterToEdit?.name || ""}" />
-        <input type="hidden" value="${type}" />
+        <input type="hidden" id="swal-input-type" value="${type}" />
       `,
       focusConfirm: false,
       showCancelButton: true,
       confirmButtonText: isEdit ? "Update" : "Add",
       preConfirm: () => {
         const name = (document.getElementById("swal-input-name") as HTMLInputElement)?.value;
+        const typeValue = (document.getElementById("swal-input-type") as HTMLInputElement)?.value;
         if (!name) {
           Swal.showValidationMessage("Field is required!");
           return null;
         }
-        return { name };
+        return { name, type: typeValue };
       },
     });
 
     if (formValues) {
+      console.log(formValues);
       try {
         const response = await addOrUpdateFilterOption({
           ...formValues,

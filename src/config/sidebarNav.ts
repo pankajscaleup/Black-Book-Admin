@@ -86,18 +86,18 @@ const sidebarNav = [
     text: "Transactions",
     role: ["admin"],
   },
-  {
+  /*{
     link: "/admin/reviews",
     section: "reviews",
     icon: "mdi:star", //width:"20"
     text: "Reviews",
     role: ["admin"],
-  },
+  }, */
   {
     link: "/admin/reports",
     section: "reports",
     icon: "tabler:report", //width:"20"
-    text: "Reports",
+    text: "User Reports",
     role: ["admin"],
   },
   {
