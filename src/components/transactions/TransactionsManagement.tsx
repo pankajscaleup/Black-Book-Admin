@@ -78,7 +78,6 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
     setLoading(true);
     try {
       const response = await deletetransaction(selectedTransactionId);
-      console.log('delete',response);
       if (response?.status === 200) {
         toast.success(response.message);
         setOpen(false);

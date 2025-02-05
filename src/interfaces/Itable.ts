@@ -15,6 +15,7 @@ export interface IUsersRoleTable {
   verification: any;
   socialLinks: any;
   privatemedia:any;
+  _id?:string;
 }
 
 export interface IUserID {
@@ -40,6 +41,7 @@ export interface IUserReportsTable {
   report:string;
   resolved:boolean
   reportedUserDetails:reportedUserDetails;
+  userDetails:reportedUserDetails;
   createdAt?: string;
   updatedAt?:string;
   _id: string;
@@ -50,6 +52,7 @@ export interface reportedUserDetails{
   role?:string;
   _id:string;
 }
+
 export interface IWithdrawalTable {
   _id:string;
   user:IUserID;

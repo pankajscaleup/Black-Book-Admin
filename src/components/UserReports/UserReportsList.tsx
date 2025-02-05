@@ -15,17 +15,17 @@ function UserReportsList() {
   const [totalPage, setTotalPage] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [selectedTab, setSelectedTab] = useState("Pending");
-  const [status, setStatus] = useState('Pending');
+  const [status, setStatus] = useState<boolean>(true);
 
   const limit = 10;
 
-  const getReports = async (status: string) => {
+  const getReports = async (status: boolean) => {
     setLoading(true);
     try {
       const bodyData = {
         currentPage: 1,
         limit: 10,
-        status: status,
+        resolve: status,
       };
       const response = await UserReportsListApi(bodyData);
       if (response) {
@@ -45,9 +45,9 @@ function UserReportsList() {
   // Handle tab change
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
     setSelectedTab(newValue);
-    const statusMapping: Record<string, string> = {
-      Pending: 'Pending',
-      Closed: 'Closed',
+    const statusMapping: Record<string, boolean> = {
+        Pending: true,
+        Closed: false,
     };
     // Get the status based on the selected tab, or a default if not found
     const newStatus = statusMapping[newValue] ?? '';
@@ -95,7 +95,7 @@ function UserReportsList() {
           limit={limit}
           headData={adminReportsHeader}
           bodyData={data as IUserReportsTable[]}
-          status={status}
+          status={status ? "true" : "false"}
           totalData={totalReports}
           totalPage={totalPage}
           dataCurrentPage={currentPage}

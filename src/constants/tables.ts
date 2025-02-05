@@ -63,7 +63,6 @@ export const adminwithdrawalHeader = [
 export const adminReportsHeader = [
   "Name",
   "Email",
-  "Subject",
   "Message",
   "Date",
   "Status",

@@ -73,6 +73,9 @@ const Transactions = React.lazy(
 const Withdrawal = React.lazy(
   () => import("./pages/admin/Withdrawal")
 );
+const WithdrawalView = React.lazy(
+  () => import("./components/Withdrawal/WithdrawRequestView")
+);
 
 const UserReports = React.lazy(
   () => import("./pages/admin/UserReports")
@@ -105,6 +108,7 @@ function App() {
               <Route path='/admin/testimonial/:type/:id?' element={<AddTestimonial />} />
               <Route path='/admin/transactions' element={<Transactions/>} />
               <Route path='/admin/withdrawals' element={<Withdrawal/>} />
+              <Route path='/admin/withdrawals/:id' element={<WithdrawalView/>} />
               <Route path='/admin/reports' element={<UserReports/>} />
               
             </Route>
