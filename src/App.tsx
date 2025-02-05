@@ -66,6 +66,18 @@ const FilterOptions = React.lazy(
   () => import("./pages/admin/FilterOptions")
 );
 
+const Transactions = React.lazy(
+  () => import("./pages/admin/Transactions")
+);
+
+const Withdrawal = React.lazy(
+  () => import("./pages/admin/Withdrawal")
+);
+
+const UserReports = React.lazy(
+  () => import("./pages/admin/UserReports")
+);
+
 function App() {
   return (
     <BrowserRouter>
@@ -91,6 +103,9 @@ function App() {
               <Route path='/admin/page/edit/:id?' element={<AddPage />} />
               <Route path='/admin/testimonials' element={<Testimonials/>} />
               <Route path='/admin/testimonial/:type/:id?' element={<AddTestimonial />} />
+              <Route path='/admin/transactions' element={<Transactions/>} />
+              <Route path='/admin/withdrawals' element={<Withdrawal/>} />
+              <Route path='/admin/reports' element={<UserReports/>} />
               
             </Route>
           </Route>
