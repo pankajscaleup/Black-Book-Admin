@@ -1,26 +1,25 @@
 import { useEffect, useState } from "react";
-import CustomTableNewSupport from "../../components/tables/customTable/CustomTableNewSupport";
+import UserReportsManagement from "../../components/UserReports/UserReportsManagement";
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
-import { IUsersSupportTable } from "../../interfaces/Itable";
-import tabwrap from "../admin/tabwrap.module.scss";
-import { adminSupportHeader } from "../../constants/tables";
-import { supportList } from "../../service/apis/support.api";
-import withRole from "../withRole";
+import { IUserReportsTable } from "../../interfaces/Itable";
+import { adminReportsHeader } from "../../constants/tables";
+import { UserReportsListApi } from "../../service/apis/userReports.api";
+import withRole from "../../pages/withRole";
+import tabwrap from "../../pages/admin/tabwrap.module.scss";
 import { Tabs, Tab, Box } from "@mui/material";
 
-function Support() {
-  const [data, setData] = useState<IUsersSupportTable[]>([]);
-  const [loading, setLoading] = useState(true); 
-  const [selectedTab, setSelectedTab] = useState("Pending");
-  const [status, setStatus] = useState('Pending');
-  const [totalSupport, setTotalSupport] = useState<number>(0);
+function UserReportsList() {
+  const [data, setData] = useState<IUserReportsTable[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [totalReports, setTotalReports] = useState<number>(0);
   const [totalPage, setTotalPage] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const [selectedTab, setSelectedTab] = useState("Pending");
+  const [status, setStatus] = useState('Pending');
 
   const limit = 10;
 
-  // Fetch users based on selected tab (status)
-  const getSupport = async (status: string) => {
+  const getReports = async (status: string) => {
     setLoading(true);
     try {
       const bodyData = {
@@ -28,17 +27,18 @@ function Support() {
         limit: 10,
         status: status,
       };
-      const response = await supportList(bodyData);
-        console.log(response);
-        setData(response?.supportData?.viewSupport);
-        setTotalSupport(response?.supportData?.totalResults);
-        setTotalPage(response?.supportData?.totalPages);
-        setCurrentPage(response?.supportData?.page);
+      const response = await UserReportsListApi(bodyData);
+      if (response) {
+        setData(response?.reportData?.reportData);
+        setTotalReports(response?.reportData?.totalResults);
+        setTotalPage(response?.reportData?.totalPages);
+        setCurrentPage(response?.reportData?.page);
+      }
     } catch (err) {
       console.error("Failed to fetch data", err);
-      setLoading(false)
+      setLoading(false);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
@@ -49,20 +49,18 @@ function Support() {
       Pending: 'Pending',
       Closed: 'Closed',
     };
-
     // Get the status based on the selected tab, or a default if not found
     const newStatus = statusMapping[newValue] ?? '';
     setStatus(newStatus);
   };
 
   useEffect(() => {
-    getSupport(status);
+    getReports(status);
   }, [status]);
 
   return (
-    <section className="support-page">
-      {/* Tab Navigation */}
-      <Box className={tabwrap.boxWrap}>
+    <section className='users-pages'>
+          <Box className={tabwrap.boxWrap}>
         <Tabs
           className={tabwrap.tabwrapper}
           value={selectedTab}
@@ -90,17 +88,15 @@ function Support() {
           
         </Tabs>
       </Box>
-     
-      {/* Conditional Rendering for Data */}
       {loading ? (
-        <LoadingSpinner /> // Show loading spinner while data is loading
+        <LoadingSpinner />
       ) : (
-        <CustomTableNewSupport
+        <UserReportsManagement
           limit={limit}
-          headData={adminSupportHeader}
-          bodyData={data as IUsersSupportTable[]}
+          headData={adminReportsHeader}
+          bodyData={data as IUserReportsTable[]}
           status={status}
-          totalData={totalSupport}
+          totalData={totalReports}
           totalPage={totalPage}
           dataCurrentPage={currentPage}
         />
@@ -108,5 +104,4 @@ function Support() {
     </section>
   );
 }
-
-export default withRole(Support, ["admin"]);
+export default withRole(UserReportsList, ["admin"]);

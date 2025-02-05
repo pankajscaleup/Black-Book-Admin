@@ -73,7 +73,7 @@ const sidebarNav = [
     ],
   },
   {
-    link: "/admin/withdrawal",
+    link: "/admin/withdrawals",
     section: "withdrawals",
     icon: "tabler:currency-dollar", //width:"20"
     text: "Withdrawals",
