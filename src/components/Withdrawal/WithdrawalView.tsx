@@ -101,6 +101,7 @@ function WithdrawalView() {
           limit={limit}
           headData={adminwithdrawalHeader}
           bodyData={data as IWithdrawalTable[]}
+          statuss={status}
           totalData={totalWithdrawal}
           totalPage={totalPage}
           dataCurrentPage={currentPage}

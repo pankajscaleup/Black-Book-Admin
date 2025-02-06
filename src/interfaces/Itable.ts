@@ -170,5 +170,5 @@ export interface ICustomstable {
   totalData: number;
   totalPage: number;
   dataCurrentPage: number;
-  status?:string;
+  statuss?:string;
 }

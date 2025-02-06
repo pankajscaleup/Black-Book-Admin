@@ -30,7 +30,7 @@ import toast from "react-hot-toast";
 const UserReportsManagement: React.FC<ICustomstable> = ({
   bodyData,
   headData,
-  status,
+  statuss,
   totalData,
 }) => {
   const { t } = useTranslation();
@@ -71,7 +71,7 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
       const bodyData = {
         currentPage: currentPage,
         limit: rowsPerPage,
-        resolve: status,
+        resolve: statuss,
       };
       const refreshResponse = await UserReportsListApi(bodyData);
       setSortOrderData(refreshResponse?.reportData?.reportData);
@@ -97,7 +97,7 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
       const bodyData = {
         currentPage: currentPage,
         limit: rowsPerPage,
-        resolve: status,
+        resolve: statuss,
       };
       const refreshResponse = await UserReportsListApi(bodyData);
       setSortOrderData(refreshResponse?.reportData?.reportData);
@@ -121,7 +121,7 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
       const bodyData = {
         currentPage: page,
         limit: rowsPerPage,
-        resolve: status,
+        resolve: statuss,
       };
       const response = await UserReportsListApi(bodyData);
       if (response) {

@@ -32,6 +32,7 @@ const WithdrawalManagement: React.FC<ICustomstable> = ({
   bodyData,
   headData,
   totalData,
+  statuss
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrderData, setSortOrderData] = useState<complex[]>(bodyData);
@@ -142,26 +143,26 @@ const WithdrawalManagement: React.FC<ICustomstable> = ({
       const bodyData = {
         status: status,
       };
+
       const response = await withdrawlStatusUpdate(_id, bodyData);
       if (response.status === 200) {
-        const updatedStatus = status === "Approved" ? "Approved" : "Rejected";
         if (status === "Approved") {
           toast.success("Withdrawal request approved successfully!");
         } else if (status === "Rejected") {
           toast.success("Withdrawal request rejected successfully!");
         }
         // Refresh data
+        const oppositeStatus = statuss === "Pending" ? "Pending" : status === "Approved" ? "Rejected" : "Approved";
         const bodyData = {
           currentPage: 1,
           limit: rowsPerPage,
-          status: updatedStatus,
+          status: oppositeStatus,
         };
         const dataResponse = await withdrawlListApi(bodyData);
-
         if (dataResponse?.status === 200) {
-          setSortOrderData(response?.withdrawls?.wallet || []);
-          setTotalResult(response?.withdrawls?.totalResults || 0);
-          setCurrentPage(response?.withdrawls?.page || 1);
+          setSortOrderData(dataResponse?.withdrawls?.wallet || []);
+          setTotalResult(dataResponse?.withdrawls?.totalResults || 0);
+          setCurrentPage(dataResponse?.withdrawls?.page || 1);
         }
       }
     } catch (error) {

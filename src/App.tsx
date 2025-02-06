@@ -80,6 +80,9 @@ const WithdrawalView = React.lazy(
 const UserReports = React.lazy(
   () => import("./pages/admin/UserReports")
 );
+const DetailsReports = React.lazy(
+  () => import("./components/UserReports/ViewReportDetails")
+);
 
 function App() {
   return (
@@ -110,6 +113,7 @@ function App() {
               <Route path='/admin/withdrawals' element={<Withdrawal/>} />
               <Route path='/admin/withdrawals/:id' element={<WithdrawalView/>} />
               <Route path='/admin/reports' element={<UserReports/>} />
+              <Route path='/admin/reports/:id' element={<DetailsReports/>} />
               
             </Route>
           </Route>

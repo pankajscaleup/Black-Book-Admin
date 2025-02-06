@@ -95,7 +95,7 @@ function UserReportsList() {
           limit={limit}
           headData={adminReportsHeader}
           bodyData={data as IUserReportsTable[]}
-          status={status ? "true" : "false"}
+          statuss={status ? "true" : "false"}
           totalData={totalReports}
           totalPage={totalPage}
           dataCurrentPage={currentPage}
