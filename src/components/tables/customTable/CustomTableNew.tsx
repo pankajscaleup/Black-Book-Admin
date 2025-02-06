@@ -192,7 +192,7 @@ const CustomTable: React.FC<Itable> = ({
       })
       .join(" ");
   };
-
+console.log(sortOrderData);
   return (
     <div style={{ position: "relative" }} className="dsp">
       {loading ? (
@@ -284,7 +284,8 @@ const CustomTable: React.FC<Itable> = ({
                     </TableCell>
                     <TableCell align='left'>{row?.email}</TableCell>
                     <TableCell align='left'>{row?.about?.gender}</TableCell>
-                    <TableCell align='left'>{row?.about?.location}</TableCell>
+                    {/* <TableCell align='left'>{row?.about?.location}</TableCell> */}
+                    <TableCell align='left'>{row?.about?.state ? row?.about?.state : 'N/A'}</TableCell>
                     <TableCell
                       className={
                         row.isVerfied === true

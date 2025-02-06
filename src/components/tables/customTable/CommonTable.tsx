@@ -19,7 +19,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
-import dataTable from "./";
+import dataTable from "./datatable.module.scss";
 import del from "../../../assets/images/ic_outline-delete.png";
 import delt from "../../../assets/images/delete.png";
 
@@ -43,7 +43,7 @@ const CustomTable: React.FC<commonItable> = ({
   slug
 }) => {
   const { t } = useTranslation();
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(dataCurrentPage);
   const [sortOrderData, setSortOrderData] = useState<complex[]>(bodyData);
@@ -62,7 +62,7 @@ const CustomTable: React.FC<commonItable> = ({
   };
   useEffect(() => {
     if (searchTerm) {
-      inputRef.current.focus();
+      inputRef.current?.focus();
     }
   }, [searchTerm]);
 
