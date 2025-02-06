@@ -52,3 +52,9 @@ export const changePasswordApi = catchAsync(
     return data;
   }
 );
+
+export const dashboardApi = catchAsync(async (values:any) => {
+    const data = await httpsCall.get(`/admin/dashboard/get`, values);
+    return data;
+  }
+);

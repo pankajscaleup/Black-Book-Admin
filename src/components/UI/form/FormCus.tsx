@@ -16,14 +16,16 @@ const FormCus = () => {
   const user = useSelector((state: RootState) => state.authSlice.user);
   const [preview, setPreview] = useState(Avatar);
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (user) {
       addProfileFormik.setValues({
         fullName: user.fullName || "",
         email: user.email || "",
         age: user.about?.age || "",
-        location: user.about?.location || "",
+        // location: user.about?.location || "",
+        location: user.about?.location?.coordinates?.length
+        ? user.about.location.coordinates.join(', ') 
+        : "",
         gender: user.about?.gender
           ? { value: user.about.gender, label: user.about.gender }
           : null,

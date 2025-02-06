@@ -43,7 +43,7 @@ const CustomTable: React.FC<commonItable> = ({
   slug
 }) => {
   const { t } = useTranslation();
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(dataCurrentPage);
   const [sortOrderData, setSortOrderData] = useState<complex[]>(bodyData);
@@ -62,7 +62,7 @@ const CustomTable: React.FC<commonItable> = ({
   };
   useEffect(() => {
     if (searchTerm) {
-      inputRef.current.focus();
+      inputRef.current?.focus();
     }
   }, [searchTerm]);
 

@@ -37,7 +37,7 @@ function Customers() {
         setData(response?.users?.users);
         setTotalUser(response?.users?.totalResults);
         setTotalPage(response?.users?.totalPages);
-        setCurrentPage(response?.data?.page);
+        setCurrentPage(response?.users?.page);
       }
     } catch (err) {
       console.error("Failed to fetch data", err);
