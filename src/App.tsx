@@ -66,6 +66,10 @@ const FilterOptions = React.lazy(
   () => import("./pages/admin/FilterOptions")
 );
 
+const UserReport = React.lazy(
+  () => import("./pages/admin/UserReport")
+);
+
 function App() {
   return (
     <BrowserRouter>
@@ -80,6 +84,7 @@ function App() {
               <Route path='/admin/support' element={<Support/>} />
               <Route path='/admin/settings' element={<Settings/>} />
               <Route path='/admin/filter-options/:type' element={<FilterOptions/>} />
+              <Route path='admin/user-report' element={<UserReport/>}/>
 
               <Route path='/admin/dashboard' element={<DashboardPage />}/>
               <Route path='/admin/users' element={<Users />} />

@@ -89,7 +89,6 @@ function FilterOptions() {
     });
 
     if (formValues) {
-      console.log(formValues);
       try {
         const response = await addOrUpdateFilterOption({
           ...formValues,

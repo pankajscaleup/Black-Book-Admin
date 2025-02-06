@@ -35,11 +35,11 @@ const sidebarNav = [
         text: "Education",
         icon: "mdi:school-outline", //width:"20"
       },
-      {
+     /* {
         link: "/admin/filter-options/occupation",
         text: "Occupation",
         icon: "mdi:briefcase-outline", //width:"20"
-      },
+      }, */
       {
         link: "/admin/filter-options/body-type",
         text: "Body Type",
@@ -94,8 +94,8 @@ const sidebarNav = [
     role: ["admin"],
   }, */
   {
-    link: "/admin/reports",
-    section: "reports",
+    link: "/admin/user-report",
+    section: "user-report",
     icon: "tabler:report", //width:"20"
     text: "User Reports",
     role: ["admin"],
