@@ -71,7 +71,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                   <div>{props.customer?.email}</div>
                 </div>
 
-                <div style={{ marginLeft: "0px" }}>
+                {/* <div style={{ marginLeft: "0px" }}>
                   {props.customer?.about?.location && (
                     <Icon
                       icon='clarity:home-line'
@@ -82,7 +82,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                   {props.customer?.about?.location && (
                     <span>{props.customer.about.location}</span>
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
           </Card>
@@ -175,7 +175,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                         <p><strong>Kids :</strong> {props.customer?.about?.kids?.name} </p>
                         <p><strong>Education :</strong> {props.customer?.about?.education?.name} </p>
                         <p><strong>Occupation :</strong>  {props.customer?.about?.occupation} </p>
-                        <p><strong>Location :</strong> {props.customer?.about?.location}</p>
+                        {/* <p><strong>Location :</strong> {props.customer?.about?.location}</p> */}
                         <p><strong>Interested Gender :</strong> {props.customer?.about?.interestedIn}</p>
                         <p><strong>Smoking Cigarettes :</strong> {props.customer?.about?.smoking?.name} </p>
                         <p><strong>Drinking :</strong> {props.customer?.about?.drinking?.name} </p>
