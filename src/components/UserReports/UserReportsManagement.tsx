@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import {
-  ICustomstable,
-  complex,
-  IUserReportsTable,
-} from "../../interfaces/Itable";
+import {ICustomstable,complex,IUserReportsTable,} from "../../interfaces/Itable";
 import { useTranslation } from "react-i18next";
-
+import { Link } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -21,23 +17,20 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faTimes,faEye } from "@fortawesome/free-solid-svg-icons";
 import dataTable from "../tables/customTable/datatable.module.scss";
 import del from "../../assets/images/ic_outline-delete.png";
 import delt from "../../assets/images/delete.png";
 import closeSupport from "../../assets/images/close-circle.svg";
-import {
-  supportList,
-  deleteSupport,
-  closeSupportRequest,
-} from "../../service/apis/support.api";
+import {UserReportsListApi,deleteReportApi,UserReportCloseApi,} from "../../service/apis/userReports.api";
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
 import toast from "react-hot-toast";
 
 const UserReportsManagement: React.FC<ICustomstable> = ({
   bodyData,
   headData,
-  status,
+  statuss,
   totalData,
 }) => {
   const { t } = useTranslation();
@@ -71,18 +64,20 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const response = await deleteSupport(selectedReportId);
-      toast.success(response.message);
+      const response = await deleteReportApi(selectedReportId);
+      if(response){
+      toast.success('User Report Deleted successfully.');
       setOpen(false);
       const bodyData = {
         currentPage: currentPage,
         limit: rowsPerPage,
-        status: status,
+        resolve: statuss,
       };
-      const refreshResponse = await supportList(bodyData);
-      setSortOrderData(refreshResponse?.supportData?.viewSupport);
-      setTotalResult(refreshResponse?.supportData?.totalResults);
+      const refreshResponse = await UserReportsListApi(bodyData);
+      setSortOrderData(refreshResponse?.reportData?.reportData);
+      setTotalResult(refreshResponse?.reportData?.totalResults);
       setLoading(false);
+    }
     } catch (err) {
       console.error("Failed to delete report", err);
       setLoading(false);
@@ -93,20 +88,22 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
     setLoading(true);
     try {
       const payload = {
-        status: "Closed",
+        resolved: "false",
       };
-      const response = await closeSupportRequest(selectedCloseReqId, payload);
-      toast.success(response.message);
+      const response = await UserReportCloseApi(selectedCloseReqId, payload);
+      if(response){
+      toast.success('User report closed successfully.');
       setOpenclosepopup(false);
       const bodyData = {
         currentPage: currentPage,
         limit: rowsPerPage,
-        status: status,
+        resolve: statuss,
       };
-      const refreshResponse = await supportList(bodyData);
-      setSortOrderData(refreshResponse?.supportData?.viewSupport);
-      setTotalResult(refreshResponse?.supportData?.totalResults);
+      const refreshResponse = await UserReportsListApi(bodyData);
+      setSortOrderData(refreshResponse?.reportData?.reportData);
+      setTotalResult(refreshResponse?.reportData?.totalResults);
       setLoading(false);
+    }
     } catch (err) {
       console.error("Failed to close report request", err);
       setLoading(false);
@@ -124,11 +121,11 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
       const bodyData = {
         currentPage: page,
         limit: rowsPerPage,
-        status: status,
+        resolve: statuss,
       };
-      const response = await supportList(bodyData);
-      if (response?.status === 200) {
-        setSortOrderData(response?.supportData?.viewSupport);
+      const response = await UserReportsListApi(bodyData);
+      if (response) {
+        setSortOrderData(response?.reportData?.reportData);
         setLoading(false);
         setAddClass("");
       }
@@ -181,40 +178,47 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
                     key={row?._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    {/* <TableCell
+                    <TableCell
                       className={dataTable.productwrp}
                       component='th'
                       scope='row'
                     >
-                    {row?.userId?.fullName}
+                    {row?.userDetails?.fullName}
                     </TableCell>
-                    <TableCell align='left'>{row?.userId?.email}</TableCell>
-                    <TableCell align='left'>{row?.subject}</TableCell>
-                    <TableCell align='left'>{row?.message}</TableCell>
-                    <TableCell
-                      className={
-                        row.status === 'Closed'
-                          ? dataTable.approved
-                          : row.status === 'Pending'
-                            ? dataTable.pending
-                            : ""
+                    <TableCell align='left'>{row?.userDetails?.email}</TableCell>
+                    <TableCell align='left'>{row?.report}</TableCell>
+                    <TableCell align='left'>{row?.createdAt? new Date(row?.createdAt).toLocaleDateString(): "N/A"}</TableCell>
+                    <TableCell className={row.resolved === false ? dataTable.approved
+                          : row.resolved === true? dataTable.pending: ""  
                       }
                       align='left'
                     >
-                      <p>{row.status}</p>
-                    </TableCell> */}
+                      <p>{row.resolved === true ? "Pending" : "Closed"}</p>
+                    </TableCell>
 
                     <TableCell align='left'>
                       <div className={dataTable.actionwrap}>
-                        {/* {row.status === 'Pending' && ( */}
-                        <p
-                          className={dataTable.edit}
+                      <Link to={`/admin/reports/${row._id}`}>
+                          <p className={dataTable.edit}>
+                            <FontAwesomeIcon
+                              icon={faEye}
+                              style={{
+                                color: "#fff",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: "20px",
+                              }}
+                            />
+                          </p>
+                        </Link>
+                        {row.resolved === true && (
+                        <p className={dataTable.edit}
                           onClick={() => handleClickOpenCloseReq(row._id)}
                         >
                           <img src={closeSupport} alt='Close Request' />
                         </p>
-                        {/* )} */}
-
+                        )}
                         <p
                           className={dataTable.delete}
                           onClick={() => handleClickOpen(row._id)}
