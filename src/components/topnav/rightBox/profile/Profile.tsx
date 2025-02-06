@@ -91,7 +91,7 @@ function Profile() {
           <div className={classes.profile__avatar}>
             <img src={user?.profileimageurl || images.noimage} alt="avatar" />
           </div>
-          <div className={classes.profile__info}>
+          <div className={`${classes.profile__info} profilename`}>
             <p className={classes.profile__userName}>{user?.fullName}</p>
           </div>
         </Button>
