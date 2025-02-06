@@ -19,7 +19,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
-import dataTable from "./datatable.module.scss";
+import dataTable from "./";
 import del from "../../../assets/images/ic_outline-delete.png";
 import delt from "../../../assets/images/delete.png";
 
