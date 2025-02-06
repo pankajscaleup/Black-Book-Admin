@@ -15,6 +15,53 @@ export interface IUsersRoleTable {
   verification: any;
   socialLinks: any;
   privatemedia:any;
+  _id?:string;
+}
+
+export interface IUserID {
+  email: string;
+  fullName: string | null;
+  profileimageurl:string;
+  id:string;
+}
+
+export interface ITransactionTable {
+  amount:number;
+  type:string;
+  paymentProfileId:string;
+  transactionId:string;
+  createdAt: string;
+  updatedAt:string;
+  userID: IUserID;
+  _id: string;
+}
+
+export interface IUserReportsTable {
+  chatId:string;
+  report:string;
+  resolved:boolean
+  reportedUserDetails:reportedUserDetails;
+  userDetails:reportedUserDetails;
+  createdAt?: string;
+  updatedAt?:string;
+  _id: string;
+}
+export interface reportedUserDetails{
+  email?: string;
+  fullName: string | null;
+  role?:string;
+  _id:string;
+}
+
+export interface IWithdrawalTable {
+  _id:string;
+  user:IUserID;
+  amount:number;
+  transactionId:string;
+  type:string;
+  updatedAt:string;
+  createdAt: string;
+  status: string;
 }
 
 export interface IUsersSupportTable {
@@ -26,7 +73,8 @@ export interface IUsersSupportTable {
 }
 
 export type complex =
-  | IUsersRoleTable | IFaqTable | IUsersSupportTable | ITestTable | IFilterTable
+  | IUsersRoleTable | IFaqTable | IUsersSupportTable | ITestTable | IFilterTable | ITransactionTable | 
+  IWithdrawalTable | IUserReportsTable
 
   export interface IStable {
     limit?: number;
@@ -112,3 +160,15 @@ export interface IFilterTable {
 
 }
 
+export interface ICustomstable {
+  limit?: number;
+  headData:  string[];
+  pages?: number; 
+  currPage?: number;
+  changePage?: ( pageNumber: number) => void;
+  bodyData: complex[];
+  totalData: number;
+  totalPage: number;
+  dataCurrentPage: number;
+  statuss?:string;
+}

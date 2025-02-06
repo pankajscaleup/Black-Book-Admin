@@ -39,3 +39,32 @@ export const testimonialHeader = {
   createdAt: "Date",
   actions: "Actions",
 };
+
+export const adminTransactionHeader = [
+  "Name",
+  "Email",
+  "Amount",
+  "Date",
+  "Time",
+  "Transaction ID",
+  "Actions",
+];
+
+export const adminwithdrawalHeader = [
+  "Name",
+  "Email",
+  "Amount",
+  "Date",
+  "Time",
+  "Status",
+  "Actions",
+];
+
+export const adminReportsHeader = [
+  "Name",
+  "Email",
+  "Message",
+  "Date",
+  "Status",
+  "Actions",
+];
