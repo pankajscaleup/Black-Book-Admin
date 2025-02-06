@@ -9,7 +9,7 @@
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
-    margin: 0 0.5rem;
+    margin: 0 0.5rem; border: solid 2px #E4AF5F;
     & img {
       object-fit: cover;
     }
