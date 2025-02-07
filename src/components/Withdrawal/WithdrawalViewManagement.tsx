@@ -13,35 +13,49 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { faCheck, faTimes,faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import del from "../../assets/images/ic_outline-delete.png";
+import delt from "../../assets/images/delete.png";
 import dataTable from "../../components/tables/customTable/datatable.module.scss";
 import {
-  withdrawlListApi,
-  withdrawlStatusUpdate,
+  WithdrawalListApi,
+  WithdrawalStatusUpdate,
 } from "../../service/apis/transactions.api";
 
-import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
-const WithdrawalManagement: React.FC<ICustomstable> = ({
+const WithdrawalViewManagement: React.FC<ICustomstable> = ({
   bodyData,
   headData,
   totalData,
   statuss
 }) => {
+    const [open, setOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrderData, setSortOrderData] = useState<complex[]>(bodyData);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [totalResult, setTotalResult] = useState(totalData);
   const [loading, setLoading] = useState(false);
   const [addClass, setAddClass] = useState<string>("");
-
+  const [selectedWithdrawId, setSelectedWithdrawId] = useState<string | null>(null);
   const rowsPerPage = 10;
+
+  const handleClickOpen = (withdrawId: string) => {
+    setSelectedWithdrawId(withdrawId);
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
 
   const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
@@ -56,12 +70,11 @@ const WithdrawalManagement: React.FC<ICustomstable> = ({
         search: searchQuery,
       };
       setLoading(true);
-
-      const response = await withdrawlListApi(bodyData);
+      const response = await WithdrawalListApi(bodyData);
       if (response?.status === 200) {
         setLoading(false);
-        setTotalResult(response?.withdrawls?.totalResults);
-        setSortOrderData(response?.withdrawls?.wallet);
+        setTotalResult(response?.withdrawals?.totalResults);
+        setSortOrderData(response?.withdrawals?.withdrawals);
         setAddClass("");
       }
     } catch (err) {
@@ -79,9 +92,9 @@ const WithdrawalManagement: React.FC<ICustomstable> = ({
         search: "",
       };
       setLoading(true);
-      const response = await withdrawlListApi(bodyData);
+      const response = await WithdrawalListApi(bodyData);
       if (response?.status === 200) {
-        setSortOrderData(response?.withdrawls?.wallet);
+        setSortOrderData(response?.withdrawals?.withdrawals);
         setLoading(false);
         setAddClass("");
       }
@@ -105,9 +118,9 @@ const WithdrawalManagement: React.FC<ICustomstable> = ({
         limit: rowsPerPage,
         search: searchTerm,
       };
-      const response = await withdrawlListApi(bodyData);
+      const response = await WithdrawalListApi(bodyData);
       if (response?.status === 200) {
-        setSortOrderData(response?.withdrawls?.wallet);
+        setSortOrderData(response?.withdrawals?.withdrawals);
         setLoading(false);
         setAddClass("");
       }
@@ -143,8 +156,7 @@ const WithdrawalManagement: React.FC<ICustomstable> = ({
       const bodyData = {
         status: status,
       };
-
-      const response = await withdrawlStatusUpdate(_id, bodyData);
+      const response = await WithdrawalStatusUpdate(_id, bodyData);
       if (response.status === 200) {
         if (status === "Approved") {
           toast.success("Withdrawal request approved successfully!");
@@ -157,17 +169,43 @@ const WithdrawalManagement: React.FC<ICustomstable> = ({
           currentPage: 1,
           limit: rowsPerPage,
           status: oppositeStatus,
+          search : "",
         };
-        const dataResponse = await withdrawlListApi(bodyData);
+        const dataResponse = await WithdrawalListApi(bodyData);
         if (dataResponse?.status === 200) {
-          setSortOrderData(dataResponse?.withdrawls?.wallet || []);
-          setTotalResult(dataResponse?.withdrawls?.totalResults || 0);
-          setCurrentPage(dataResponse?.withdrawls?.page || 1);
+          setSortOrderData(dataResponse?.withdrawals?.withdrawals || []);
+          setTotalResult(dataResponse?.withdrawals?.totalResults || 0);
+          setCurrentPage(dataResponse?.withdrawals?.page || 1);
         }
       }
     } catch (error) {
       toast.error(`Failed to update request to ${status}.`);
     }
+  };
+  const handleDelete = async () => {
+    // setLoading(true);
+    // try {
+    //   const response = await deletetransaction(selectedTransactionId);
+    //   if (response?.status === 200) {
+    //     toast.success(response.message);
+    //     setOpen(false);
+    //     // Refresh data
+    //     const bodyData = {
+    //       currentPage: currentPage,
+    //       limit: rowsPerPage,
+    //       search: searchTerm,
+    //     };
+    //     const refreshResponse = await transactionsListApi(bodyData);
+    //     if (refreshResponse?.status === 200) {
+    //       setSortOrderData(refreshResponse?.transactions?.transactions);
+    //       setTotalResult(refreshResponse?.transactions?.totalResults);
+    //     }
+    //     setLoading(false);
+    //   }
+    // } catch (err) {
+    //   console.error("Failed to delete user", err);
+    //   setLoading(false);
+    // }
   };
 
   return (
@@ -252,10 +290,10 @@ const WithdrawalManagement: React.FC<ICustomstable> = ({
                         component='th'
                         scope='row'
                       >
-                        {row?.user?.fullName}
+                        {row?.userId?.fullName}
                       </TableCell>
-                      <TableCell align='left'>{row?.user?.email}</TableCell>
-                      <TableCell align='left'>{row?.amount}</TableCell>
+                      <TableCell align='left'>{row?.userId?.email}</TableCell>
+                      <TableCell align='left'>${row?.amount}</TableCell>
                       <TableCell align='left'>
                         {row?.createdAt
                           ? new Date(row?.createdAt).toLocaleDateString()
@@ -365,6 +403,12 @@ const WithdrawalManagement: React.FC<ICustomstable> = ({
                               }}
                             />
                           </p>
+                          <p
+                          className={dataTable.delete}
+                          onClick={() => handleClickOpen(row._id)}
+                        >
+                          <img src={del} alt='Delete' />
+                        </p>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -416,8 +460,60 @@ const WithdrawalManagement: React.FC<ICustomstable> = ({
           />
         </Stack>
       </div>
+      <Dialog
+        sx={{
+          "& .MuiPaper-root": {
+            borderRadius: "35px",
+            overflowY: "inherit",
+            padding: "40px",
+            maxWidth: "562px",
+          },
+        }}
+        maxWidth='md'
+        fullWidth
+        className={dataTable.custommodal}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+      >
+        <div className={dataTable.modalimg}>
+          <img src={delt} alt='Delete Confirmation' />
+        </div>
+        <DialogTitle
+          id='alert-dialog-title'
+          style={{
+            textAlign: "center",
+            fontSize: "32px",
+            color: "red",
+            fontWeight: "700",
+          }}
+        >
+          {("Delete Transactions")}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText
+            id='alert-dialog-description'
+            style={{
+              textAlign: "center",
+              color: "#676767",
+              fontSize: "16px",
+            }}
+          >
+            {("Are you sure you want to delete this transactions?")}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions style={{ justifyContent: "center" }}>
+          <Button onClick={handleClose} className="btn-cancel">
+            {("Cancel")}
+          </Button>
+          <Button onClick={handleDelete} className="btn">
+            {("Delete")}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
 
-export default WithdrawalManagement;
+export default WithdrawalViewManagement;

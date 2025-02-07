@@ -25,7 +25,7 @@ function Pages() {
   const limit = 10;
 
   // Fetch users based on selected tab (role)
-  const getPages = async () => {
+  const getPages = async (searchTerm: string) => {
     
     setLoading(true);
     try {
@@ -63,7 +63,7 @@ function Pages() {
     try {
       const response = await deletePage(id); 
       toast.success(response);
-      await getPages();
+      await getPages("");
     } catch (err) {
       console.error("Failed to fetch data", err);
       setLoading(false)
@@ -72,15 +72,15 @@ function Pages() {
     }
   }
   useEffect(() => {
-    getPages();
+    getPages("");
   }, [currentPage]);
 
   const handleSearchChange = (term:string)=>{
     setSearchTerm(term);
     setCurrentPage(1);
-    getPages();
+    getPages(term);
   }
-
+  
   return (
     <section className="search-pages-holder">
       {/* Tab Navigation */}

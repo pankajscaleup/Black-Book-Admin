@@ -16,3 +16,8 @@ export const deleteReportApi = catchAsync(async (selectedReportId:string,values:
   const data = await httpsCall.delete(`/admin/report/delete/${selectedReportId}`);
   return data;
 });
+
+export const DetailsReportApi = catchAsync(async (id:string,values: any) => {
+  const data = await httpsCall.get(`/admin/report/get-by-id/${id}`);
+  return data;
+});

@@ -192,7 +192,7 @@ const CustomTable: React.FC<Itable> = ({
       })
       .join(" ");
   };
-console.log(sortOrderData);
+
   return (
     <div style={{ position: "relative" }} className="dsp">
       {loading ? (

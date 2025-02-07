@@ -74,7 +74,7 @@ const Withdrawal = React.lazy(
   () => import("./pages/admin/Withdrawal")
 );
 const WithdrawalView = React.lazy(
-  () => import("./components/Withdrawal/WithdrawRequestView")
+  () => import("./components/Withdrawal/WithdrawalRequestView")
 );
 
 const UserReports = React.lazy(

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import WithdrawalManagement from "../../components/Withdrawal/WithdrawalManagement";
-import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
+import WalletsViewManagement from "./WithdrawalViewManagement";
+import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner";
 import { IWithdrawalTable } from "../../interfaces/Itable";
 import { adminwithdrawalHeader } from "../../constants/tables";
-import { withdrawlListApi } from "../../service/apis/transactions.api";
+import { WithdrawalListApi } from "../../service/apis/transactions.api";
 import withRole from "../../pages/withRole";
 import { useNavigate } from "react-router-dom";
 import tabwrap from "../../pages/admin/tabwrap.module.scss";
@@ -27,14 +27,14 @@ function WithdrawalView() {
         currentPage: 1,
         limit: limit,
         status: status,
+        search : "",
       };
-      const response = await withdrawlListApi(bodyData);
-      
+      const response = await WithdrawalListApi(bodyData);
       if (response?.status === 200) {
-        setData(response?.withdrawls?.wallet);
-        setTotalwithdrawl(response?.withdrawls?.totalResults);
-        setTotalPage(response?.withdrawls?.totalPages);
-        setCurrentPage(response?.withdrawls?.page);
+        setData(response?.withdrawals?.withdrawals);
+        setTotalwithdrawl(response?.withdrawals?.totalResults);
+        setTotalPage(response?.withdrawals?.totalPages);
+        setCurrentPage(response?.withdrawals?.page);
       }
     } catch (err) {
       console.error("Failed to fetch data", err);
@@ -58,7 +58,6 @@ function WithdrawalView() {
   useEffect(() => {
     getwithdrawal(status);
   }, [status]);
-
   return (
     <section className='users-pages'>
          <Box className={tabwrap.boxWrap}>
@@ -97,7 +96,7 @@ function WithdrawalView() {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <WithdrawalManagement
+        <WalletsViewManagement
           limit={limit}
           headData={adminwithdrawalHeader}
           bodyData={data as IWithdrawalTable[]}

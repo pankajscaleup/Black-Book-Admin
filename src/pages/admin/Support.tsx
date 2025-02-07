@@ -29,11 +29,12 @@ function Support() {
         status: status,
       };
       const response = await supportList(bodyData);
-        console.log(response);
+      if (response?.status === 200) {
         setData(response?.supportData?.viewSupport);
         setTotalSupport(response?.supportData?.totalResults);
         setTotalPage(response?.supportData?.totalPages);
         setCurrentPage(response?.supportData?.page);
+      }
     } catch (err) {
       console.error("Failed to fetch data", err);
       setLoading(false)

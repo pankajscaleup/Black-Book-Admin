@@ -4,7 +4,7 @@ import { useParams, Link } from "react-router-dom";
 
 import { IUserReportsTable } from "../../interfaces/Itable";
 import classes from "../../components/edit/editCustomer/EditCustomer.module.scss";
-import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner";
 import {
   userDetails,
   updateActiveStatus,
@@ -57,7 +57,7 @@ function WithdrawRequestView() {
       <div className={classes.com_header_flex}>
         <h2 className='title'>{t("User Report Details")}</h2>
         <div className='btn-wrap-users'>
-          <Link to='/admin/reports'>
+          <Link to='/admin/withdrawals'>
             <button className={classes.back_btn}>Back</button>
           </Link>
           <button className={classes.block_btn}>Closed</button>
