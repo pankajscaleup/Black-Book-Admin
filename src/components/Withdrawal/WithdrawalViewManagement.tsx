@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ICustomstable,
-  complex,
-  IWithdrawalTable,
-} from "../../interfaces/Itable";
+import {ICustomstable, complex, IWithdrawalTable,} from "../../interfaces/Itable";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -26,10 +22,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import del from "../../assets/images/ic_outline-delete.png";
 import delt from "../../assets/images/delete.png";
 import dataTable from "../../components/tables/customTable/datatable.module.scss";
-import {
-  WithdrawalListApi,
-  WithdrawalStatusUpdate,
-} from "../../service/apis/transactions.api";
+import {WithdrawalListApi,WithdrawalStatusUpdate,deletewithdrawals} from "../../service/apis/transactions.api";
 
 import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner";
 import Swal from "sweetalert2";
@@ -183,29 +176,29 @@ const WithdrawalViewManagement: React.FC<ICustomstable> = ({
     }
   };
   const handleDelete = async () => {
-    // setLoading(true);
-    // try {
-    //   const response = await deletetransaction(selectedTransactionId);
-    //   if (response?.status === 200) {
-    //     toast.success(response.message);
-    //     setOpen(false);
-    //     // Refresh data
-    //     const bodyData = {
-    //       currentPage: currentPage,
-    //       limit: rowsPerPage,
-    //       search: searchTerm,
-    //     };
-    //     const refreshResponse = await transactionsListApi(bodyData);
-    //     if (refreshResponse?.status === 200) {
-    //       setSortOrderData(refreshResponse?.transactions?.transactions);
-    //       setTotalResult(refreshResponse?.transactions?.totalResults);
-    //     }
-    //     setLoading(false);
-    //   }
-    // } catch (err) {
-    //   console.error("Failed to delete user", err);
-    //   setLoading(false);
-    // }
+    setLoading(true);
+    try {
+      const response = await deletewithdrawals(selectedWithdrawId);
+      if (response?.status === 200) {
+        toast.success(response.message);
+        setOpen(false);
+        // Refresh data
+        const bodyData = {
+        currentPage: 1,
+        limit: rowsPerPage,
+        search : "",
+        };
+        const refreshResponse = await WithdrawalListApi(bodyData);
+        if (refreshResponse?.status === 200) {
+          setSortOrderData(refreshResponse?.withdrawals?.withdrawals);
+          setTotalResult(refreshResponse?.withdrawals?.totalResults);
+        }
+        setLoading(false);
+      }
+    } catch (err) {
+      console.error("Failed to delete user", err);
+      setLoading(false);
+    }
   };
 
   return (
@@ -489,7 +482,7 @@ const WithdrawalViewManagement: React.FC<ICustomstable> = ({
             fontWeight: "700",
           }}
         >
-          {("Delete Transactions")}
+          {("Delete withdrawals")}
         </DialogTitle>
         <DialogContent>
           <DialogContentText
@@ -500,7 +493,7 @@ const WithdrawalViewManagement: React.FC<ICustomstable> = ({
               fontSize: "16px",
             }}
           >
-            {("Are you sure you want to delete this transactions?")}
+            {("Are you sure you want to delete this withdrawals?")}
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>

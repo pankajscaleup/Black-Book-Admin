@@ -38,7 +38,6 @@ function ViewReportDetails() {
     setError(null);
     try {
       const response = await DetailsReportApi(id);
-      console.log(response);
       setReportData(response?.reportData || null);
     } catch (err) {
       setError("Failed to fetch data");

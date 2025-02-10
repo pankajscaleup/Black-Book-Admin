@@ -64,6 +64,7 @@ export interface IWithdrawalTable {
   updatedAt:string;
   createdAt: string;
   status: string;
+  bankId:any;
 }
 
 export interface IUsersSupportTable {

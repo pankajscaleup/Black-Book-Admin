@@ -23,3 +23,14 @@ export const transactionsListApi = catchAsync(async (bodyData: any) => {
     const data = await httpsCall.patch(`/admin/withdraw/status-update-withdraw/${_id}`, bodyData);
     return data;
   });
+
+  export const deletewithdrawals = catchAsync(async (selectedWithdrawId) => {
+    const data = await httpsCall.delete(`/admin/withdraw/withdraw-delete/${selectedWithdrawId}`);
+    return data;
+  });
+
+  export const ViewwithdrawalsDetails = catchAsync(async (id) => {
+    const data = await httpsCall.get(`/admin/withdraw/view-withdraw/${id}`);
+    return data;
+  });
+
