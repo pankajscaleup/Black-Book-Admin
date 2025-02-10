@@ -10,7 +10,10 @@ interface FormValues {
   fullName: string;
   email: string;
   age: string;
-  location: string;
+  fullAddress:string;
+ state:string;
+ lat:string;
+ lng:string;
   gender: { value: string; label: string } | null;
   interestedIn: { value: string; label: string } | null;
 }
@@ -24,9 +27,7 @@ export const useProfileUpdate = () => {
     .email("Please enter a valid email address")
     .required("Email address is required"),
     age: yup.number().required("Age is required"),
-    location: yup
-      .string()
-      .required("Location is required"),
+    state: yup.string().required("Location is required and please select address from the dropdown"),
     gender: yup.object().nullable().required("Gender is required"),
     interestedIn: yup.object().nullable().required("interested In is required"),
   });
@@ -37,9 +38,12 @@ export const useProfileUpdate = () => {
       fullName: "",
       email: "",
       age: "",
-      location: "",
+      fullAddress: "",
       gender: null,
       interestedIn: null,
+      state:"",
+      lat:"",
+      lng:"",
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -47,8 +51,16 @@ export const useProfileUpdate = () => {
         fullName: values.fullName,
         email: values.email,
         about: {
+        fullAddress : values.fullAddress,
+        state :values.state ,
+        location : {
+            coordinates : [
+              values.lat,
+              values.lng
+            ],
+            type : "Point"
+        },
           age: values.age,
-          location: values.location,
           gender: values.gender?.value,
           interestedIn: values.interestedIn?.value,
         },
@@ -56,7 +68,6 @@ export const useProfileUpdate = () => {
       try {
         const response = await updateProfile(bodyData);
         toast.success("Profile updated successfully");
-        console.log(response);
         dispatch(setUser(response.userData));
       } catch (error) {
         toast.error("An error occurred while updating the profile.");

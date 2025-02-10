@@ -9,7 +9,10 @@ interface FormValues {
   fullName: string;
   email: string;
   age: string;
-  location: string;
+  fullAddress:string;
+ state:string;
+ lat:string;
+ lng:string;
   gender: { value: string; label: string } | null;
   interestedIn: { value: string; label: string } | null;
   password: string;
@@ -27,9 +30,7 @@ export const useAddUser = (id?: string) => {
     .email("Please enter a valid email address")
     .required("Email address is required"),
     age: yup.number().required("Age is required"),
-    location: yup
-      .string()
-      .required("Location is required"),
+    state: yup.string().required("Location is required and please select address from the dropdown"),
     password: yup
       .string()
       .trim()
@@ -49,7 +50,10 @@ export const useAddUser = (id?: string) => {
       password: "",
       role: null,
       age: "",
-      location: "",
+      fullAddress: "",
+      state:"",
+      lat:"",
+      lng:"",
       gender: null,
       interestedIn: null,
     },
@@ -62,8 +66,16 @@ export const useAddUser = (id?: string) => {
         password: values.password,
         role: values.role?.value,
         about: {
+        fullAddress : values.fullAddress,
+        state :values.state ,
+        location : {
+            coordinates : [
+              values.lat,
+              values.lng
+            ],
+            type : "Point"
+        },
           age: values.age,
-          location: values.location,
           gender: values.gender?.value,
           interestedIn: values.interestedIn?.value,
         },

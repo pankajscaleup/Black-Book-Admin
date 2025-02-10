@@ -42,9 +42,7 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
   const [loading, setLoading] = useState(false);
   const [addClass, setAddClass] = useState<string>("");
   const [selectedReportId, setSelectedReportId] = useState<string | null>(null);
-  const [selectedCloseReqId, setSelectedCloseReqId] = useState<string | null>(
-    null
-  );
+  const [selectedCloseReqId, setSelectedCloseReqId] = useState<string | null>(null);
 
   const rowsPerPage = 10;
 

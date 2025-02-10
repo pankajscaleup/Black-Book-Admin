@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../../store/auth.store";
 import toast from "react-hot-toast";
 import { updateProfileImage } from "../../../service/apis/user.api";
+import GoogleAutoComplete from '../../../layout/GoogleAutoComplete';
 
 const FormCus = () => {
   const { addProfileFormik } = useProfileUpdate();
@@ -22,10 +23,10 @@ const FormCus = () => {
         fullName: user.fullName || "",
         email: user.email || "",
         age: user.about?.age || "",
-        // location: user.about?.location || "",
-        location: user.about?.location?.coordinates?.length
-        ? user.about.location.coordinates.join(', ') 
-        : "",
+        fullAddress: user?.about?.fullAddress || "",
+        state: user?.about?.state || '',
+            lat: user?.about?.location?.coordinates?.[1] || '', 
+            lng: user?.about?.location?.coordinates?.[0] || '', 
         gender: user.about?.gender
           ? { value: user.about.gender, label: user.about.gender }
           : null,
@@ -61,6 +62,12 @@ const FormCus = () => {
     } finally {
     }
   }
+  const handleLocationChange = async(fulladdress:string | null, state: string | null, lat: number | null, lng: number | null) =>{
+    addProfileFormik.setFieldValue('fullAddress', fulladdress);
+    addProfileFormik.setFieldValue('state', state);
+    addProfileFormik.setFieldValue('lat', lat);
+    addProfileFormik.setFieldValue('lng', lng);
+}
 
   return (
     <div id="editprofile" className={form.myprofilewrapper}>
@@ -155,19 +162,28 @@ const FormCus = () => {
                 <label htmlFor='Name'>
                   Location <span style={{ color: "red" }}>*</span>
                 </label>
-                <Input
-                classes="passwordlabel"
-                  type={"text"}
-                  id='location'
-                  placeholder={"Enter your location"}
-                  name='location'
-                  onChange={addProfileFormik.handleChange}
-                  value={addProfileFormik.values.location}
-                />
-                {addProfileFormik.touched.location &&
-                  addProfileFormik.errors.location && (
-                    <div className='error'>{addProfileFormik.errors.location}</div>
-                  )}
+                <GoogleAutoComplete onChange={handleLocationChange} currentState={addProfileFormik.values.fullAddress}></GoogleAutoComplete>
+                {addProfileFormik.touched.fullAddress && addProfileFormik.errors.fullAddress && (
+                  <div className='error'>
+                    {addProfileFormik.errors.fullAddress}
+                  </div>
+                )}
+                {addProfileFormik.touched.state && addProfileFormik.errors.state && (
+                  <div className='error'>
+                    {addProfileFormik.errors.state}
+                  </div>
+                )}
+                {addProfileFormik.touched.lat && addProfileFormik.errors.lat && (
+                  <div className='error'>
+                    {addProfileFormik.errors.lat}
+                  </div>
+                )}
+                {addProfileFormik.touched.lng && addProfileFormik.errors.lng && (
+                  <div className='error'>
+                    {addProfileFormik.errors.lng}
+                  </div>
+                )}
+                
               </div>
             </div>
 

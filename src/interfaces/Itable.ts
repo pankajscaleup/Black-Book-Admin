@@ -42,6 +42,8 @@ export interface IUserReportsTable {
   resolved:boolean
   reportedUserDetails:reportedUserDetails;
   userDetails:reportedUserDetails;
+  reportedUserId:any;
+  userId:any;
   createdAt?: string;
   updatedAt?:string;
   _id: string;
@@ -55,13 +57,14 @@ export interface reportedUserDetails{
 
 export interface IWithdrawalTable {
   _id:string;
-  user:IUserID;
+  userId:any;
   amount:number;
   transactionId:string;
   type:string;
   updatedAt:string;
   createdAt: string;
   status: string;
+  bankId:any;
 }
 
 export interface IUsersSupportTable {

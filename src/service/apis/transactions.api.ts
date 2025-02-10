@@ -14,12 +14,23 @@ export const transactionsListApi = catchAsync(async (bodyData: any) => {
     return data;
   });
   
-  export const withdrawlListApi = catchAsync(async (bodyData: any) => {
-    const data = await httpsCall.post(`/admin/withdraw/list/${bodyData.currentPage}/${bodyData.limit}`, bodyData);
+  export const WithdrawalListApi = catchAsync(async (bodyData: any) => {
+    const data = await httpsCall.post(`/admin/withdraw/model-withdraw/${bodyData.currentPage}/${bodyData.limit}`, bodyData);
     return data;
   });
   
-  export const withdrawlStatusUpdate = catchAsync(async (_id:string,bodyData:any) => {
-    const data = await httpsCall.patch(`/admin/withdraw/update-status/${_id}`, bodyData);
+  export const WithdrawalStatusUpdate = catchAsync(async (_id:string,bodyData:any) => {
+    const data = await httpsCall.patch(`/admin/withdraw/status-update-withdraw/${_id}`, bodyData);
     return data;
   });
+
+  export const deletewithdrawals = catchAsync(async (selectedWithdrawId) => {
+    const data = await httpsCall.delete(`/admin/withdraw/withdraw-delete/${selectedWithdrawId}`);
+    return data;
+  });
+
+  export const ViewwithdrawalsDetails = catchAsync(async (id) => {
+    const data = await httpsCall.get(`/admin/withdraw/view-withdraw/${id}`);
+    return data;
+  });
+

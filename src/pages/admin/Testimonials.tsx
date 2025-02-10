@@ -23,7 +23,7 @@ function Testimonials() {
   const limit = 10;
 
   // Fetch users based on selected tab (role)
-  const getTestimonials = async () => {
+  const getTestimonials = async (searchTerm: string) => {
     setLoading(true);
     try {
       let payload = {};
@@ -33,7 +33,6 @@ function Testimonials() {
         }
       }
       const response = await testimonialList(payload,currentPage,limit); 
-      console.log(response);
       if (response?.status === 200) {
         if(response?.testimonials ?.testimonials.length==0 && response?.testimonials?.page>1){
           setCurrentPage(currentPage-1);
@@ -61,7 +60,7 @@ function Testimonials() {
     try {
       const response = await deleteTestimonial(id); 
       toast.success(response);
-      await getTestimonials();
+      await getTestimonials("");
     } catch (err) {
       console.error("Failed to fetch data", err);
       setLoading(false)
@@ -70,13 +69,13 @@ function Testimonials() {
     }
   }
   useEffect(() => {
-    getTestimonials();
+    getTestimonials("");
   }, [currentPage]);
 
   const handleSearchChange = (term:string)=>{
     setSearchTerm(term);
     setCurrentPage(1);
-    getTestimonials();
+    getTestimonials(term);
   }
 
   return (

@@ -175,12 +175,16 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                         <p><strong>Kids :</strong> {props.customer?.about?.kids?.name} </p>
                         <p><strong>Education :</strong> {props.customer?.about?.education?.name} </p>
                         <p><strong>Occupation :</strong>  {props.customer?.about?.occupation} </p>
-                        {/* <p><strong>Location :</strong> {props.customer?.about?.location}</p> */}
+                        <p><strong>Location :</strong> {props.customer?.about?.fullAddress}</p>
                         <p><strong>Interested Gender :</strong> {props.customer?.about?.interestedIn}</p>
                         <p><strong>Smoking Cigarettes :</strong> {props.customer?.about?.smoking?.name} </p>
                         <p><strong>Drinking :</strong> {props.customer?.about?.drinking?.name} </p>
                         <p><strong>Relationship Status :</strong> {props.customer?.about?.relationshipStatus?.name} </p>
-                        <p><strong>Interest :</strong> {props.customer?.about?.interest}</p>
+                        <p><strong>Interest :</strong> 
+                       {props.customer?.about?.interest?.length ? (props.customer?.about?.interest
+                       .map((item:any, index:any) => (<span key={index}>{item.name}
+                       {index < props.customer?.about?.interest.length - 1 ? ', ' : ''}</span>))) 
+                       : (<span>N/A</span>)}</p>
                         <p className="w-100"><strong>Bio :</strong> {props.customer?.about?.bio} </p>
                       </div>
                       <></>

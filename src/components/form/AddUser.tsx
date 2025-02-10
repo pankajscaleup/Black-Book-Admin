@@ -9,6 +9,7 @@ import Select from "react-select";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { userDetails } from "../../service/apis/user.api";
+ import GoogleAutoComplete from '../../layout/GoogleAutoComplete';
 
 const AddUser = () => {
   const params = useParams();
@@ -30,7 +31,10 @@ const AddUser = () => {
               fullName: userData.data?.fullName || "",
               email: userData.data?.email || "",
               age: userData.data?.about?.age || "",
-              location: userData.data?.about?.location || "",
+              fullAddress: userData?.data?.about?.fullAddress || "",
+              state: userData?.data?.about?.state || '',
+            lat: userData?.data?.about?.location?.coordinates?.[1] || '', 
+            lng: userData?.data?.about?.location?.coordinates?.[0] || '', 
               gender: userData.data?.about?.gender
               ? { value: userData.data?.about?.gender, label: userData.data?.about?.gender }: null,
               interestedIn: userData.data?.about?.interestedIn 
@@ -48,6 +52,13 @@ const AddUser = () => {
       fetchData();
     }
   }, [id]);
+
+  const handleLocationChange = async(fulladdress:string | null, state: string | null, lat: number | null, lng: number | null) =>{
+    addUserFormik.setFieldValue('fullAddress', fulladdress);
+    addUserFormik.setFieldValue('state', state);
+    addUserFormik.setFieldValue('lat', lat);
+    addUserFormik.setFieldValue('lng', lng);
+}
 
   return (
     <div id="editprofile" className={form.myprofilewrapper }>
@@ -129,7 +140,28 @@ const AddUser = () => {
                 <label htmlFor='Name'>
                   Location <span style={{ color: "red" }}>*</span>
                 </label>
-                <Input
+                <GoogleAutoComplete onChange={handleLocationChange} currentState={addUserFormik.values.fullAddress}></GoogleAutoComplete>
+                {addUserFormik.touched.fullAddress && addUserFormik.errors.fullAddress && (
+                  <div className='error'>
+                    {addUserFormik.errors.fullAddress}
+                  </div>
+                )}
+                {addUserFormik.touched.state && addUserFormik.errors.state && (
+                  <div className='error'>
+                    {addUserFormik.errors.state}
+                  </div>
+                )}
+                {addUserFormik.touched.lat && addUserFormik.errors.lat && (
+                  <div className='error'>
+                    {addUserFormik.errors.lat}
+                  </div>
+                )}
+                {addUserFormik.touched.lng && addUserFormik.errors.lng && (
+                  <div className='error'>
+                    {addUserFormik.errors.lng}
+                  </div>
+                )}
+                {/* <Input
                 classes="passwordlabel"
                   type={"text"}
                   id='location'
@@ -141,7 +173,7 @@ const AddUser = () => {
                 {addUserFormik.touched.location &&
                   addUserFormik.errors.location && (
                     <div className='error'>{addUserFormik.errors.location}</div>
-                  )}
+                  )} */}
               </div>
             </div>
 

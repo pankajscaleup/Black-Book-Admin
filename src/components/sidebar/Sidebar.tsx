@@ -76,11 +76,14 @@ function Sidebar() {
       </div> */ }
 
 <div className={classes.sidebar__menu}>
-        {filteredNav.map((nav, index) => (
-          <div key={`nav-${index}`} className="sidebarmenuholder">
+        {filteredNav.map((nav, index) => {
+            const hasSubmenu = Array.isArray(nav.submenu) && nav.submenu.length > 0;
+            return (
+        <div key={`nav-${index}`} className="sidebarmenuholder">
             <Link
               to={nav.link}
-              className={`${classes.sidebar__menu__item} ${activeIndex === index && classes.active} parentofsubmenu`}
+              className={`${classes.sidebar__menu__item} ${activeIndex === index && classes.active} 
+              ${hasSubmenu ? classes.hasSubmenu : ""} parentofsubmenu`}
               onClick={nav.submenu ? toggleSubmenu : openSidebarHandler}
             >
               <div className={classes.sidebar__menu__item__icon}>
@@ -109,7 +112,8 @@ function Sidebar() {
               </div>
             )}
           </div>
-        ))}
+           );
+})}
       </div>
 
       <div className={[classes.sidebar__menu, classes.logout].join("")}>

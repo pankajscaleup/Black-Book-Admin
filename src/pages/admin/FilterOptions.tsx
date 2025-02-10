@@ -31,10 +31,12 @@ function FilterOptions() {
         type: type,
       };
       const response = await filterList(bodyData);
+      if (response?.status === 200) {
         setData(response?.names?.names);
         setTotalFilter(response?.names?.totalResults);
         setTotalPage(response?.names?.totalPages);
         setCurrentPage(response?.names?.page);
+      }
     } catch (err) {
       console.error("Failed to fetch data", err);
       setLoading(false)
