@@ -68,3 +68,10 @@ export const adminReportsHeader = [
   "Status",
   "Actions",
 ];
+
+export const adminUserEventsHeader = [
+  "Description",
+  "Date",
+  "Cost",
+  // "Actions",
+];
