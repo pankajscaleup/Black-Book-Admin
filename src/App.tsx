@@ -26,6 +26,10 @@ const UserUpdate = React.lazy(
   () => import("./pages/admin/UserView")
 );
 
+const UserInvitations = React.lazy(
+  () => import("./pages/admin/UserInvitations")
+);
+
 const AddUser = React.lazy(
   () => import("./pages/admin/AddUser")
 );
@@ -103,6 +107,7 @@ function App() {
               <Route path='/admin/dashboard' element={<DashboardPage />}/>
               <Route path='/admin/users' element={<Users />} />
               <Route path='/admin/addUser/:id?' element={<AddUser />} />
+              <Route path='/admin/users/invitations/:id' element={<UserInvitations />}/>
               <Route path='/admin/users/:id' element={<UserUpdate />}/>
               <Route path='/admin/faqs' element={<Faqs />}/>
               <Route path='/admin/faq/:type/:id?' element={<AddFaq />} />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Itable, complex, IUsersRoleTable } from "../../../interfaces/Itable";
+import { Iinvitationtable, complex, IUsersRoleTable,IUsersEventTable } from "../../../interfaces/Itable";
 import { useTranslation } from "react-i18next";
 
 import Table from "@mui/material/Table";
@@ -19,10 +19,10 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
-import dataTable from "./datatable.module.scss";
+import dataTable from "../../tables/customTable/datatable.module.scss";
 import del from "../../../assets/images/ic_outline-delete.png";
 import delt from "../../../assets/images/delete.png";
-import { userApi, deleteUser } from "../../../service/apis/user.api";
+import { userInvitationsApi, deleteUser } from "../../../service/apis/user.api";
 
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faEye,faCalendarXmark } from "@fortawesome/free-solid-svg-icons";
@@ -30,30 +30,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LoadingSpinner from "../../../components/UI/loadingSpinner/LoadingSpinner";
 import toast from "react-hot-toast";
 
-const CustomTable: React.FC<Itable> = ({
+
+const Invitations: React.FC<Iinvitationtable> = ({
   bodyData,
   headData,
-  role,
-  totalData
+  totalData,
+  currentUser,
+  limit
 }) => {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
   const [sortOrderData, setSortOrderData] = useState<complex[]>(bodyData);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [totalResult, setTotalResult] = useState(totalData);
   const [loading, setLoading] = useState(false);
   const [addClass, setAddClass] = useState<string>("");
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+
+  const [totalInvites, setTotalInvites] = useState<number>(totalData);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const rowsPerPage = 10;
-
-  const handleClickOpen = (userId: string) => {
-    setSelectedUserId(userId);
-    setOpen(true);
-  };
-
-  const handleClose = () => setOpen(false);
 
   const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
@@ -62,85 +56,65 @@ const CustomTable: React.FC<Itable> = ({
     try {
       setLoading(true);
       setAddClass("add_blur");
-      const bodyData = {
-        currentPage: currentPage,
-        limit: 10,
-        role: role,
+
+      const bodyData={
+        id:currentUser,
+        limit:rowsPerPage,
+        currentPage:currentPage,
         search: searchQuery,
-      };
+      }
       setLoading(true);
 
-      const response = await userApi(bodyData);
+      const response = await userInvitationsApi(bodyData);
       if (response?.status === 200) {
         setLoading(false);
-        setTotalResult(response?.users?.totalResults);
-        setSortOrderData(response?.users?.users);
+        setSortOrderData(response?.invitations?.invitations || null);
+        setCurrentPage(response?.invitations?.page)
+        setTotalInvites(response?.invitations?.totalResults)   
         setAddClass("");
+      }
+      else
+      {        
+        setSortOrderData([])
+        setCurrentPage(0)      
       }
     } catch (err) {
       console.error("Failed to fetch data", err);
     }
   };
 
-  const handleDelete = async () => {
-    setLoading(true);
-    try {
-      const response = await deleteUser(selectedUserId);
-      if (response?.status === 200) {
-        toast.success(response.message);
-        setOpen(false);
-        // Refresh data
-        const bodyData = {
-          currentPage: currentPage,
-          limit: rowsPerPage,
-          role: role,
-          search: searchTerm,
-        };
-        const refreshResponse = await userApi(bodyData);
-        if (refreshResponse?.status === 200) {
-          setSortOrderData(refreshResponse?.users?.users);
-          setTotalResult(refreshResponse?.users?.totalResults);
-        }
-        setLoading(false);
-      }
-    } catch (err) {
-      console.error("Failed to delete user", err);
-      setLoading(false);
-    }
-  };
-  
-  const handleSort = async (field: string) => {
-    try {
-      const bodyData = {
-        currentPage: currentPage,
-        limit: 10,
-        role: role,
-        search: searchTerm,
-      };
-      const response = await userApi(bodyData);
-      if (response?.status === 200) {
-        setSortOrderData(response?.users?.users);
-      }
-    } catch (err) {
-      console.error("Failed to fetch data", err);
-    } finally {
-    }
-  };
+  // const handleSort = async (field: string) => {
+  //   try {
+  //     const bodyData = {
+  //       id:currentUser,
+  //       currentPage: currentPage,
+  //       limit: rowsPerPage,
+  //       search: searchTerm,
+  //     };
+  //     const response = await userInvitationsApi(bodyData);
+  //     if (response?.status === 200) {
+  //       setSortOrderData(response?.invitations?.invitations || null);
+  //     }
+  //   } catch (err) {
+  //     console.error("Failed to fetch data", err);
+  //   } finally {
+  //   }
+  // };
 
   const clearSearch = async () => {
     setSearchTerm("");
     try {
       setAddClass("add_blur");
       const bodyData = {
+        id:currentUser,
         page: 1,
         currentPage: 1,
-        role: role,
         search: "",
       };
       setLoading(true);
-      const response = await userApi(bodyData);
+      const response = await userInvitationsApi(bodyData);
       if (response?.status === 200) {
-        setSortOrderData(response?.users?.users);
+        setSortOrderData(response?.invitations?.invitations || null);
         setLoading(false);
         setAddClass("");
       }
@@ -160,16 +134,16 @@ const CustomTable: React.FC<Itable> = ({
     try {
       setAddClass("add_blur");
       const bodyData = {
+        id:currentUser,
         currentPage: page,
         limit: rowsPerPage,
-        role: role,
         search: searchTerm,
       };
 
-      const response = await userApi(bodyData);
+      const response = await userInvitationsApi(bodyData);
 
       if (response?.status === 200) {
-        setSortOrderData(response?.users?.users);
+        setSortOrderData(response?.invitations?.invitations || null);
         setLoading(false);
         setAddClass("");
       }
@@ -256,11 +230,11 @@ const CustomTable: React.FC<Itable> = ({
           >
             <TableHead>
               <TableRow>
-                {headData.map((item, index) => (
+                {headData.map((item:any, index:any) => (
                   <TableCell
                     align='left'
                     key={index}
-                    onClick={() => handleSort(item)}
+                    // onClick={() => handleSort(item)}
                   >
                     {ucwords(item)}
                   </TableCell>
@@ -269,10 +243,10 @@ const CustomTable: React.FC<Itable> = ({
             </TableHead>
 
             <TableBody className={dataTable.tbodywrap}>
-              {(sortOrderData as IUsersRoleTable[]).map(
-                (row: IUsersRoleTable) => (
+              {(sortOrderData as IUsersEventTable[]).map(
+                (row: IUsersEventTable) => (
                   <TableRow
-                    key={row.id}
+                    key={row._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell
@@ -280,55 +254,13 @@ const CustomTable: React.FC<Itable> = ({
                       component='th'
                       scope='row'
                     >
-                      {row?.fullName}
+                      {row?.description}
                     </TableCell>
-                    <TableCell align='left'>{row?.email}</TableCell>
-                    <TableCell align='left'>{row?.about?.gender}</TableCell>
-                    {/* <TableCell align='left'>{row?.about?.location}</TableCell> */}
-                    <TableCell align='left'>{row?.about?.state ? row?.about?.state : 'N/A'}</TableCell>
-                    <TableCell
-                      className={
-                        row.isVerfied === true
-                          ? dataTable.approved
-                          : row.isVerfied === false
-                            ? dataTable.pending
-                            : ""
-                      }
-                      align='left'
-                    >
-                    <p>{row.isVerfied ? "Verified" : "Not Verified"}</p>
-                    </TableCell>
-
+                    <TableCell align='left'>{row?.date}</TableCell>
+                    <TableCell align='left'>{row?.transportationMoney}</TableCell>
+                    {/* 
                     <TableCell align='left'>
                       <div className={dataTable.actionwrap}>
-                      <Link to={`/admin/users/${row.id}`}>
-                          <p className={dataTable.edit}>
-                            <FontAwesomeIcon
-                              icon={faEye}
-                              style={{
-                                color: "#fff",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                fontSize: "20px",
-                              }}
-                            />
-                          </p>
-                        </Link>
-                      <Link to={`/admin/users/invitations/${row.id}`}>
-                          <p className={dataTable.edit}>
-                            <FontAwesomeIcon
-                              icon={faCalendarXmark}
-                              style={{
-                                color: "#fff",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                fontSize: "20px",
-                              }}
-                            />
-                          </p>
-                        </Link>
                         <Link to={`/admin/addUser/${row.id}`}>
                           <p className={dataTable.edit}>
                             <FontAwesomeIcon
@@ -342,23 +274,17 @@ const CustomTable: React.FC<Itable> = ({
                               }}
                             />
                           </p>
-                        </Link>
-                        <p
-                          className={dataTable.delete}
-                          onClick={() => handleClickOpen(row.id)}
-                        >
-                          <img src={del} alt='Delete' />
-                        </p>
+                        </Link> 
                       </div>
-                    </TableCell>
+                    </TableCell>*/}
                   </TableRow>
                 )
               )}
 
               {sortOrderData.length === 0 && !loading && (
                 <TableRow>
-                  <TableCell colSpan={8} align='center'>
-                    No data available
+                  <TableCell colSpan={3} align='center'>
+                  {t(`No data available`)}
                   </TableCell>
                 </TableRow>
               )}
@@ -374,7 +300,7 @@ const CustomTable: React.FC<Itable> = ({
           style={{ marginTop: "30px" }}
         >
           <Pagination
-            count={Math.ceil(totalResult / rowsPerPage)} // total rows divided by rows per page
+            count={Math.ceil(totalInvites / rowsPerPage)} // total rows divided by rows per page
             page={currentPage}
             onChange={handlePageChange}
             sx={{
@@ -400,61 +326,8 @@ const CustomTable: React.FC<Itable> = ({
           />
         </Stack>
       </div>
-
-      <Dialog
-        sx={{
-          "& .MuiPaper-root": {
-            borderRadius: "35px",
-            overflowY: "inherit",
-            padding: "40px",
-            maxWidth: "562px",
-          },
-        }}
-        maxWidth='md'
-        fullWidth
-        className={dataTable.custommodal}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-      >
-        <div className={dataTable.modalimg}>
-          <img src={delt} alt='Delete Confirmation' />
-        </div>
-        <DialogTitle
-          id='alert-dialog-title'
-          style={{
-            textAlign: "center",
-            fontSize: "32px",
-            color: "red",
-            fontWeight: "700",
-          }}
-        >
-          {t("Delete User")}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText
-            id='alert-dialog-description'
-            style={{
-              textAlign: "center",
-              color: "#676767",
-              fontSize: "16px",
-            }}
-          >
-            {t("Are you sure you want to delete this user?")}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions style={{ justifyContent: "center" }}>
-          <Button onClick={handleClose} className="btn-cancel">
-            {t("Cancel")}
-          </Button>
-          <Button onClick={handleDelete} className="btn">
-            {t("Delete")}
-          </Button>
-        </DialogActions>
-      </Dialog>
     </div>
   );
 };
 
-export default CustomTable;
+export default Invitations;
