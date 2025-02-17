@@ -208,7 +208,7 @@ const WithdrawalViewManagement: React.FC<ICustomstable> = ({
       <div
         className={`${dataTable.datatablemainwrap} ${
           addClass ? dataTable[addClass] : ""
-        }`}
+        } colorAction`}
       >
         <div
           className='searchwrap'
@@ -301,7 +301,7 @@ const WithdrawalViewManagement: React.FC<ICustomstable> = ({
                         {row?.status ? row.status : "N/A"}
                       </TableCell>
                       <TableCell align='left'>
-                        <div className={dataTable.actionwrap}>
+                        <div className={`${dataTable.actionwrap} buttonholderAll`}>
                         <Link to={`/admin/withdrawals/${row._id}`}>
                           <p className={dataTable.edit}>
                             <FontAwesomeIcon

@@ -74,7 +74,7 @@ function Profile() {
   return (
     <div className={classes.profile}>
       <Stack direction='row' spacing={2}>
-        <Button
+        <Button className="profilephotonametophdr"
           style={{
             color: "#414141",
             fontSize: "16px",

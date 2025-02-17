@@ -202,7 +202,7 @@ const CustomTable: React.FC<Itable> = ({
       <div
         className={`${dataTable.datatablemainwrap} ${
           addClass ? dataTable[addClass] : ""
-        }`}>
+        } colorAction`}>
         <div
           className="searchwrap"
           style={{

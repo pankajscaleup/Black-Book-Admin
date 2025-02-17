@@ -135,7 +135,7 @@ const CustomTableFilters: React.FC<IFtable> = ({
       <div
         className={`${dataTable.datatablemainwrap} ${
           addClass ? dataTable[addClass] : ""
-        }`}>
+        } colorAction`}>
 
         <TableContainer className={dataTable.tbodymain} component={Paper}>
           <Table
