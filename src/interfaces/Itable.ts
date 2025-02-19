@@ -198,3 +198,19 @@ export interface Iinvitationtable {
   dataCurrentPage: number;
   currentUser?: string;
 }
+
+export interface ICustomModelSettingstable {
+  limit?: number;
+  headData:  string[];
+  pages?: number; 
+  currPage?: number;
+  changePage?: ( pageNumber: number) => void;
+  bodyData: complex[];
+  totalData: number;
+  totalPage: number;
+  dataCurrentPage: number;
+  statuss?:string;
+  onClickCheckBox?:any,
+  items?:object,
+  setitems:any
+}
