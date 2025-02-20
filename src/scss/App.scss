@@ -141,9 +141,15 @@ form#resetpassword .passwordlabel label{display: block !important; color: #fff !
   button.swal2-cancel:hover{background:red;}
   .swal2-popup.swal2-modal.swal2-show {padding: 40px 0;  border-radius: 30px;}
 input.swal2-input {  border-radius: 30px;  width: 80%;}
-input.swal2-input:focus { box-shadow: 0 0 0;}
+input.swal2-input:focus {box-shadow: 0 0 0;}
 .private-content .media-item video { width: 100%;}
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 1px rgb(0, 0, 0) inset !important;
+}
 html[theme=dark] h1.title, html[theme=dark] .profilename p {color: #fff;}
 
 
@@ -251,6 +257,19 @@ table.featured_Profile_table { min-width: 650px;}
 html[theme=dark] .customflex-left-inner { background: #526069;}
 .featured_Profile_table tbody tr th:last-child {  border-radius: 0 10px 10px 0 !important;}
 .customflex-left-inner {padding: 0;}
+.top-header {
+  position: relative;
+  z-index: 9;
+}
+
+input.swal2-input {
+  border-color: red;
+}
+
+
+
+
+
 
 
 
