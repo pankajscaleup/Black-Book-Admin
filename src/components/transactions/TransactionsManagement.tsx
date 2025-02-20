@@ -237,7 +237,8 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
 
             <TableBody className={dataTable.tbodywrap}>
               {(sortOrderData as ITransactionTable[]).map(
-                (row: ITransactionTable) => (
+                (row: ITransactionTable) => {
+                  return(
                   <TableRow
                     key={row._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -247,9 +248,9 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
                       component='th'
                       scope='row'
                     >
-                      {row?.userID.fullName}
+                      {row?.userID?.fullName}
                     </TableCell>
-                     <TableCell align='left'>{row?.userID.email}</TableCell>
+                     <TableCell align='left'>{row?.userID?.email}</TableCell>
 
                     <TableCell align='left'>{row?.amount ? `$${row?.amount}` : "N/A"}</TableCell>
                     <TableCell align='left'>{row?.updatedAt? new Date(row?.updatedAt)
@@ -268,7 +269,7 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
                       </div>
                     </TableCell>
                   </TableRow>
-                )
+                )}
               )}
 
               {sortOrderData.length === 0 && !loading && (

@@ -196,7 +196,7 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
 
                     <TableCell align='left'>
                       <div className={dataTable.actionwrap}>
-                      <Link to={`/admin/reports/${row._id}`}>
+                      <Link to={`/admin/user-report/${row._id}`}>
                           <p className={dataTable.edit}>
                             <FontAwesomeIcon
                               icon={faEye}
