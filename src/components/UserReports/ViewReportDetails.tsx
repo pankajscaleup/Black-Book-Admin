@@ -55,7 +55,7 @@ function ViewReportDetails() {
     setLoading(true);
     try {
       const payload = {
-        resolved: "false",
+        resolved: true,
       };
       const response = await UserReportCloseApi(id,payload);
       if (response) {
@@ -95,7 +95,7 @@ function ViewReportDetails() {
           <Link to='/admin/reports'>
             <button className={classes.back_btn}>Back</button>
           </Link>
-          {reportData?.resolved === true && (
+          {reportData?.resolved === false && (
           <button className={classes.block_btn} onClick={handleClose}>Closed</button>
         )}
           <button className={classes.verify_btn}onClick={handleDelete} >Delete</button>
