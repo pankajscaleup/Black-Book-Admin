@@ -235,7 +235,9 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
 
             <TableBody className={dataTable.tbodywrap}>
               {(sortOrderData as IUsersRoleTable[]).map(
-                (row: IUsersRoleTable,index:number) => (
+                (row: IUsersRoleTable,index:number) => {
+               
+                  return(
                   <TableRow
                     key={row.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -258,7 +260,7 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
                       </div>
                     </TableCell>
                   </TableRow>
-                )
+                )}
               )}
 
               {sortOrderData.length === 0 && !loading && (

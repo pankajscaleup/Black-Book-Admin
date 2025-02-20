@@ -100,7 +100,7 @@ function Customers() {
           />
           
         </Tabs>
-        <ButtonBase className={`${tabwrap.adduserbtn} ${tabwrap.btnyellow}`} onClick={() => navigate('/admin/addUser')}>ADD USER</ButtonBase>
+        <ButtonBase className={`${tabwrap.adduserbtn} ${tabwrap.btnyellow}`} onClick={() => navigate('/admin/users/addUser')}>ADD USER</ButtonBase>
       </Box>
      
       {/* Conditional Rendering for Data */}
