@@ -160,7 +160,7 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
       ) : null}
 
       <div
-        className={`${dataTable.datatablemainwrap} ${
+        className={`${dataTable.datatablemainwrap} customflex-left-inner ${
           addClass ? dataTable[addClass] : ""
         }`}>
         <div
@@ -213,7 +213,12 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
             sx={{ minWidth: 1000 }}
             aria-label='simple table'
             style={{ borderCollapse: "separate", borderSpacing: "0px 15px" }}
+            className="featured_Profile_table"
           >
+
+
+
+
             <TableHead>
               <TableRow>
                 {headData.map((item, index) => (
@@ -235,9 +240,8 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
                     key={row.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-
                   <TableCell align='left'>
-                    <div className={dataTable.actionwrap}>
+                  <div className={`${dataTable.actionwrap} checkfeaturedbox`}>
                       <div key={index}>
                         <input type="checkbox" name="modelFeatured[]" value={row?.id} onChange={onClickCheckBox} data-img={row?.profileimageurl || noImage} data-name={row?.fullName} checked={allItems.some((item: any) => item.userId === row.id)}/>
                         
@@ -248,9 +252,10 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
                       className={dataTable.productwrp}
                       component='th'
                       scope='row'
-                    >
-                      <img src={row?.profileimageurl || noImage} alt="Profile Image" />
-                      {row?.fullName}
+                    ><div className="profileThholder">
+                      <div className="profileimgTh"><img src={row?.profileimageurl || noImage} alt="Profile Image" /></div>
+                      <div className="profiletitleTh">{row?.fullName}</div>
+                      </div>
                     </TableCell>
                   </TableRow>
                 )

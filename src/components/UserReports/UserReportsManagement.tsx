@@ -151,7 +151,7 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
       <div
         className={`${dataTable.datatablemainwrap} ${
           addClass ? dataTable[addClass] : ""
-        }`}
+        } colorAction `}
       >
         <TableContainer className={dataTable.tbodymain} component={Paper}>
           <Table

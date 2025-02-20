@@ -266,7 +266,12 @@ function Settings() {
 
   const response = await updateFeaturedModels(updatable);
   
-  console.log(response,1565);
+  if(response.status==200)
+  {
+    toast.success("Featured Models Updated successfully.");
+    
+  }
+  // console.log(response,1565);
  }
  
 
@@ -354,8 +359,8 @@ function Settings() {
                   </TabPanel>
 
                   <TabPanel value="3">
-                    <div className="row">
-                      <div className="col-md-6">
+                    <div className="row customflex">
+                      <div className="col-md-6 customflex-left">
                         <CustomTableModelSettings
                           limit={limit}
                           headData={["Featured","Profile"]}
@@ -368,9 +373,8 @@ function Settings() {
                           setitems={setItems}
                         />
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-md-6 customflex-left">
                         <div className="sortable-list">
-
                           {items.map((item:any) => (
                             <div
                               key={item.id}
@@ -381,16 +385,18 @@ function Settings() {
                               className="sortable-item"
                               data-userid={item.userId}
                             >
-                              <RiDragMove2Line className="drag-icon" />
+                              
                               <div className="sortable-item-content ">
-                                <img src={item.image || noImage} alt="Profile Image" className={classes.customimg}/>
-
-                                <span>{item.name}</span>
+                                <div className='wrapholder'>
+                              <div className='sortable-item-content-img'><img src={item.image || noImage} alt="Profile Image" className={classes.customimg}/></div>
+                                <div className='sortable-item-content-title'><h3>{item.name}</h3></div>
+                                </div>
+                                <div className='dragbox'><RiDragMove2Line className="drag-icon" /></div>
                               </div>
                             </div>
                           ))}
                         </div>
-                        <button type="button" className={classes.upbtn} onClick={handleModelSettings}>Save</button>
+                        <button type="button" className={`${classes.upbtn} ms-0`} onClick={handleModelSettings}>Save</button>
 
                       </div>
                     </div>

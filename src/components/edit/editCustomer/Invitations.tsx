@@ -176,7 +176,7 @@ const Invitations: React.FC<Iinvitationtable> = ({
       <div
         className={`${dataTable.datatablemainwrap} ${
           addClass ? dataTable[addClass] : ""
-        }`}>
+        } colorAction `}>
         <div
           className="searchwrap"
           style={{

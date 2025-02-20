@@ -170,7 +170,7 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
       <div
         className={`${dataTable.datatablemainwrap} ${
           addClass ? dataTable[addClass] : ""
-        }`}>
+        } colorAction`}>
         <div
           className="searchwrap"
           style={{

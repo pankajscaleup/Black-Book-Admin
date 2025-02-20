@@ -30,7 +30,7 @@ const AddPage = () => {
 
         <form onSubmit={addPageFormik.handleSubmit} autoComplete='off'>
           <div className={form.profileform}>
-            <div className={`${form.profileformcol} ${form.fullWidth}`}>
+            <div className={`${form.profileformcol} ${form.fullWidth} p-0`}>
               <div className='formgrp'>
                 <Input
                   type={"text"}
@@ -45,7 +45,7 @@ const AddPage = () => {
                 />
               </div>
             </div>
-            <div className={`${form.profileformcol} ${form.fullWidth}`}>
+            <div className={`${form.profileformcol} ${form.fullWidth} updatePagecontent`}>
               <div className="formgrp">
                 <label htmlFor="description">Description</label>
                 <Editor
