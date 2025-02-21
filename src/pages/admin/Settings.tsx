@@ -34,6 +34,12 @@ function Settings() {
   const [items, setItems] = useState<any>([]);
 
   const limit = 10;
+  const [bannerLeftImagepreview, setBannerLeftImagepreview] = useState(Avatar);
+  const [bannerLeftPersonName, setBannerLeftPersonName] = useState('');
+  const [bannerLeftPersonEvent, setBannerLeftPersonEvent] = useState('');
+  const [bannerRightImagepreview, setBannerRightImagepreview] = useState(Avatar);
+  const [bannerRighttPersonName, setBannerRighttPersonName] = useState('');
+  const [bannerRighttPersonEvent, setBannerRighttPersonEvent] = useState('');
 
   // Fetch users based on selected tab (role)
   const getCustomer = async (role: string) => {
@@ -215,6 +221,33 @@ function Settings() {
     }
   };
 
+
+
+  const handleBannerLeftUpload = async (file: File) => {
+    if (!file) {
+      alert("Please select an image file first.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("bannerLeftPersonImage", file);
+    try {
+      const response = await updateHeaderLogo(formData, id);
+      if(response?.status === 200){
+        setBannerLeftImagepreview(response?.settings.bannerLeftPersonImage);
+        toast.success("Banner left image updated successfully");
+      }
+    } catch (error) {
+      toast.error("An error occurred while updating the banner left imageo.");
+    }
+  };
+  const handleBannerLeftFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setBannerLeftImagepreview(URL.createObjectURL(file));
+      handleBannerLeftUpload(file);
+    }
+  };
+
   // Drag-and-drop state and functions
 
   const getModelSettings = async () => {
@@ -309,6 +342,7 @@ function Settings() {
                       <Tab label="Footer Content" value="2" />
                       <Tab label="Featured Models" value="3" />
                       <Tab label="Default Price Setup" value="4" />
+                      <Tab label="Home Banner Setup" value="5" />
                     </TabList>
                   </Box>
 
@@ -450,6 +484,81 @@ function Settings() {
                         <button type="submit" className={classes.upbtn}>Save</button>
                       </form>
                     </div>
+                  </TabPanel>
+
+                  <TabPanel value="5"> 
+                      <form onSubmit={handleSaveSettings} className="upload-setting-logo">
+                      <label>Left Person Image</label>
+                        <div className="upload-logo-file">
+                          <div className="uploadimage">
+                            <div className="upload-logo">
+                              <img src={bannerLeftImagepreview || Avatar} alt="Avatar" />
+                            </div>
+                            <div className="upbtn">
+                              <input
+                                className="bannerLeftPerson"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleBannerLeftFileChange}
+                              />
+                              <button className="btn upbtn">Upload Picture</button>
+                            </div>
+                          </div>
+                        </div>
+                        <label>Name of Left Person</label>
+                        <div className="formgrp">
+                          <input
+                            type="text"
+                            placeholder="Molly Amy"
+                            value={bannerLeftPersonName}
+                            onChange={(e) => setCopyright(e.target.value)}
+                          />
+                        </div>
+                        <label>Event Description of Left Person</label>
+                        <div className="formgrp">
+                          <textarea
+                            placeholder="Someone please take ot me disneyland and buy me all the princess outfits for Lorem Ipsum is simply dummy."
+                            value={bannerLeftPersonEvent}
+                            onChange={(e) => setCopyright(e.target.value)}
+                          />
+                        </div>
+                      <label>Right Person Image</label>
+                        <div className="upload-logo-file">
+                          <div className="uploadimage">
+                            <div className="upload-logo">
+                              <img src={bannerRightImagepreview || Avatar} alt="Avatar" />
+                            </div>
+                            <div className="upbtn">
+                              <input
+                                className="rightPerson"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleHeaderFileChange}
+                              />
+                              <button className="btn upbtn">Upload Picture</button>
+                            </div>
+                          </div>
+                        </div>
+                        <label>Name of Right Person</label>
+                        <div className="formgrp">
+                          <input
+                            type="text"
+                            placeholder="Michael Williams"
+                            value={bannerRighttPersonName}
+                            onChange={(e) => setCopyright(e.target.value)}
+                          />
+                        </div>
+                        
+                        <label>Event Description of Right Person</label>
+                        <div className="formgrp">
+                          <textarea
+                            placeholder="Someone please take ot me disneyland and buy me all the princess outfits for Lorem Ipsum is simply dummy."
+                            value={bannerRighttPersonEvent}
+                            onChange={(e) => setCopyright(e.target.value)}
+                          />
+                        </div>
+                        <button type="submit" className={classes.upbtn}>Save</button>
+                      </form>
                   </TabPanel>
                 </TabContext>
               </Box>
