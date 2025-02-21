@@ -410,7 +410,13 @@ function Settings() {
                               <div className="sortable-item-content ">
                                 <div className='wrapholder'>
                               <div className='sortable-item-content-img'><img src={item.image || noImage} alt="Profile Image" className={classes.customimg}/></div>
-                                <div className='sortable-item-content-title'><h3>{item.name} , {item?.age } , {item?.state}</h3></div>
+                                <div className='sortable-item-content-title'>
+                                  <h3>
+                                    {item?.name.includes(",") 
+                                      ? item?.name 
+                                      : `${item?.name}, ${item?.age}, ${item?.state}`}
+                                  </h3>
+                                  </div>
                                 </div>
                                 <div className='dragbox'><RiDragMove2Line className="drag-icon" /></div>
                               </div>
