@@ -384,7 +384,7 @@ function Settings() {
                       <div className="col-md-6 customflex-left">
                         <CustomTableModelSettings
                           limit={limit}
-                          headData={["Featured","Profile"]}
+                          headData={["Featured","Profile (age, state)"]}
                           bodyData={data as IUsersRoleTable[]}
                           totalData={totalUser}
                           totalPage={totalPage}
@@ -410,7 +410,7 @@ function Settings() {
                               <div className="sortable-item-content ">
                                 <div className='wrapholder'>
                               <div className='sortable-item-content-img'><img src={item.image || noImage} alt="Profile Image" className={classes.customimg}/></div>
-                                <div className='sortable-item-content-title'><h3>{item.name}</h3></div>
+                                <div className='sortable-item-content-title'><h3>{item.name} , {item?.age } , {item?.state}</h3></div>
                                 </div>
                                 <div className='dragbox'><RiDragMove2Line className="drag-icon" /></div>
                               </div>

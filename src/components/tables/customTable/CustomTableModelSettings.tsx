@@ -250,7 +250,7 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
                       const checked = allItems.some((item: any) => item.userId === row.id);
                       const disabled=!checked && allItems.length>=9;
                       return (
-                        <input type="checkbox" name="modelFeatured[]" value={row?.id} onChange={onClickCheckBox} data-img={row?.profileimageurl || noImage} data-name={row?.fullName} checked={allItems.some((item: any) => item.userId === row.id)} disabled={disabled}/>
+                        <input type="checkbox" name="modelFeatured[]" value={row?.id} onChange={onClickCheckBox} data-img={row?.profileimageurl || noImage} data-name={`${row?.fullName}, ${row?.about?.age}, ${row?.about?.state}`} checked={allItems.some((item: any) => item.userId === row.id)} disabled={disabled}/>
                       );
                     })()}
                         
@@ -264,7 +264,7 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
                       scope='row'
                     ><div className="profileThholder">
                       <div className="profileimgTh"><img src={row?.profileimageurl || noImage} alt="Profile Image" /></div>
-                      <div className="profiletitleTh">{row?.fullName}</div>
+                      <div className="profiletitleTh">{row?.fullName} , {row?.about?.age } , {row?.about?.state}</div>
                       </div>
                     </TableCell>
                   </TableRow>
