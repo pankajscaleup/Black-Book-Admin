@@ -112,6 +112,7 @@ function Settings() {
   useEffect(() => {
     getCustomer('model');
   }, []);
+  
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);

@@ -208,7 +208,8 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
           )}
         </div>
 <div className="usertabledata">
-        <TableContainer className={dataTable.tbodymain} component={Paper}>
+          <div className="error">Maximum 12 you can choose</div>
+          <TableContainer className={dataTable.tbodymain} component={Paper}>
           <Table
             sx={{ minWidth: 1000 }}
             aria-label='simple table'
@@ -245,7 +246,13 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
                   <TableCell align='left'>
                   <div className={`${dataTable.actionwrap} checkfeaturedbox`}>
                       <div key={index}>
-                        <input type="checkbox" name="modelFeatured[]" value={row?.id} onChange={onClickCheckBox} data-img={row?.profileimageurl || noImage} data-name={row?.fullName} checked={allItems.some((item: any) => item.userId === row.id)}/>
+                      {(() => {
+                      const checked = allItems.some((item: any) => item.userId === row.id);
+                      const disabled=!checked && allItems.length>=12;
+                      return (
+                        <input type="checkbox" name="modelFeatured[]" value={row?.id} onChange={onClickCheckBox} data-img={row?.profileimageurl || noImage} data-name={row?.fullName} checked={allItems.some((item: any) => item.userId === row.id)} disabled={disabled}/>
+                      );
+                    })()}
                         
                       </div>
                     </div>
