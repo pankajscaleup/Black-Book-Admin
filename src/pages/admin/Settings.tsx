@@ -134,7 +134,9 @@ const handleSaveSettings = async (e: React.FormEvent) => {
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
                       <Tab label="Site Logo" value="1" />
-                      <Tab label="Footer Content" value="2" />
+                      <Tab label="Header Content" value="2" />
+                      <Tab label="Footer Content" value="3" />
+                      <Tab label="Private Content Charges (Default)" value="4" />
                     </TabList>
                   </Box>
 
@@ -186,6 +188,10 @@ const handleSaveSettings = async (e: React.FormEvent) => {
                   </TabPanel>
 
                   <TabPanel value="2">
+
+                  </TabPanel>
+
+                  <TabPanel value="3">
                     <div className="footer-wrap">
                       <form onSubmit={handleSaveSettings} className="upload-setting-logo">
                         <label>Bottom Copyright</label>
@@ -210,6 +216,11 @@ const handleSaveSettings = async (e: React.FormEvent) => {
                       </form>
                     </div>
                   </TabPanel>
+
+                  <TabPanel value="4">
+
+                  </TabPanel>
+
                 </TabContext>
               </Box>
             </div>
