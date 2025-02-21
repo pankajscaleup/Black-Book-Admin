@@ -257,6 +257,7 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
                       </div>
                     </div>
                   </TableCell>
+                  
                     <TableCell
                       className={dataTable.productwrp}
                       component='th'

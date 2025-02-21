@@ -24,7 +24,8 @@ function Settings() {
   const [copyright, setCopyright] = useState('');
   const [adminEmail, setAdminEmail] = useState('');
 
-  const navigate = useNavigate();
+  const [pContentCost, setPContentCost] = useState<string>('10');
+
   const [data, setData] = useState<IUsersRoleTable[]>([]);
   const [loading, setLoading] = useState(true); 
   const [totalUser, setTotalUser] = useState<number>(0);
@@ -276,6 +277,24 @@ function Settings() {
  }
  
 
+  const handleSaveCommonSettings = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!pContentCost.trim()) {
+      toast.error("Cost Cannot be empty.");
+      return;
+    }
+    try {
+      const bodyData = {
+        privateContentCost: pContentCost
+      }
+      const response = await savesettings(bodyData, id);
+      if (response?.status === 200) {
+        toast.success("Settings saved successfully.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while saving the settings.");
+    }
+  };
   return (
     <div className={classes.user_acc}>
       <div className={classes.edit__container}>
@@ -289,6 +308,7 @@ function Settings() {
                       <Tab label="Site Logo" value="1" />
                       <Tab label="Footer Content" value="2" />
                       <Tab label="Featured Models" value="3" />
+                      <Tab label="Default Price Setup" value="4" />
                     </TabList>
                   </Box>
 
@@ -400,6 +420,29 @@ function Settings() {
                         <button type="button" className={`${classes.upbtn} ms-0`} onClick={handleModelSettings}>Save</button>
 
                       </div>
+                    </div>
+                  </TabPanel>
+
+
+                  <TabPanel value="4">                    
+                    <div className="footer-wrap">
+                      <form onSubmit={handleSaveCommonSettings} className="upload-setting-logo">
+                        <label>Private Content Cost (Default)</label>
+                        <div className="formgrp">
+                          <input
+                            type="text"
+                            placeholder="$10"
+                            value={pContentCost}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              if (/^\d*$/.test(value)) {
+                                setPContentCost(value);
+                              }
+                            }}
+                          />
+                        </div>
+                        <button type="submit" className={classes.upbtn}>Save</button>
+                      </form>
                     </div>
                   </TabPanel>
                 </TabContext>
