@@ -208,7 +208,7 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
           )}
         </div>
 <div className="usertabledata">
-          <div className="error">Maximum 12 you can choose</div>
+          <div className="error">Maximum 9 you can choose</div>
           <TableContainer className={dataTable.tbodymain} component={Paper}>
           <Table
             sx={{ minWidth: 1000 }}
@@ -248,7 +248,7 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
                       <div key={index}>
                       {(() => {
                       const checked = allItems.some((item: any) => item.userId === row.id);
-                      const disabled=!checked && allItems.length>=12;
+                      const disabled=!checked && allItems.length>=9;
                       return (
                         <input type="checkbox" name="modelFeatured[]" value={row?.id} onChange={onClickCheckBox} data-img={row?.profileimageurl || noImage} data-name={row?.fullName} checked={allItems.some((item: any) => item.userId === row.id)} disabled={disabled}/>
                       );
