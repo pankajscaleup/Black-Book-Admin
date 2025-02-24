@@ -7,7 +7,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import Card from "../../components/UI/card/Card";
 import classes from "../../components/edit/editCustomer/EditCustomer.module.scss";
 import Avatar from "../../assets/images/avatar.jpg";
-import { getsettings, updateHeaderLogo, updateFooterLogo, savesettings, getFeaturedModels, updateFeaturedModels } from "../../service/apis/setting.api";
+import { getsettings, updateHeaderLogo, updateFooterLogo, savesettings, getFeaturedModels, updateFeaturedModels,updateBannerLogo } from "../../service/apis/setting.api";
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { IUsersRoleTable } from '../../interfaces/Itable';
@@ -38,7 +38,7 @@ function Settings() {
   const [bannerLeftPersonName, setBannerLeftPersonName] = useState('');
   const [bannerLeftPersonEvent, setBannerLeftPersonEvent] = useState('');
   const [bannerRightImagepreview, setBannerRightImagepreview] = useState(Avatar);
-  const [bannerRighttPersonName, setBannerRighttPersonName] = useState('');
+  const [bannerRightPersonName, setBannerRightPersonName] = useState('');
   const [bannerRighttPersonEvent, setBannerRighttPersonEvent] = useState('');
 
   // Fetch users based on selected tab (role)
@@ -134,6 +134,12 @@ function Settings() {
         setId(response?.settings._id);
         setCopyright(response?.settings.copyright || '');
         setAdminEmail(response?.settings.adminEmail || '');
+        setBannerLeftImagepreview(response?.settings.bannerLeftPersonImage || '');
+        setBannerLeftPersonName(response?.settings.bannerLeftPersonName || '');
+        setBannerLeftPersonEvent(response?.settings.bannerLeftPersonEvent || '');
+        setBannerRightImagepreview(response?.settings.bannerRightPersonImage || '');
+        setBannerRightPersonName(response?.settings.bannerRightPersonName || '');
+        setBannerRighttPersonEvent(response?.settings.bannerRighttPersonEvent || '');
       }
     } catch (error) {
       toast.error("An error occurred while updating the profile.");
@@ -225,13 +231,13 @@ function Settings() {
 
   const handleBannerLeftUpload = async (file: File) => {
     if (!file) {
-      alert("Please select an image file first.");
+      toast.error("Please select an image file first.");
       return;
     }
     const formData = new FormData();
     formData.append("bannerLeftPersonImage", file);
     try {
-      const response = await updateHeaderLogo(formData, id);
+      const response = await updateBannerLogo(formData, id);
       if(response?.status === 200){
         setBannerLeftImagepreview(response?.settings.bannerLeftPersonImage);
         toast.success("Banner left image updated successfully");
@@ -247,6 +253,35 @@ function Settings() {
       handleBannerLeftUpload(file);
     }
   };
+
+  const handleBannerRightFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setBannerRightImagepreview(URL.createObjectURL(file));
+      handleBannerRightUpload(file);
+    }
+  };
+
+  const handleBannerRightUpload = async (file: File) => {
+    if (!file) {
+      toast.error("Please select an image file first.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("bannerRightPersonImage", file);
+    
+    try {
+      const response = await updateBannerLogo(formData, id);
+      if (response?.status === 200) {
+        setBannerRightImagepreview(response?.settings.bannerRightPersonImage);
+        toast.success("Banner right image updated successfully");
+      }
+    } catch (error) {
+      toast.error("An error occurred while updating the banner right image.");
+    }
+  };
+  
+  
 
   // Drag-and-drop state and functions
 
@@ -319,6 +354,40 @@ function Settings() {
     try {
       const bodyData = {
         privateContentCost: pContentCost
+      }
+      const response = await savesettings(bodyData, id);
+      if (response?.status === 200) {
+        toast.success("Settings saved successfully.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while saving the settings.");
+    }
+  };
+
+  const handleHomeBannerSettings = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!bannerLeftPersonName.trim()) {
+      toast.error("Left Person Name cannot be empty.");
+      return;
+    }
+    if (!bannerLeftPersonEvent.trim()) {
+      toast.error("Left Person Event Description cannot be empty.");
+      return;
+    }
+    if (!bannerRightPersonName.trim()) {
+      toast.error("Right Person Name cannot be empty.");
+      return;
+    }
+    if (!bannerRighttPersonEvent.trim()) {
+      toast.error("Left Person Name cannot be empty.");
+      return;
+    }
+    try {
+      const bodyData = {
+        bannerLeftPersonName: bannerLeftPersonName,
+        bannerLeftPersonEvent: bannerLeftPersonEvent,
+        bannerRightPersonName: bannerRightPersonName,
+        bannerRighttPersonEvent: bannerRighttPersonEvent
       }
       const response = await savesettings(bodyData, id);
       if (response?.status === 200) {
@@ -487,7 +556,7 @@ function Settings() {
                   </TabPanel>
 
                   <TabPanel value="5"> 
-                      <form onSubmit={handleSaveSettings} className="upload-setting-logo">
+                      <form onSubmit={handleHomeBannerSettings} className="upload-setting-logo">
                       <label>Left Person Image</label>
                         <div className="upload-logo-file">
                           <div className="uploadimage">
@@ -496,7 +565,7 @@ function Settings() {
                             </div>
                             <div className="upbtn">
                               <input
-                                className="bannerLeftPerson"
+                                className="choosefile"
                                 type="file"
                                 accept="image/*"
                                 onChange={handleBannerLeftFileChange}
@@ -511,7 +580,7 @@ function Settings() {
                             type="text"
                             placeholder="Molly Amy"
                             value={bannerLeftPersonName}
-                            onChange={(e) => setCopyright(e.target.value)}
+                            onChange={(e) => setBannerLeftPersonName(e.target.value)}
                           />
                         </div>
                         <label>Event Description of Left Person</label>
@@ -519,7 +588,7 @@ function Settings() {
                           <textarea
                             placeholder="Someone please take ot me disneyland and buy me all the princess outfits for Lorem Ipsum is simply dummy."
                             value={bannerLeftPersonEvent}
-                            onChange={(e) => setCopyright(e.target.value)}
+                            onChange={(e) => setBannerLeftPersonEvent(e.target.value)}
                           />
                         </div>
                       <label>Right Person Image</label>
@@ -530,10 +599,10 @@ function Settings() {
                             </div>
                             <div className="upbtn">
                               <input
-                                className="rightPerson"
+                                className="choosefile"
                                 type="file"
                                 accept="image/*"
-                                onChange={handleHeaderFileChange}
+                                onChange={handleBannerRightFileChange}
                               />
                               <button className="btn upbtn">Upload Picture</button>
                             </div>
@@ -544,8 +613,8 @@ function Settings() {
                           <input
                             type="text"
                             placeholder="Michael Williams"
-                            value={bannerRighttPersonName}
-                            onChange={(e) => setCopyright(e.target.value)}
+                            value={bannerRightPersonName}
+                            onChange={(e) => setBannerRightPersonName(e.target.value)}
                           />
                         </div>
                         
@@ -554,7 +623,7 @@ function Settings() {
                           <textarea
                             placeholder="Someone please take ot me disneyland and buy me all the princess outfits for Lorem Ipsum is simply dummy."
                             value={bannerRighttPersonEvent}
-                            onChange={(e) => setCopyright(e.target.value)}
+                            onChange={(e) => setBannerRighttPersonEvent(e.target.value)}
                           />
                         </div>
                         <button type="submit" className={classes.upbtn}>Save</button>
