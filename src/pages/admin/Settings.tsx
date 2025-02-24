@@ -39,7 +39,7 @@ function Settings() {
   const [bannerLeftPersonEvent, setBannerLeftPersonEvent] = useState('');
   const [bannerRightImagepreview, setBannerRightImagepreview] = useState(Avatar);
   const [bannerRightPersonName, setBannerRightPersonName] = useState('');
-  const [bannerRighttPersonEvent, setBannerRighttPersonEvent] = useState('');
+  const [bannerRightPersonEvent, setBannerRightPersonEvent] = useState('');
 
   // Fetch users based on selected tab (role)
   const getCustomer = async (role: string) => {
@@ -139,7 +139,7 @@ function Settings() {
         setBannerLeftPersonEvent(response?.settings.bannerLeftPersonEvent || '');
         setBannerRightImagepreview(response?.settings.bannerRightPersonImage || '');
         setBannerRightPersonName(response?.settings.bannerRightPersonName || '');
-        setBannerRighttPersonEvent(response?.settings.bannerRighttPersonEvent || '');
+        setBannerRightPersonEvent(response?.settings.bannerRightPersonEvent || '');
       }
     } catch (error) {
       toast.error("An error occurred while updating the profile.");
@@ -378,7 +378,7 @@ function Settings() {
       toast.error("Right Person Name cannot be empty.");
       return;
     }
-    if (!bannerRighttPersonEvent.trim()) {
+    if (!bannerRightPersonEvent.trim()) {
       toast.error("Left Person Name cannot be empty.");
       return;
     }
@@ -387,7 +387,7 @@ function Settings() {
         bannerLeftPersonName: bannerLeftPersonName,
         bannerLeftPersonEvent: bannerLeftPersonEvent,
         bannerRightPersonName: bannerRightPersonName,
-        bannerRighttPersonEvent: bannerRighttPersonEvent
+        bannerRightPersonEvent: bannerRightPersonEvent
       }
       const response = await savesettings(bodyData, id);
       if (response?.status === 200) {
@@ -622,8 +622,8 @@ function Settings() {
                         <div className="formgrp">
                           <textarea
                             placeholder="Someone please take ot me disneyland and buy me all the princess outfits for Lorem Ipsum is simply dummy."
-                            value={bannerRighttPersonEvent}
-                            onChange={(e) => setBannerRighttPersonEvent(e.target.value)}
+                            value={bannerRightPersonEvent}
+                            onChange={(e) => setBannerRightPersonEvent(e.target.value)}
                           />
                         </div>
                         <button type="submit" className={classes.upbtn}>Save</button>
