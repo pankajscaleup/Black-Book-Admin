@@ -163,14 +163,16 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
         className={`${dataTable.datatablemainwrap} customflex-left-inner ${
           addClass ? dataTable[addClass] : ""
         }`}>
+          <div className="error_src_holder">
+        <div className="error">Maximum 9 you can choose</div>
         <div
           className="searchwrap"
           style={{
-            marginBottom: "20px",
+            //marginBottom: "20px",
             display: "flex",
             justifyContent: "flex-start",
             position: "relative",
-            marginTop: "20px",
+            //marginTop: "20px",
           }}
         >
           <input
@@ -207,8 +209,10 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
             </button>
           )}
         </div>
-<div className="usertabledata">
-        <TableContainer className={dataTable.tbodymain} component={Paper}>
+        </div>
+          <div className="usertabledata">
+          
+          <TableContainer className={dataTable.tbodymain} component={Paper}>
           <Table
             sx={{ minWidth: 1000 }}
             aria-label='simple table'
@@ -235,7 +239,9 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
 
             <TableBody className={dataTable.tbodywrap}>
               {(sortOrderData as IUsersRoleTable[]).map(
-                (row: IUsersRoleTable,index:number) => (
+                (row: IUsersRoleTable,index:number) => {
+               
+                  return(
                   <TableRow
                     key={row.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -243,22 +249,29 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
                   <TableCell align='left'>
                   <div className={`${dataTable.actionwrap} checkfeaturedbox`}>
                       <div key={index}>
-                        <input type="checkbox" name="modelFeatured[]" value={row?.id} onChange={onClickCheckBox} data-img={row?.profileimageurl || noImage} data-name={row?.fullName} checked={allItems.some((item: any) => item.userId === row.id)}/>
+                      {(() => {
+                      const checked = allItems.some((item: any) => item.userId === row.id);
+                      const disabled=!checked && allItems.length>=9;
+                      return (
+                        <input type="checkbox" name="modelFeatured[]" value={row?.id} onChange={onClickCheckBox} data-img={row?.profileimageurl || noImage} data-name={`${row?.fullName}, ${row?.about?.age}, ${row?.about?.state}`} checked={allItems.some((item: any) => item.userId === row.id)} disabled={disabled}/>
+                      );
+                    })()}
                         
                       </div>
                     </div>
                   </TableCell>
+                  
                     <TableCell
                       className={dataTable.productwrp}
                       component='th'
                       scope='row'
                     ><div className="profileThholder">
                       <div className="profileimgTh"><img src={row?.profileimageurl || noImage} alt="Profile Image" /></div>
-                      <div className="profiletitleTh">{row?.fullName}</div>
+                      <div className="profiletitleTh">{row?.fullName} , {row?.about?.age } , {row?.about?.state}</div>
                       </div>
                     </TableCell>
                   </TableRow>
-                )
+                )}
               )}
 
               {sortOrderData.length === 0 && !loading && (

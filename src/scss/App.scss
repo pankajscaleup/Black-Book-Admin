@@ -262,11 +262,9 @@ html[theme=dark] .customflex-left-inner { background: #526069; padding: 20px;}
   z-index: 9;
 }
 
-input.swal2-input {
-  border-color: red;
-}
-
-
+input.swal2-input {border-color: red;}
+.homebannercard .upload-logo img { height: auto;border-radius: 30px;}
+.error_src_holder {  display: flex; align-items: center;justify-content: space-between; gap: 15px;}
 
 
 
@@ -293,6 +291,10 @@ body *{font-size: 14px;}
 .dashboard-menu-card .dashboard-menu-card-icon svg { width: 60px;  height: 60px;}
 .total-digits {margin-right: 20px;}
 }
+@media only screen and (max-width:1399px) {
+table.featured_Profile_table {min-width: auto;}
+}
+
 @media only screen and (max-width:1299px) {
 .dashboard-menu-card { padding: 30px 20px;}
 .total-digits h2 {  font-size: 14px!important;  line-height: 1.3;}

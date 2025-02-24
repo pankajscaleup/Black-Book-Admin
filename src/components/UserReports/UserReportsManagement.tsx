@@ -86,7 +86,7 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
     setLoading(true);
     try {
       const payload = {
-        resolved: "false",
+        resolved: true,
       };
       const response = await UserReportCloseApi(selectedCloseReqId, payload);
       if(response){
@@ -186,17 +186,17 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
                     <TableCell align='left'>{row?.userDetails?.email}</TableCell>
                     <TableCell align='left'>{row?.report}</TableCell>
                     <TableCell align='left'>{row?.createdAt? new Date(row?.createdAt).toLocaleDateString(): "N/A"}</TableCell>
-                    <TableCell className={row.resolved === false ? dataTable.approved
-                          : row.resolved === true? dataTable.pending: ""  
+                    <TableCell className={row.resolved === true ? dataTable.approved
+                          : row.resolved === false? dataTable.pending: ""  
                       }
                       align='left'
                     >
-                      <p>{row.resolved === true ? "Pending" : "Closed"}</p>
+                      <p>{row.resolved === false ? "Pending" : "Closed"}</p>
                     </TableCell>
 
                     <TableCell align='left'>
                       <div className={dataTable.actionwrap}>
-                      <Link to={`/admin/reports/${row._id}`}>
+                      <Link to={`/admin/user-report/${row._id}`}>
                           <p className={dataTable.edit}>
                             <FontAwesomeIcon
                               icon={faEye}
@@ -210,7 +210,7 @@ const UserReportsManagement: React.FC<ICustomstable> = ({
                             />
                           </p>
                         </Link>
-                        {row.resolved === true && (
+                        {row.resolved === false && (
                         <p className={dataTable.edit}
                           onClick={() => handleClickOpenCloseReq(row._id)}
                         >

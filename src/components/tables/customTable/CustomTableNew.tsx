@@ -329,7 +329,7 @@ const CustomTable: React.FC<Itable> = ({
                             />
                           </p>
                         </Link>
-                        <Link to={`/admin/addUser/${row.id}`}>
+                        <Link to={`/admin/users/addUser/${row.id}`}>
                           <p className={dataTable.edit}>
                             <FontAwesomeIcon
                               icon={faPencilAlt}
