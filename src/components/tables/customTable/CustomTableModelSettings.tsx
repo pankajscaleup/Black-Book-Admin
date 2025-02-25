@@ -163,14 +163,16 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
         className={`${dataTable.datatablemainwrap} customflex-left-inner ${
           addClass ? dataTable[addClass] : ""
         }`}>
+          <div className="error_src_holder">
+        <div className="error">Maximum 9 you can choose</div>
         <div
           className="searchwrap"
           style={{
-            marginBottom: "20px",
+            //marginBottom: "20px",
             display: "flex",
             justifyContent: "flex-start",
             position: "relative",
-            marginTop: "20px",
+            //marginTop: "20px",
           }}
         >
           <input
@@ -207,8 +209,9 @@ const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
             </button>
           )}
         </div>
-<div className="usertabledata">
-          <div className="error">Maximum 9 you can choose</div>
+        </div>
+          <div className="usertabledata">
+          
           <TableContainer className={dataTable.tbodymain} component={Paper}>
           <Table
             sx={{ minWidth: 1000 }}

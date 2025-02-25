@@ -477,7 +477,7 @@ function Settings() {
                             onChange={(e) => setAdminEmail(e.target.value)}
                           />
                         </div>
-                        <button type="submit" className={classes.upbtn}>Save</button>
+                        <button type="submit" className={`${classes.upbtn} ms-0`}>Save</button>
                       </form>
                     </div>
                   </TabPanel>
@@ -550,7 +550,7 @@ function Settings() {
                             }}
                           />
                         </div>
-                        <button type="submit" className={classes.upbtn}>Save</button>
+                        <button type="submit" className={`${classes.upbtn} ms-0`}>Save</button>
                       </form>
                     </div>
                   </TabPanel>
@@ -559,7 +559,7 @@ function Settings() {
                       <form onSubmit={handleHomeBannerSettings} className="upload-setting-logo">
                       <label>Left Person Image</label>
                         <div className="upload-logo-file">
-                          <div className="uploadimage">
+                          <div className="uploadimage homebannercard">
                             <div className="upload-logo">
                               <img src={bannerLeftImagepreview || Avatar} alt="Avatar" />
                             </div>
@@ -593,7 +593,7 @@ function Settings() {
                         </div>
                       <label>Right Person Image</label>
                         <div className="upload-logo-file">
-                          <div className="uploadimage">
+                          <div className="uploadimage homebannercard">
                             <div className="upload-logo">
                               <img src={bannerRightImagepreview || Avatar} alt="Avatar" />
                             </div>
@@ -626,7 +626,7 @@ function Settings() {
                             onChange={(e) => setBannerRightPersonEvent(e.target.value)}
                           />
                         </div>
-                        <button type="submit" className={classes.upbtn}>Save</button>
+                        <button type="submit" className={`${classes.upbtn} ms-0`}>Save</button>
                       </form>
                   </TabPanel>
                 </TabContext>
