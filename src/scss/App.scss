@@ -267,6 +267,12 @@ input.swal2-input {border-color: red;}
 .error_src_holder {  display: flex; align-items: center;justify-content: space-between; gap: 15px;}
 
 
+html[theme=dark] thead tr th, 
+html[theme=dark] tbody tr td,
+html[theme=dark] tbody tr th {color: #fff;  background-color: #1e2529;}
+
+
+
 
 
 
