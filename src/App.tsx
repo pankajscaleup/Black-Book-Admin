@@ -26,6 +26,10 @@ const UserUpdate = React.lazy(
   () => import("./pages/admin/UserView")
 );
 
+const UserInvitations = React.lazy(
+  () => import("./pages/admin/UserInvitations")
+);
+
 const AddUser = React.lazy(
   () => import("./pages/admin/AddUser")
 );
@@ -102,10 +106,11 @@ function App() {
 
               <Route path='/admin/dashboard' element={<DashboardPage />}/>
               <Route path='/admin/users' element={<Users />} />
-              <Route path='/admin/addUser/:id?' element={<AddUser />} />
+              <Route path='/admin/users/addUser/:id?' element={<AddUser />} />
+              <Route path='/admin/users/invitations/:id' element={<UserInvitations />}/>
               <Route path='/admin/users/:id' element={<UserUpdate />}/>
               <Route path='/admin/faqs' element={<Faqs />}/>
-              <Route path='/admin/faq/:type/:id?' element={<AddFaq />} />
+              <Route path='/admin/faqs/:type/:id?' element={<AddFaq />} />
               <Route path='/admin/pages' element={<Pages />}/>
               <Route path='/admin/page/edit/:id?' element={<AddPage />} />
               <Route path='/admin/testimonials' element={<Testimonials/>} />
@@ -114,7 +119,7 @@ function App() {
               <Route path='/admin/withdrawals' element={<Withdrawal/>} />
               <Route path='/admin/withdrawals/:id' element={<WithdrawalView/>} />
               <Route path='/admin/reports' element={<UserReports/>} />
-              <Route path='/admin/reports/:id' element={<DetailsReports/>} />
+              <Route path='/admin/user-report/:id' element={<DetailsReports/>} />
               
             </Route>
           </Route>

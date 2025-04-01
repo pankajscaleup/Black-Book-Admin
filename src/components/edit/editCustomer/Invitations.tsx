@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { ICustomstable, complex, ITransactionTable } from "../../interfaces/Itable";
+import { Link } from "react-router-dom";
+import { Iinvitationtable, complex, IUsersRoleTable,IUsersEventTable } from "../../../interfaces/Itable";
+import { useTranslation } from "react-i18next";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -17,36 +19,35 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
-import dataTable from "../../components/tables/customTable/datatable.module.scss";
-import del from "../../assets/images/ic_outline-delete.png";
-import delt from "../../assets/images/delete.png";
-import { transactionsListApi, deletetransaction } from "../../service/apis/transactions.api";
-import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
+import dataTable from "../../tables/customTable/datatable.module.scss";
+import del from "../../../assets/images/ic_outline-delete.png";
+import delt from "../../../assets/images/delete.png";
+import { userInvitationsApi, deleteUser } from "../../../service/apis/user.api";
+
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEye,faCalendarXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LoadingSpinner from "../../../components/UI/loadingSpinner/LoadingSpinner";
 import toast from "react-hot-toast";
 
 
-const TransactionsManagement: React.FC<ICustomstable> = ({
+const Invitations: React.FC<Iinvitationtable> = ({
   bodyData,
   headData,
-  totalData
+  totalData,
+  currentUser,
+  limit
 }) => {
-  const [open, setOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const { t } = useTranslation();
   const [sortOrderData, setSortOrderData] = useState<complex[]>(bodyData);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [totalResult, setTotalResult] = useState(totalData);
   const [loading, setLoading] = useState(false);
   const [addClass, setAddClass] = useState<string>("");
-  const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
+
+  const [totalInvites, setTotalInvites] = useState<number>(totalData);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const rowsPerPage = 10;
-
-  const handleClickOpen = (TransactionId: string) => {
-    setSelectedTransactionId(TransactionId);
-    setOpen(true);
-  };
-
-  const handleClose = () => setOpen(false);
 
   const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
@@ -55,65 +56,65 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
     try {
       setLoading(true);
       setAddClass("add_blur");
-      const bodyData = {
-        currentPage: currentPage,
-        limit: rowsPerPage,
-        search: searchQuery,
-      };
 
+      const bodyData={
+        id:currentUser,
+        limit:rowsPerPage,
+        currentPage:currentPage,
+        search: searchQuery,
+      }
       setLoading(true);
-      const response = await transactionsListApi(bodyData);
+
+      const response = await userInvitationsApi(bodyData);
       if (response?.status === 200) {
         setLoading(false);
-        setTotalResult(response?.transactions?.totalResults);
-        setSortOrderData(response?.transactions?.transactions);
+        setSortOrderData(response?.invitations?.invitations || null);
+        setCurrentPage(response?.invitations?.page)
+        setTotalInvites(response?.invitations?.totalResults)   
         setAddClass("");
+      }
+      else
+      {        
+        setSortOrderData([])
+        setCurrentPage(0)      
       }
     } catch (err) {
       console.error("Failed to fetch data", err);
     }
   };
 
-  const handleDelete = async () => {
-    setLoading(true);
-    try {
-      const response = await deletetransaction(selectedTransactionId);
-      if (response?.status === 200) {
-        toast.success(response.message);
-        setOpen(false);
-        // Refresh data
-        const bodyData = {
-          currentPage: currentPage,
-          limit: rowsPerPage,
-          search: searchTerm,
-        };
-        const refreshResponse = await transactionsListApi(bodyData);
-        if (refreshResponse?.status === 200) {
-          setSortOrderData(refreshResponse?.transactions?.transactions);
-          setTotalResult(refreshResponse?.transactions?.totalResults);
-        }
-        setLoading(false);
-      }
-    } catch (err) {
-      console.error("Failed to delete user", err);
-      setLoading(false);
-    }
-  };
-  
+  // const handleSort = async (field: string) => {
+  //   try {
+  //     const bodyData = {
+  //       id:currentUser,
+  //       currentPage: currentPage,
+  //       limit: rowsPerPage,
+  //       search: searchTerm,
+  //     };
+  //     const response = await userInvitationsApi(bodyData);
+  //     if (response?.status === 200) {
+  //       setSortOrderData(response?.invitations?.invitations || null);
+  //     }
+  //   } catch (err) {
+  //     console.error("Failed to fetch data", err);
+  //   } finally {
+  //   }
+  // };
 
   const clearSearch = async () => {
     setSearchTerm("");
     try {
       setAddClass("add_blur");
       const bodyData = {
+        id:currentUser,
         page: 1,
         currentPage: 1,
         search: "",
       };
       setLoading(true);
-      const response = await transactionsListApi(bodyData);
+      const response = await userInvitationsApi(bodyData);
       if (response?.status === 200) {
-        setSortOrderData(response?.transactions?.transactions);
+        setSortOrderData(response?.invitations?.invitations || null);
         setLoading(false);
         setAddClass("");
       }
@@ -129,18 +130,20 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
   ) => {
     setCurrentPage(page);
     setLoading(true);
+    // alert(page)
     try {
       setAddClass("add_blur");
       const bodyData = {
+        id:currentUser,
         currentPage: page,
         limit: rowsPerPage,
         search: searchTerm,
       };
 
-      const response = await transactionsListApi(bodyData);
+      const response = await userInvitationsApi(bodyData);
 
       if (response?.status === 200) {
-        setSortOrderData(response?.transactions?.transactions);
+        setSortOrderData(response?.invitations?.invitations || null);
         setLoading(false);
         setAddClass("");
       }
@@ -149,13 +152,16 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
     }
   };
   const ucwords = (str: string): string => {
+    // Special case handling for FirstName
     const exceptions = ["FirstName"];
+
     return str
       .split(" ")
       .map((word) => {
         if (exceptions.includes(word)) {
-          return word; 
+          return word; // Leave it as it is if it's in the exceptions list
         }
+        // Capitalize first letter of each word unless it's in exceptions
         return word.replace(/\b\w/g, (char: string) => char.toUpperCase());
       })
       .join(" ");
@@ -164,13 +170,13 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
   return (
     <div style={{ position: "relative" }} className="dsp">
       {loading ? (
-        <LoadingSpinner /> 
+        <LoadingSpinner /> // Show loading spinner while data is loading
       ) : null}
 
       <div
         className={`${dataTable.datatablemainwrap} ${
           addClass ? dataTable[addClass] : ""
-        } colorAction`}>
+        } colorAction `}>
         <div
           className="searchwrap"
           style={{
@@ -224,10 +230,11 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
           >
             <TableHead>
               <TableRow>
-                {headData.map((item, index) => (
+                {headData.map((item:any, index:any) => (
                   <TableCell
                     align='left'
                     key={index}
+                    // onClick={() => handleSort(item)}
                   >
                     {ucwords(item)}
                   </TableCell>
@@ -236,9 +243,8 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
             </TableHead>
 
             <TableBody className={dataTable.tbodywrap}>
-              {(sortOrderData as ITransactionTable[]).map(
-                (row: ITransactionTable) => {
-                  return(
+              {(sortOrderData as IUsersEventTable[]).map(
+                (row: IUsersEventTable) => (
                   <TableRow
                     key={row._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -248,34 +254,37 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
                       component='th'
                       scope='row'
                     >
-                      {row?.userID?.fullName}
+                      {row?.description}
                     </TableCell>
-                     <TableCell align='left'>{row?.userID?.email}</TableCell>
-
-                    <TableCell align='left'>{row?.amount ? `$${row?.amount}` : "N/A"}</TableCell>
-                    <TableCell align='left'>{row?.updatedAt? new Date(row?.updatedAt)
-                    .toLocaleDateString(): "N/A"}</TableCell>   
-                      <TableCell align='left'>{row?.updatedAt? new Date(row?.updatedAt)
-                    .toLocaleTimeString(): "N/A"}</TableCell>                
-                    <TableCell align='left'>{row?.transactionId}</TableCell>   
+                    <TableCell align='left'>{row?.date}</TableCell>
+                    <TableCell align='left'>{row?.transportationMoney}</TableCell>
+                    {/* 
                     <TableCell align='left'>
                       <div className={dataTable.actionwrap}>
-                        <p
-                          className={dataTable.delete}
-                          onClick={() => handleClickOpen(row._id)}
-                        >
-                          <img src={del} alt='Delete' />
-                        </p>
+                        <Link to={`/admin/addUser/${row.id}`}>
+                          <p className={dataTable.edit}>
+                            <FontAwesomeIcon
+                              icon={faPencilAlt}
+                              style={{
+                                color: "#fff",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: "20px",
+                              }}
+                            />
+                          </p>
+                        </Link> 
                       </div>
-                    </TableCell>
+                    </TableCell>*/}
                   </TableRow>
-                )}
+                )
               )}
 
               {sortOrderData.length === 0 && !loading && (
                 <TableRow>
-                  <TableCell colSpan={8} align='center'>
-                    No data available
+                  <TableCell colSpan={3} align='center'>
+                  {t(`No data available`)}
                   </TableCell>
                 </TableRow>
               )}
@@ -291,7 +300,7 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
           style={{ marginTop: "30px" }}
         >
           <Pagination
-            count={Math.ceil(totalResult / rowsPerPage)} 
+            count={Math.ceil(totalInvites / rowsPerPage)} // total rows divided by rows per page
             page={currentPage}
             onChange={handlePageChange}
             sx={{
@@ -317,61 +326,8 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
           />
         </Stack>
       </div>
-
-      <Dialog
-        sx={{
-          "& .MuiPaper-root": {
-            borderRadius: "35px",
-            overflowY: "inherit",
-            padding: "40px",
-            maxWidth: "562px",
-          },
-        }}
-        maxWidth='md'
-        fullWidth
-        className={dataTable.custommodal}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-      >
-        <div className={dataTable.modalimg}>
-          <img src={delt} alt='Delete Confirmation' />
-        </div>
-        <DialogTitle
-          id='alert-dialog-title'
-          style={{
-            textAlign: "center",
-            fontSize: "32px",
-            color: "red",
-            fontWeight: "700",
-          }}
-        >
-          {("Delete Transactions")}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText
-            id='alert-dialog-description'
-            style={{
-              textAlign: "center",
-              color: "#676767",
-              fontSize: "16px",
-            }}
-          >
-            {("Are you sure you want to delete this transactions?")}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions style={{ justifyContent: "center" }}>
-          <Button onClick={handleClose} className="btn-cancel">
-            {("Cancel")}
-          </Button>
-          <Button onClick={handleDelete} className="btn">
-            {("Delete")}
-          </Button>
-        </DialogActions>
-      </Dialog>
     </div>
   );
 };
 
-export default TransactionsManagement;
+export default Invitations;

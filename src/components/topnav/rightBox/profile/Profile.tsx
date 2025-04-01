@@ -72,9 +72,9 @@ function Profile() {
   }, [open]);
 
   return (
-    <div className={classes.profile}>
+    <div className={`${classes.profile}`}>
       <Stack direction='row' spacing={2}>
-        <Button
+        <Button className="profilephotonametophdr"
           style={{
             color: "#414141",
             fontSize: "16px",
@@ -96,6 +96,7 @@ function Profile() {
           </div>
         </Button>
         <Popper
+        className="subrata-test"
           open={open}
           anchorEl={anchorRef.current}
           role={undefined}
@@ -108,6 +109,7 @@ function Profile() {
             <Grow
               {...TransitionProps}
               style={{
+                zIndex:"89898989",
                 transformOrigin:
                   placement === "bottom-start" ? "left top" : "left bottom",
               }}

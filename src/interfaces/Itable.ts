@@ -77,7 +77,7 @@ export interface IUsersSupportTable {
 
 export type complex =
   | IUsersRoleTable | IFaqTable | IUsersSupportTable | ITestTable | IFilterTable | ITransactionTable | 
-  IWithdrawalTable | IUserReportsTable
+  IWithdrawalTable | IUserReportsTable | IUsersEventTable
 
   export interface IStable {
     limit?: number;
@@ -174,4 +174,43 @@ export interface ICustomstable {
   totalPage: number;
   dataCurrentPage: number;
   statuss?:string;
+}
+
+export interface IUsersEventTable {
+  _id: string;
+  userId: string;
+  description: string;
+  transportationMoney: any;
+  date:any;
+}
+
+export interface Iinvitationtable {
+  limit?: number;
+  selectedCategory?: string;
+  headData:  string[];
+  dataShow?: complex[]; // Mark as optional
+  pages?: number; // Mark as optional
+  currPage?: number; // Mark as optional
+  changePage?: ( pageNumber: number) => void; // Mark as optional
+  bodyData: complex[];
+  totalData: number;
+  totalPage: number;
+  dataCurrentPage: number;
+  currentUser?: string;
+}
+
+export interface ICustomModelSettingstable {
+  limit?: number;
+  headData:  string[];
+  pages?: number; 
+  currPage?: number;
+  changePage?: ( pageNumber: number) => void;
+  bodyData: complex[];
+  totalData: number;
+  totalPage: number;
+  dataCurrentPage: number;
+  statuss?:string;
+  onClickCheckBox?:any,
+  items?:object,
+  setitems:any
 }

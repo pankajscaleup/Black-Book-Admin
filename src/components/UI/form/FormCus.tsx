@@ -158,7 +158,7 @@ const FormCus = () => {
             </div>
 
             <div className={form.profileformcol}>
-              <div className='formgrp'>
+              <div className='formgrp location_google'>
                 <label htmlFor='Name'>
                   Location <span style={{ color: "red" }}>*</span>
                 </label>

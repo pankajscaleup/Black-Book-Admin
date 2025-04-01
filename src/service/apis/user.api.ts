@@ -46,3 +46,8 @@ export const updateProfileImage = catchAsync(async (values) => {
   const data = await httpsCall.patch(`/admin/profile/image-update`, values);
   return data;
 });
+
+export const userInvitationsApi = catchAsync(async (values) => {
+  const response = await httpsCall.post(`admin/user-management/invitations/${values.id}/${values.currentPage}/${values.limit}`, values);
+  return response;
+});

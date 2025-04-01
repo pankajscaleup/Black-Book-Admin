@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ICustomstable, complex, ITransactionTable } from "../../interfaces/Itable";
+import { ICustomModelSettingstable, complex, IUsersRoleTable } from "../../../interfaces/Itable";
+import { useTranslation } from "react-i18next";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -8,45 +9,34 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
-import dataTable from "../../components/tables/customTable/datatable.module.scss";
-import del from "../../assets/images/ic_outline-delete.png";
-import delt from "../../assets/images/delete.png";
-import { transactionsListApi, deletetransaction } from "../../service/apis/transactions.api";
-import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
-import toast from "react-hot-toast";
+import dataTable from "./datatable.module.scss";
+import { userApi } from "../../../service/apis/user.api";
 
+import LoadingSpinner from "../../../components/UI/loadingSpinner/LoadingSpinner";
+import noImage from "../../../assets/images/no-images.svg";
 
-const TransactionsManagement: React.FC<ICustomstable> = ({
+const CustomTableModelSettings: React.FC<ICustomModelSettingstable> = ({
   bodyData,
   headData,
-  totalData
+  totalData,
+  onClickCheckBox,
+  items
 }) => {
-  const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrderData, setSortOrderData] = useState<complex[]>(bodyData);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [totalResult, setTotalResult] = useState(totalData);
   const [loading, setLoading] = useState(false);
   const [addClass, setAddClass] = useState<string>("");
-  const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
+  const [allItems, setAllItems] = useState<any>(items);
 
   const rowsPerPage = 10;
 
-  const handleClickOpen = (TransactionId: string) => {
-    setSelectedTransactionId(TransactionId);
-    setOpen(true);
-  };
 
-  const handleClose = () => setOpen(false);
 
   const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
@@ -57,16 +47,17 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
       setAddClass("add_blur");
       const bodyData = {
         currentPage: currentPage,
-        limit: rowsPerPage,
+        limit: 10,
         search: searchQuery,
+        role:'model'
       };
-
       setLoading(true);
-      const response = await transactionsListApi(bodyData);
+
+      const response = await userApi(bodyData);
       if (response?.status === 200) {
         setLoading(false);
-        setTotalResult(response?.transactions?.totalResults);
-        setSortOrderData(response?.transactions?.transactions);
+        setTotalResult(response?.users?.totalResults);
+        setSortOrderData(response?.users?.users);
         setAddClass("");
       }
     } catch (err) {
@@ -74,32 +65,24 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
     }
   };
 
-  const handleDelete = async () => {
-    setLoading(true);
+  
+  const handleSort = async (field: string) => {
     try {
-      const response = await deletetransaction(selectedTransactionId);
+      const bodyData = {
+        currentPage: currentPage,
+        limit: 10,
+        search: searchTerm,
+        role:'model'
+      };
+      const response = await userApi(bodyData);
       if (response?.status === 200) {
-        toast.success(response.message);
-        setOpen(false);
-        // Refresh data
-        const bodyData = {
-          currentPage: currentPage,
-          limit: rowsPerPage,
-          search: searchTerm,
-        };
-        const refreshResponse = await transactionsListApi(bodyData);
-        if (refreshResponse?.status === 200) {
-          setSortOrderData(refreshResponse?.transactions?.transactions);
-          setTotalResult(refreshResponse?.transactions?.totalResults);
-        }
-        setLoading(false);
+        setSortOrderData(response?.users?.users);
       }
     } catch (err) {
-      console.error("Failed to delete user", err);
-      setLoading(false);
+      console.error("Failed to fetch data", err);
+    } finally {
     }
   };
-  
 
   const clearSearch = async () => {
     setSearchTerm("");
@@ -109,11 +92,12 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
         page: 1,
         currentPage: 1,
         search: "",
+        role:'model'
       };
       setLoading(true);
-      const response = await transactionsListApi(bodyData);
+      const response = await userApi(bodyData);
       if (response?.status === 200) {
-        setSortOrderData(response?.transactions?.transactions);
+        setSortOrderData(response?.users?.users);
         setLoading(false);
         setAddClass("");
       }
@@ -129,18 +113,20 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
   ) => {
     setCurrentPage(page);
     setLoading(true);
+    // alert(page)
     try {
       setAddClass("add_blur");
       const bodyData = {
         currentPage: page,
         limit: rowsPerPage,
         search: searchTerm,
+        role:'model'
       };
 
-      const response = await transactionsListApi(bodyData);
+      const response = await userApi(bodyData);
 
       if (response?.status === 200) {
-        setSortOrderData(response?.transactions?.transactions);
+        setSortOrderData(response?.users?.users);
         setLoading(false);
         setAddClass("");
       }
@@ -149,28 +135,34 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
     }
   };
   const ucwords = (str: string): string => {
+    // Special case handling for FirstName
     const exceptions = ["FirstName"];
+
     return str
       .split(" ")
       .map((word) => {
         if (exceptions.includes(word)) {
-          return word; 
+          return word; // Leave it as it is if it's in the exceptions list
         }
+        // Capitalize first letter of each word unless it's in exceptions
         return word.replace(/\b\w/g, (char: string) => char.toUpperCase());
       })
       .join(" ");
   };
-
+  useEffect(() => {
+    setAllItems(items);
+  }, [items]);
+  
   return (
     <div style={{ position: "relative" }} className="dsp">
       {loading ? (
-        <LoadingSpinner /> 
+        <LoadingSpinner /> // Show loading spinner while data is loading
       ) : null}
 
       <div
-        className={`${dataTable.datatablemainwrap} ${
+        className={`${dataTable.datatablemainwrap} customflex-left-inner ${
           addClass ? dataTable[addClass] : ""
-        } colorAction`}>
+        }`}>
         <div
           className="searchwrap"
           style={{
@@ -221,13 +213,19 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
             sx={{ minWidth: 1000 }}
             aria-label='simple table'
             style={{ borderCollapse: "separate", borderSpacing: "0px 15px" }}
+            className="featured_Profile_table"
           >
+
+
+
+
             <TableHead>
               <TableRow>
                 {headData.map((item, index) => (
                   <TableCell
                     align='left'
                     key={index}
+                    onClick={() => handleSort(item)}
                   >
                     {ucwords(item)}
                   </TableCell>
@@ -236,36 +234,29 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
             </TableHead>
 
             <TableBody className={dataTable.tbodywrap}>
-              {(sortOrderData as ITransactionTable[]).map(
-                (row: ITransactionTable) => {
+              {(sortOrderData as IUsersRoleTable[]).map(
+                (row: IUsersRoleTable,index:number) => {
+               
                   return(
                   <TableRow
-                    key={row._id}
+                    key={row.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
+                  <TableCell align='left'>
+                  <div className={`${dataTable.actionwrap} checkfeaturedbox`}>
+                      <div key={index}>
+                        <input type="checkbox" name="modelFeatured[]" value={row?.id} onChange={onClickCheckBox} data-img={row?.profileimageurl || noImage} data-name={row?.fullName} checked={allItems.some((item: any) => item.userId === row.id)}/>
+                        
+                      </div>
+                    </div>
+                  </TableCell>
                     <TableCell
                       className={dataTable.productwrp}
                       component='th'
                       scope='row'
-                    >
-                      {row?.userID?.fullName}
-                    </TableCell>
-                     <TableCell align='left'>{row?.userID?.email}</TableCell>
-
-                    <TableCell align='left'>{row?.amount ? `$${row?.amount}` : "N/A"}</TableCell>
-                    <TableCell align='left'>{row?.updatedAt? new Date(row?.updatedAt)
-                    .toLocaleDateString(): "N/A"}</TableCell>   
-                      <TableCell align='left'>{row?.updatedAt? new Date(row?.updatedAt)
-                    .toLocaleTimeString(): "N/A"}</TableCell>                
-                    <TableCell align='left'>{row?.transactionId}</TableCell>   
-                    <TableCell align='left'>
-                      <div className={dataTable.actionwrap}>
-                        <p
-                          className={dataTable.delete}
-                          onClick={() => handleClickOpen(row._id)}
-                        >
-                          <img src={del} alt='Delete' />
-                        </p>
+                    ><div className="profileThholder">
+                      <div className="profileimgTh"><img src={row?.profileimageurl || noImage} alt="Profile Image" /></div>
+                      <div className="profiletitleTh">{row?.fullName}</div>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -274,7 +265,7 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
 
               {sortOrderData.length === 0 && !loading && (
                 <TableRow>
-                  <TableCell colSpan={8} align='center'>
+                  <TableCell colSpan={2} align='center'>
                     No data available
                   </TableCell>
                 </TableRow>
@@ -291,7 +282,7 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
           style={{ marginTop: "30px" }}
         >
           <Pagination
-            count={Math.ceil(totalResult / rowsPerPage)} 
+            count={Math.ceil(totalResult / rowsPerPage)} // total rows divided by rows per page
             page={currentPage}
             onChange={handlePageChange}
             sx={{
@@ -317,61 +308,8 @@ const TransactionsManagement: React.FC<ICustomstable> = ({
           />
         </Stack>
       </div>
-
-      <Dialog
-        sx={{
-          "& .MuiPaper-root": {
-            borderRadius: "35px",
-            overflowY: "inherit",
-            padding: "40px",
-            maxWidth: "562px",
-          },
-        }}
-        maxWidth='md'
-        fullWidth
-        className={dataTable.custommodal}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-      >
-        <div className={dataTable.modalimg}>
-          <img src={delt} alt='Delete Confirmation' />
-        </div>
-        <DialogTitle
-          id='alert-dialog-title'
-          style={{
-            textAlign: "center",
-            fontSize: "32px",
-            color: "red",
-            fontWeight: "700",
-          }}
-        >
-          {("Delete Transactions")}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText
-            id='alert-dialog-description'
-            style={{
-              textAlign: "center",
-              color: "#676767",
-              fontSize: "16px",
-            }}
-          >
-            {("Are you sure you want to delete this transactions?")}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions style={{ justifyContent: "center" }}>
-          <Button onClick={handleClose} className="btn-cancel">
-            {("Cancel")}
-          </Button>
-          <Button onClick={handleDelete} className="btn">
-            {("Delete")}
-          </Button>
-        </DialogActions>
-      </Dialog>
     </div>
   );
 };
 
-export default TransactionsManagement;
+export default CustomTableModelSettings;

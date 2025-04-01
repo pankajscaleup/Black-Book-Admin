@@ -25,7 +25,7 @@ import delt from "../../../assets/images/delete.png";
 import { userApi, deleteUser } from "../../../service/apis/user.api";
 
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEye,faCalendarXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LoadingSpinner from "../../../components/UI/loadingSpinner/LoadingSpinner";
 import toast from "react-hot-toast";
@@ -202,7 +202,7 @@ const CustomTable: React.FC<Itable> = ({
       <div
         className={`${dataTable.datatablemainwrap} ${
           addClass ? dataTable[addClass] : ""
-        }`}>
+        } colorAction`}>
         <div
           className="searchwrap"
           style={{
@@ -315,7 +315,21 @@ const CustomTable: React.FC<Itable> = ({
                             />
                           </p>
                         </Link>
-                        <Link to={`/admin/addUser/${row.id}`}>
+                      <Link to={`/admin/users/invitations/${row.id}`}>
+                          <p className={dataTable.edit}>
+                            <FontAwesomeIcon
+                              icon={faCalendarXmark}
+                              style={{
+                                color: "#fff",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: "20px",
+                              }}
+                            />
+                          </p>
+                        </Link>
+                        <Link to={`/admin/users/addUser/${row.id}`}>
                           <p className={dataTable.edit}>
                             <FontAwesomeIcon
                               icon={faPencilAlt}

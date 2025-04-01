@@ -85,7 +85,7 @@ function Faqs() {
     <section className="editprofile">
       {/* Tab Navigation */}
       <Box className="addfaq mb-3">
-        <ButtonBase className={tabwrap.adduserbtn} onClick={() => navigate('/admin/faq/add')}>ADD FAQ</ButtonBase>
+        <ButtonBase className={tabwrap.adduserbtn} onClick={() => navigate('/admin/faqs/add')}>ADD FAQ</ButtonBase>
       </Box>
      
       {/* Conditional Rendering for Data */}
@@ -105,7 +105,7 @@ function Faqs() {
           deleteMessage="Are you sure you want to delete this Faq?"
           handleDelete = {handleDelete}
           searchChange = {handleSearchChange}
-          slug="faq"
+          slug="faqs"
         />
       )}
     </section>
