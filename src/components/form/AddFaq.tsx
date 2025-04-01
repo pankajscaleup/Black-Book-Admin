@@ -3,9 +3,11 @@ import form from "./formcus.module.scss";
 import { useAddFaq } from "./useAddFaq";
 import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner"; // Import the spinner
 import { Link, Navigate } from "react-router-dom";
-import { Editor } from "@tinymce/tinymce-react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
+
 const AddFaq = () => {
   const { addFaqFormik, loading } = useAddFaq();
   const { type, id } = useParams<{ type?: string; id?: string }>();
@@ -21,6 +23,33 @@ const AddFaq = () => {
       
     },[addFaqFormik]);
 
+    const modules = {
+      toolbar: [
+        ['bold', 'italic', 'underline', 'strike'],
+        ['blockquote', 'code-block'],
+        ['link', 'image', 'video', 'formula'],
+  
+        [{ 'header': 1 }, { 'header': 2 }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],
+        [{ 'indent': '-1' }, { 'indent': '+1' }],
+        [{ 'direction': 'rtl' }],
+  
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+  
+        ['clean']
+      ],
+      clipboard: {
+  
+        matchVisual: false,
+      }
+    };
+    
   return (
     <div id="editprofile" className={form.myprofilewrapper}>
       <div className='profile-card'>
@@ -50,25 +79,14 @@ const AddFaq = () => {
             </div>
             <div className={`${form.profileformcol} ${form.fullWidth} updatePagecontent`}>
               <div className="formgrp">
-                <label htmlFor="answer">Answer</label>
-                <Editor
-                  id="answer"
-                  apiKey="7rfniqex5btxrikbi2pjfr6yrak5gwdh0ikqm8u93hbmcqye"
+                <label htmlFor="answer">Answer</label>     
+                  <ReactQuill
+                  id={'answer'}
                   value={addFaqFormik.values.answer}
-                  init={{
-                    height: 300,
-                    menubar: false,
-                    plugins: 'preview importcss searchreplace autolink directionality code visualblocks visualchars fullscreen link table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
-                    toolbar:
-                        "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | pagebreak anchor codesample | ltr rtl",
-                    placeholder: 'Enter job description here...',
-                    block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3'
-                    
-                  }}
-                  onEditorChange={(content) => {
-                    addFaqFormik.setFieldValue('answer', content);
-                    addFaqFormik.setFieldTouched('answer', true);
-                  }}
+                  onChange={(value:string) => addFaqFormik.setFieldValue('answer', value)}
+                  placeholder="Enter content"
+                  theme="snow" // Default theme, can be customized
+                  modules={modules}
                 />
                 {addFaqFormik.errors.answer &&
                   addFaqFormik.touched.answer && (

@@ -3,10 +3,12 @@ import form from "./formcus.module.scss";
 import { useAddPage } from "./useAddPage";
 import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner"; // Import the spinner
 import { Link } from "react-router-dom";
-import { Editor } from "@tinymce/tinymce-react";
 import { useParams } from "react-router-dom";
 import { pageDetails } from "../../service/apis/page.api";
 import { useEffect } from "react";
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
+
 const AddPage = () => {
   
   const params = useParams();
@@ -18,6 +20,32 @@ const AddPage = () => {
     }
     
   },[addPageFormik]);
+  const modules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      ['link', 'image', 'video', 'formula'],
+
+      [{ 'header': 1 }, { 'header': 2 }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+      [{ 'script': 'sub' }, { 'script': 'super' }],
+      [{ 'indent': '-1' }, { 'indent': '+1' }],
+      [{ 'direction': 'rtl' }],
+
+      [{ 'size': ['small', false, 'large', 'huge'] }],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+
+      ['clean']
+    ],
+    clipboard: {
+
+      matchVisual: false,
+    }
+  };
   return (
     <div id="updatePage" className={form.myprofilewrapper}>
       <div className='profile-card'>
@@ -48,31 +76,21 @@ const AddPage = () => {
             <div className={`${form.profileformcol} ${form.fullWidth} updatePagecontent`}>
               <div className="formgrp">
                 <label htmlFor="description">Description</label>
-                <Editor
-                  id="description"
-                  apiKey="7rfniqex5btxrikbi2pjfr6yrak5gwdh0ikqm8u93hbmcqye"
-                  value={addPageFormik.values.description}
-                  init={{
-                    height: 300,
-                    menubar: false,
-                    plugins: 'preview importcss searchreplace autolink directionality code visualblocks visualchars fullscreen link table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
-                    toolbar:
-                        "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | pagebreak anchor codesample | ltr rtl",
-                    placeholder: 'Enter job description here...',
-                    block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3'
-                    
-                  }}
-                  onEditorChange={(content) => {
-                    addPageFormik.setFieldValue('description', content);
-                    addPageFormik.setFieldTouched('description', true);
-                  }}
-                />
-                {addPageFormik.errors.description &&
-                  addPageFormik.touched.description && (
-                    <span className={form.errorText} style={{ color: "red" }}>
-                      {addPageFormik.errors.description}
-                    </span>
-                  )}
+
+                <ReactQuill
+                id={'description'}
+                value={addPageFormik.values.description}
+                onChange={(value:string) => addPageFormik.setFieldValue('description', value)}
+                placeholder="Enter content"
+                theme="snow" // Default theme, can be customized
+                modules={modules}
+              />
+              {addPageFormik.errors.description &&
+              addPageFormik.touched.description && (
+                <span className={form.errorText} style={{ color: "red" }}>
+                  {addPageFormik.errors.description}
+                </span>
+              )}
               </div>
             </div>       
           </div>

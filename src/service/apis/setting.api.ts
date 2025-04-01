@@ -33,3 +33,8 @@ export const updateFeaturedModels = catchAsync(async (values) => {
   const response = await httpsCall.post(`/admin/setting/add-featuredmodels`,values);
   return response;
 });
+
+export const updateBannerLogo = catchAsync(async (values, id) => {
+  const data = await httpsCall.patch(`/admin/setting/banner-logo-update/${id}`, values);
+  return data;
+});
