@@ -25,7 +25,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
-
+console.log(props.customer);
   return (
     <div className={classes.user_acc}>
       <div className={classes.edit__container}>
