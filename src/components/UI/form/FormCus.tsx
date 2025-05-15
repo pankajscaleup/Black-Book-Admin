@@ -13,7 +13,7 @@ import { updateProfileImage } from "../../../service/apis/user.api";
 import GoogleAutoComplete from '../../../layout/GoogleAutoComplete';
 
 const FormCus = () => {
-  const { addProfileFormik } = useProfileUpdate();
+  const { addProfileFormik,loading } = useProfileUpdate();
   const user = useSelector((state: RootState) => state.authSlice.user);
   const [preview, setPreview] = useState(Avatar);
   const dispatch = useDispatch();
@@ -255,7 +255,10 @@ const FormCus = () => {
               </div>
             </div>
           </div>
-          <button className={form.upbtn}>Save</button>
+          <button className={form.upbtn} disabled={loading} style={{
+            cursor: loading ? "not-allowed" : "pointer",
+            opacity: loading ? 0.6 : 1,
+          }}>Save</button>
         </form>
       </div>
     </div>
