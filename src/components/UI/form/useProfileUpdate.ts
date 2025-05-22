@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import toast from "react-hot-toast";
+import { useState } from 'react';
 import { updateProfile } from "../../../service/apis/user.api";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../store/auth.store";
@@ -18,6 +19,8 @@ interface FormValues {
   interestedIn: { value: string; label: string } | null;
 }
 export const useProfileUpdate = () => {
+
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const validationSchema = yup.object({
@@ -65,6 +68,7 @@ export const useProfileUpdate = () => {
           interestedIn: values.interestedIn?.value,
         },
       };
+      setLoading(true);
       try {
         const response = await updateProfile(bodyData);
         toast.success("Profile updated successfully");
@@ -72,11 +76,13 @@ export const useProfileUpdate = () => {
       } catch (error) {
         toast.error("An error occurred while updating the profile.");
       } finally {
-       
+        setTimeout(() => {
+          setLoading(false);
+        }, 5000);
       }
     },
   });
   return {
-    addProfileFormik
+    addProfileFormik,loading
   };
 };

@@ -92,7 +92,8 @@ export const useAddUser = (id?: string) => {
             navigate("/admin/users");
         }
       } catch (error) {
-        toast.error("An error occurred while saving the user.");
+        console.log("An error occurred while saving the user.",error)
+        // toast.error("An error occurred while saving the user.");
       } finally {
         setLoading(false);
       }

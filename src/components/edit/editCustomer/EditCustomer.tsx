@@ -174,7 +174,7 @@ const EditCustomer: React.FC<{ customer?: IUsersRoleTable }> = (props) => {
                         <p><strong>Body Type :</strong> {props.customer?.about?.bodyType?.name} </p>
                         <p><strong>Kids :</strong> {props.customer?.about?.kids?.name} </p>
                         <p><strong>Education :</strong> {props.customer?.about?.education?.name} </p>
-                        <p><strong>Occupation :</strong>  {props.customer?.about?.occupation} </p>
+                        <p><strong>Occupation :</strong>  {props.customer?.about?.ocupation?.name} </p>
                         <p><strong>Location :</strong> {props.customer?.about?.fullAddress}</p>
                         <p><strong>Interested Gender :</strong> {props.customer?.about?.interestedIn}</p>
                         <p><strong>Smoking Cigarettes :</strong> {props.customer?.about?.smoking?.name} </p>
