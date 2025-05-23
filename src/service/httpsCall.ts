@@ -50,6 +50,9 @@ axios.interceptors.response.use(
         } catch (refreshError) {
           toast.error("Session expired. Please login again.");
           retryCount = 0; // Reset the count on failure
+          localStorage.clear(); // Optional: clear all auth data
+          window.location.href = "/login"; // 👈 Redirect to login
+          return;
         }
       } else {
         toast.error("No refresh token found. Please login again.");
