@@ -24,7 +24,7 @@ function Settings() {
   const [copyright, setCopyright] = useState('');
   const [adminEmail, setAdminEmail] = useState('');
 
-  const [pContentCost, setPContentCost] = useState<string>('10');
+  const [pContentCost, setPContentCost] = useState<string>('');
 
   const [data, setData] = useState<IUsersRoleTable[]>([]);
   const [loading, setLoading] = useState(true); 
@@ -134,6 +134,7 @@ function Settings() {
         setId(response?.settings._id);
         setCopyright(response?.settings.copyright || '');
         setAdminEmail(response?.settings.adminEmail || '');
+        setPContentCost(response?.settings.privateContentCost || '');
         setBannerLeftImagepreview(response?.settings.bannerLeftPersonImage || '');
         setBannerLeftPersonName(response?.settings.bannerLeftPersonName || '');
         setBannerLeftPersonEvent(response?.settings.bannerLeftPersonEvent || '');
@@ -348,7 +349,7 @@ function Settings() {
   const handleSaveCommonSettings = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!pContentCost.trim()) {
-      toast.error("Cost Cannot be empty.");
+      toast.error("Amount is required");
       return;
     }
     try {
@@ -457,10 +458,6 @@ function Settings() {
                   </TabPanel>
 
                   <TabPanel value="2">
-
-                  </TabPanel>
-
-                  <TabPanel value="3">
                     <div className="footer-wrap">
                       <form onSubmit={handleSaveSettings} className="upload-setting-logo">
                         <label>Bottom Copyright</label>
@@ -540,7 +537,7 @@ function Settings() {
                   <TabPanel value="4">                    
                     <div className="footer-wrap">
                       <form onSubmit={handleSaveCommonSettings} className="upload-setting-logo">
-                        <label>Private Content Cost (Default)</label>
+                        <label>Private Content Amount ( Default )</label>
                         <div className="formgrp">
                           <input
                             type="text"
