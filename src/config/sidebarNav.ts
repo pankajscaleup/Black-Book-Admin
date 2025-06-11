@@ -25,21 +25,21 @@ const sidebarNav = [
         text: "Interested In",
         icon: "mdi:account-heart", //width:"20"
       },
-      {
+      /*{ 
         link: "/admin/filter-options/not-iterestedin",
         text: "Not Interested",
         icon: "mdi:account-cancel", //width:"20"
-      },
+      }, */
       {
         link: "/admin/filter-options/education",
         text: "Education",
         icon: "mdi:school-outline", //width:"20"
       },
-     /* {
-        link: "/admin/filter-options/occupation",
+     {
+        link: "/admin/filter-options/ocupation",
         text: "Occupation",
         icon: "mdi:briefcase-outline", //width:"20"
-      }, */
+      },
       {
         link: "/admin/filter-options/body-type",
         text: "Body Type",
